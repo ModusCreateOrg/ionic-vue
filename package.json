@@ -1,0 +1,25 @@
+{
+  "name": "ion-router-vue",
+  "version": "1.0.0",
+  "description": "Ion Router Vue",
+  "homepage": "https://moduscreate.com",
+  "author": "Modus Create <contact@moduscreate.com> (http://moduscreate.com)",
+  "repository": "github:ModusCreateOrg/ion-router-vue",
+  "main": "index.js",
+  "license": "MIT",
+  "engines": {
+    "node": ">=8.9.10"
+  },
+  "dependencies": {
+    "node": "10.0.0"
+  },
+  "scripts": {
+    "start": "webpack-dev-server",
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "vue": "^2.5.16",
+    "vue-router": "^3.0.1"
+  }
+}
