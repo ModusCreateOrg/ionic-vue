@@ -2,7 +2,7 @@
     <ion-router-outlet ref="ionRouterOutlet" @click="catchIonicGoBack">
         <transition
             mode="in-out"
-            v-bind:css="false"
+            v-bind:css="bindCss"
             v-on:before-enter="beforeEnter"
             v-on:enter="enter"
             v-on:after-enter="afterEnter"
@@ -27,6 +27,10 @@ export default {
         }
     },
     props: {
+        bindCss: {
+            type: Boolean,
+            default: false,
+        },
         animated: {
             type: Boolean,
             default: true,
@@ -77,11 +81,9 @@ export default {
             this.leavingEl = element
         },
         leave(element, done) {
-            if (!this.animated) {
-                return done()
+            if (this.animated) {
+                this.transition(this.enteringEl, element).then(() => done())
             }
-
-            this.transition(this.enteringEl, element).then(() => done())
         },
         enter(element, done) {
             done()
