@@ -75,10 +75,6 @@ export default {
         },
         beforeLeave(element) {
             this.leavingEl = element
-
-            if (!this.enteringEl || !this.animated || this.$router.direction < 0) {
-                return;
-            }
         },
         leave(element, done) {
             if (!this.animated) {
