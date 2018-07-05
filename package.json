@@ -7,12 +7,6 @@
   "repository": "github:ModusCreateOrg/ion-router-vue",
   "main": "index.js",
   "license": "MIT",
-  "engines": {
-    "node": ">=8.9.10"
-  },
-  "dependencies": {
-    "node": "10.0.0"
-  },
   "scripts": {
     "start": "webpack-dev-server",
     "build": "webpack",
