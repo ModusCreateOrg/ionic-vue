@@ -1,3 +1,10 @@
+
+/*!
+ * ion-router-vue v1.0.0
+ * 2018 Michael Tintiuc - Modus Create
+ * @license MIT
+ */
+
 import VueRouter from 'vue-router';
 
 //

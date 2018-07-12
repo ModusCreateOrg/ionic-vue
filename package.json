@@ -3,16 +3,33 @@
   "version": "1.0.0",
   "description": "Ion Router Vue",
   "homepage": "https://moduscreate.com",
-  "author": "Modus Create <contact@moduscreate.com> (http://moduscreate.com)",
+  "author": "Michael Tintiuc <michael.tintiuc@moduscreate.com>",
+  "user": "michaeltintiuc",
+  "license": "MIT",
   "repository": "github:ModusCreateOrg/ion-router-vue",
   "main": "dist/ion-router-vue.common.js",
   "module": "dist/ion-router-vue.esm.js",
   "unpkg": "dist/ion-router-vue.js",
   "jsdelivr": "dist/ion-router-vue.js",
-  "license": "MIT",
   "files": [
     "src/*.js",
     "dist/*.js"
+  ],
+  "bugs": {
+      "url": "https://github.com/ModusCreateOrg/ion-router-vue/issues"
+  },
+  "keywords": [
+      "ionic",
+      "ion",
+      "vuejs",
+      "vue",
+      "router",
+      "routing",
+      "plugin",
+      "component",
+      "navigation",
+      "nav",
+      "transition"
   ],
   "scripts": {
     "dev": "rollup -c ./build/rollup.config.js",

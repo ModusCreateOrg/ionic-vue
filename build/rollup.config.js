@@ -1,7 +1,17 @@
 import buble from 'rollup-plugin-buble'
-import { terser } from 'rollup-plugin-terser'
 import vue from 'rollup-plugin-vue'
+import { terser } from 'rollup-plugin-terser'
+import { version } from '../package.json'
 
+
+const banner =
+`
+/*!
+ * ion-router-vue v${version}
+ * ${new Date().getFullYear()} Michael Tintiuc - Modus Create
+ * @license MIT
+ */
+`
 
 function outputConfig(suffix, format, opts={}) {
     return Object.assign({
@@ -9,6 +19,7 @@ function outputConfig(suffix, format, opts={}) {
         name: 'IonRouterVue',
         sourcemap: true,
         format,
+        banner,
     }, opts)
 }
 

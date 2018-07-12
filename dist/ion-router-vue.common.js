@@ -1,3 +1,10 @@
+
+/*!
+ * ion-router-vue v1.0.0
+ * 2018 Michael Tintiuc - Modus Create
+ * @license MIT
+ */
+
 'use strict';
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }

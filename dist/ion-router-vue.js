@@ -1,3 +1,10 @@
+
+/*!
+ * ion-router-vue v1.0.0
+ * 2018 Michael Tintiuc - Modus Create
+ * @license MIT
+ */
+
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('vue-router')) :
     typeof define === 'function' && define.amd ? define(['vue-router'], factory) :
