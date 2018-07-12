@@ -15,9 +15,10 @@
     "dist/*.js"
   ],
   "scripts": {
-    "dev": "rollup -c",
-    "watch": "rollup -wc",
-    "prod": "rollup -c --configProd"
+    "dev": "rollup -c ./build/rollup.config.js",
+    "watch": "rollup -w -c ./build/rollup.config.js",
+    "prod": "rollup -c ./build/rollup.config.js --configProd",
+    "release": "bash ./build/release.sh"
   },
   "devDependencies": {
     "buble": "^0.19.3",

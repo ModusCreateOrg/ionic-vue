@@ -297,9 +297,22 @@ var Router = (function (VueRouter$$1) {
 }(VueRouter));
 
 Router.install = function (Vue) {
+    if (Router.install.installed) { return }
+    Router.install.installed = true;
     VueRouter.install(Vue);
     Vue.component('IonRouterVue', IonRouterVue);
 };
+
+// Auto-install when vue is found (eg. in browser via <script> tag)
+var globalVue = null;
+if (typeof window !== 'undefined') {
+    globalVue = window.Vue;
+} else if (typeof global !== 'undefined') {
+    globalVue = global.Vue;
+}
+if (globalVue) {
+    globalVue.use(Router);
+}
 
 module.exports = Router;
 //# sourceMappingURL=ion-router-vue.common.js.map

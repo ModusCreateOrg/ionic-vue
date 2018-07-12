@@ -41,6 +41,19 @@ export default class Router extends VueRouter {
 }
 
 Router.install = function (Vue) {
+    if (Router.install.installed) return
+    Router.install.installed = true
     VueRouter.install(Vue)
     Vue.component('IonRouterVue', IonRouterVue)
+}
+
+// Auto-install when vue is found (eg. in browser via <script> tag)
+let globalVue = null
+if (typeof window !== 'undefined') {
+    globalVue = window.Vue
+} else if (typeof global !== 'undefined') {
+    globalVue = global.Vue
+}
+if (globalVue) {
+    globalVue.use(Router)
 }
