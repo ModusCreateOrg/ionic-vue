@@ -1,5 +1,5 @@
 {
-  "name": "ion-router-vue",
+  "name": "@modus/ion-router-vue",
   "version": "1.0.0",
   "description": "Ion Router Vue",
   "homepage": "https://moduscreate.com",
@@ -16,20 +16,20 @@
     "dist/*.js"
   ],
   "bugs": {
-      "url": "https://github.com/ModusCreateOrg/ion-router-vue/issues"
+    "url": "https://github.com/ModusCreateOrg/ion-router-vue/issues"
   },
   "keywords": [
-      "ionic",
-      "ion",
-      "vuejs",
-      "vue",
-      "router",
-      "routing",
-      "plugin",
-      "component",
-      "navigation",
-      "nav",
-      "transition"
+    "ionic",
+    "ion",
+    "vuejs",
+    "vue",
+    "router",
+    "routing",
+    "plugin",
+    "component",
+    "navigation",
+    "nav",
+    "transition"
   ],
   "scripts": {
     "dev": "rollup -c ./build/rollup.config.js",
@@ -45,6 +45,9 @@
     "rollup-plugin-terser": "^1.0.1",
     "rollup-plugin-vue": "^4.3.0",
     "vue-template-compiler": "^2.5.16"
+  },
+  "peerDependencies": {
+    "vue-router": "^3.0.1"
   },
   "dependencies": {
     "vue-router": "^3.0.1"
