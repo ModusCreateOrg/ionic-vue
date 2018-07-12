@@ -46,7 +46,7 @@
     "rollup-plugin-vue": "^4.3.0",
     "vue-template-compiler": "^2.5.16"
   },
-  "peerDependencies": {
+  "dependencies": {
     "vue-router": "^3.0.1"
   }
 }
