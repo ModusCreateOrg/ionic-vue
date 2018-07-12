@@ -12,7 +12,7 @@
   "unpkg": "dist/ion-router-vue.js",
   "jsdelivr": "dist/ion-router-vue.js",
   "files": [
-    "src/*.js",
+    "src/",
     "dist/*.js"
   ],
   "bugs": {
@@ -47,9 +47,6 @@
     "vue-template-compiler": "^2.5.16"
   },
   "peerDependencies": {
-    "vue-router": "^3.0.1"
-  },
-  "dependencies": {
     "vue-router": "^3.0.1"
   }
 }
