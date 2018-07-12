@@ -1,5 +1,5 @@
 import VueRouter from 'vue-router'
-import IonRouterView from './IonRouterView.vue'
+import IonRouterVue from './IonRouterVue.vue'
 
 
 export default class Router extends VueRouter {
@@ -42,5 +42,5 @@ export default class Router extends VueRouter {
 
 Router.install = function (Vue) {
     VueRouter.install(Vue)
-    Vue.component('IonRouterView', IonRouterView)
+    Vue.component('IonRouterVue', IonRouterVue)
 }

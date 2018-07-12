@@ -3,6 +3,8 @@ node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+dist/*.map
+dist/*.gz
 
 # ignore all files starting with . or ~
 .*

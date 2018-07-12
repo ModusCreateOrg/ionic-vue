@@ -19,7 +19,7 @@
 
 <script>
 export default {
-    name: 'IonRouterView',
+    name: 'IonRouterVue',
     data() {
         return {
             leavingEl: null,
@@ -43,11 +43,12 @@ export default {
             }
 
             const backButton = event.target.closest('ion-back-button')
-            let defaultHref
 
             if (!backButton) {
                 return
             }
+
+            let defaultHref
 
             if (this.$router.canGoBack()) {
                 event.preventDefault()
@@ -57,7 +58,7 @@ export default {
                 this.$router.push(defaultHref)
             }
         },
-        async transition(enteringEl, leavingEl) {
+        transition(enteringEl, leavingEl, done) {
             const ionRouterOutlet = this.$refs.ionRouterOutlet
 
             if (!enteringEl || enteringEl === leavingEl) {
@@ -66,13 +67,14 @@ export default {
 
             enteringEl.classList.add('ion-page', 'hide-page')
 
-            await ionRouterOutlet.componentOnReady()
-            await ionRouterOutlet.commit(enteringEl, leavingEl, {
-                duration: !this.animated ? 0 : undefined,
-                direction: this.$router.direction === 1 ? 'forward' : 'back',
-                deepWait: true,
-                showGoBack: this.$router.canGoBack(),
-            })
+            ionRouterOutlet.componentOnReady().then((el) => {
+                el.commit(enteringEl, leavingEl, {
+                    duration: !this.animated ? 0 : undefined,
+                    direction: this.$router.direction === 1 ? 'forward' : 'back',
+                    deepWait: true,
+                    showGoBack: this.$router.canGoBack(),
+                }).then(() => done())
+            }).catch(err => console.error(err))
         },
         beforeEnter(element) {
             this.enteringEl = element
@@ -81,9 +83,7 @@ export default {
             this.leavingEl = element
         },
         leave(element, done) {
-            if (this.animated) {
-                this.transition(this.enteringEl, element).then(() => done())
-            }
+            this.transition(this.enteringEl, element, done)
         },
         enter(element, done) {
             done()
