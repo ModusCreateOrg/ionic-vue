@@ -4,15 +4,24 @@ module.exports = {
         "node": true,
         "es6": true
     },
-    "extends": "eslint:recommended",
+    "extends": [
+        "plugin:vue/recommended",
+        "prettier",
+        "eslint:recommended"
+    ],
+    "plugins":[
+        "prettier"
+    ],
     "parserOptions": {
         "sourceType": "module",
         "ecmaVersion": 2017
     },
     "rules": {
+        "prettier/prettier": "error",
+        "no-console": 0,
         "indent": [
             "error",
-            4
+            2
         ],
         "linebreak-style": [
             "error",

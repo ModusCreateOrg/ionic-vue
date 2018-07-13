@@ -13,3 +13,4 @@ yarn-error.log*
 !.gitignore
 !.editorconfig
 !.eslintrc.js
+!.prettierrc
