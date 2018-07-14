@@ -3,9 +3,7 @@ import vue from 'rollup-plugin-vue'
 import { terser } from 'rollup-plugin-terser'
 import { version } from '../package.json'
 
-
-const banner =
-`
+const banner = `
 /*!
  * ion-router-vue v${version}
  * ${new Date().getFullYear()} Michael Tintiuc - Modus Create
@@ -13,46 +11,46 @@ const banner =
  */
 `
 
-function outputConfig(suffix, format, opts={}) {
-    return Object.assign({
-        file: `./dist/ion-router-vue${suffix}.js`,
-        name: 'IonRouterVue',
-        sourcemap: true,
-        format,
-        banner,
-    }, opts)
+function outputConfig(suffix, format, opts = {}) {
+  return Object.assign(
+    {
+      file: `./dist/ion-router-vue${suffix}.js`,
+      name: 'IonRouterVue',
+      sourcemap: true,
+      format,
+      banner,
+    },
+    opts
+  )
 }
 
 function baseConfig() {
-    return {
-        input: './src/router.js',
-        output: [
-            outputConfig('', 'umd', { globals: {} }),
-            outputConfig('.esm', 'esm'),
-            outputConfig('.common', 'cjs')
-        ],
-        external: ['vue-router'],
-        plugins: [
-            vue(),
-            buble(),
-        ]
-    }
+  return {
+    input: './src/router.js',
+    output: [
+      outputConfig('', 'umd', { globals: {} }),
+      outputConfig('.esm', 'esm'),
+      outputConfig('.common', 'cjs'),
+    ],
+    external: ['vue-router'],
+    plugins: [vue(), buble()],
+  }
 }
 
 export default args => {
-    const configs = [ baseConfig() ]
+  const configs = [baseConfig()]
 
-    if (args.configProd === true) {
-        const prodConfig = baseConfig()
-        prodConfig.plugins.push(terser())
+  if (args.configProd === true) {
+    const prodConfig = baseConfig()
+    prodConfig.plugins.push(terser())
 
-        for (const item of prodConfig.output) {
-            item.file = item.file.replace('.js', '.min.js')
-            item.sourcemap = false
-        }
-
-        configs.push(prodConfig)
+    for (const item of prodConfig.output) {
+      item.file = item.file.replace('.js', '.min.js')
+      item.sourcemap = false
     }
 
-    return configs
+    configs.push(prodConfig)
+  }
+
+  return configs
 }

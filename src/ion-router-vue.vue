@@ -40,15 +40,8 @@ export default {
   },
   methods: {
     catchIonicGoBack(event) {
-      if (!event.target) {
-        return
-      }
-
-      const backButton = event.target.closest('ion-back-button')
-
-      if (!backButton) {
-        return
-      }
+      const backButton = event.target && event.target.closest('ion-back-button')
+      if (!backButton) return
 
       let defaultHref
 
@@ -60,7 +53,7 @@ export default {
         this.$router.push(defaultHref)
       }
     },
-    transition(enteringEl, leavingEl, done) {
+    transition(enteringEl, leavingEl) {
       const ionRouterOutlet = this.$refs.ionRouterOutlet
 
       if (!enteringEl || enteringEl === leavingEl) {
@@ -69,28 +62,30 @@ export default {
 
       enteringEl.classList.add('ion-page', 'hide-page')
 
-      ionRouterOutlet
+      return ionRouterOutlet
         .componentOnReady()
         .then(el => {
-          el.commit(enteringEl, leavingEl, {
+          return el.commit(enteringEl, leavingEl, {
             duration: !this.animated ? 0 : undefined,
             direction: this.$router.direction === 1 ? 'forward' : 'back',
             deepWait: true,
             showGoBack: this.$router.canGoBack(),
-          }).then(() => done())
+          })
         })
         .catch(err => console.error(err))
     },
-    beforeEnter(element) {
-      this.enteringEl = element
+    beforeEnter(el) {
+      this.enteringEl = el
     },
-    beforeLeave(element) {
-      this.leavingEl = element
+    beforeLeave(el) {
+      this.leavingEl = el
     },
-    leave(element, done) {
-      this.transition(this.enteringEl, element, done)
+    leave(el, done) {
+      this.transition(this.enteringEl, el)
+        .finally(() => done())
+        .catch(err => console.error(err))
     },
-    enter(element, done) {
+    enter(el, done) {
       done()
     },
     afterEnter(/* el */) {},

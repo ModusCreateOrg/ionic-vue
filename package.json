@@ -36,13 +36,14 @@
     "watch": "rollup -w -c ./build/rollup.config.js",
     "prod": "rollup -c ./build/rollup.config.js --configProd",
     "release": "bash ./build/release.sh",
-    "lint": "eslint src/*"
+    "lint": "eslint src/* build/*.js"
   },
   "devDependencies": {
     "buble": "^0.19.3",
     "eslint": "^5.1.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.2",
+    "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-vue": "^4.5.0",
     "rollup": "^0.62.0",
     "rollup-plugin-buble": "^0.19.2",

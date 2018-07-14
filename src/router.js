@@ -1,5 +1,5 @@
 import VueRouter from 'vue-router'
-import IonRouterVue from './IonRouterVue.vue'
+import IonRouterVue from './ion-router-vue.vue'
 
 export default class Router extends VueRouter {
   constructor(...args) {
