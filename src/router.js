@@ -6,7 +6,7 @@ export default class Router extends VueRouter {
     super(...args)
     this.direction = args.direction || 1
     this.viewCount = args.viewCount || 0
-    this.prevRoute = this.history.current
+    this.prevRouteStack = [this.history.current]
     this.extendHistory()
   }
   extendHistory() {
@@ -30,11 +30,23 @@ export default class Router extends VueRouter {
   canGoBack() {
     return this.viewCount > 0 && this.currentRoute.path.length > 1
   }
-  guessDirection(route) {
-    if (this.prevRoute.fullPath === route.fullPath) {
+  guessDirection(nextRoute) {
+    // We've no where to go - go forward
+    if (this.prevRouteStack.length === 0) {
+      return 1
+    }
+
+    const prevRoute = this.prevRouteStack[this.prevRouteStack.length - 1]
+
+    // Last route is the same as the next one - go back, pop prev route
+    // we could also check for the / (root) route and reset the whole stack
+    if (prevRoute.fullPath === nextRoute.fullPath) {
+      this.prevRouteStack.pop()
       return -1
     }
-    this.prevRoute = this.history.current
+
+    // Forward movement, push next route to stack
+    this.prevRouteStack.push(this.history.current)
     return 1
   }
 }
