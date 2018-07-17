@@ -28,20 +28,24 @@ export default class Router extends VueRouter {
     this.direction = n > 0 ? 1 : -1
   }
   canGoBack() {
-    return this.viewCount > 0 && this.currentRoute.path.length > 1
+    return this.viewCount > 0 && this.currentRoute.fullPath.length > 1
   }
   guessDirection(nextRoute) {
-    // We've no where to go - go forward
+    // Nowhere to go but forward
     if (this.prevRouteStack.length === 0) {
       return 1
     }
 
     const prevRoute = this.prevRouteStack[this.prevRouteStack.length - 1]
 
-    // Last route is the same as the next one - go back, pop prev route
-    // we could also check for the / (root) route and reset the whole stack
+    // Last route is the same as the next one - go back
+    // If we're going to / reset the stack otherwise pop a route
     if (prevRoute.fullPath === nextRoute.fullPath) {
-      this.prevRouteStack.pop()
+      if (prevRoute.fullPath.length === 1) {
+        this.prevRouteStack = [nextRoute]
+      } else {
+        this.prevRouteStack.pop()
+      }
       return -1
     }
 
@@ -58,7 +62,7 @@ Router.install = function(Vue) {
   Vue.component('IonRouterVue', IonRouterVue)
 }
 
-// Auto-install when vue is found (eg. in browser via <script> tag)
+// Auto-install when Vue is found (i.e. in browser via <script> tag)
 let globalVue = null
 if (typeof window !== 'undefined') {
   globalVue = window.Vue
