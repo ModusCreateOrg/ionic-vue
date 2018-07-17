@@ -11,10 +11,10 @@ export default class Router extends VueRouter {
   }
   extendHistory() {
     this.history._updateRoute = this.history.updateRoute
-    this.history.updateRoute = route => {
-      this.direction = this.guessDirection(route)
+    this.history.updateRoute = nextRoute => {
+      this.direction = this.guessDirection(nextRoute)
       this.viewCount += this.direction
-      this.history._updateRoute(route)
+      this.history._updateRoute(nextRoute)
     }
   }
   push(...args) {
