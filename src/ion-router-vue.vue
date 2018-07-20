@@ -14,7 +14,7 @@
       @after-leave="afterLeave"
       @leave-cancelled="leaveCancelled"
     >
-      <router-view/>
+      <router-view :name="name"/>
     </transition>
   </ion-router-outlet>
 </template>
@@ -23,6 +23,10 @@
 export default {
   name: 'IonRouterVue',
   props: {
+    name: {
+      type: String,
+      default: 'default',
+    },
     bindCss: {
       type: Boolean,
       default: false,
