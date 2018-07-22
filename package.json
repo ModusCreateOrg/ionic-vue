@@ -1,22 +1,22 @@
 {
-  "name": "@modus/ion-router-vue",
+  "name": "@modus/ion-vue-router",
   "version": "1.0.0",
-  "description": "Ion Router Vue",
+  "description": "Ion Vue Router",
   "homepage": "https://moduscreate.com",
   "author": "Michael Tintiuc <michael.tintiuc@moduscreate.com>",
   "user": "michaeltintiuc",
   "license": "MIT",
-  "repository": "github:ModusCreateOrg/ion-router-vue",
-  "main": "dist/ion-router-vue.common.js",
-  "module": "dist/ion-router-vue.esm.js",
-  "unpkg": "dist/ion-router-vue.js",
-  "jsdelivr": "dist/ion-router-vue.js",
+  "repository": "github:ModusCreateOrg/ion-vue-router",
+  "main": "dist/ion-vue-router.common.js",
+  "module": "dist/ion-vue-router.esm.js",
+  "unpkg": "dist/ion-vue-router.js",
+  "jsdelivr": "dist/ion-vue-router.js",
   "files": [
     "src/",
     "dist/*.js"
   ],
   "bugs": {
-    "url": "https://github.com/ModusCreateOrg/ion-router-vue/issues"
+    "url": "https://github.com/ModusCreateOrg/ion-vue-router/issues"
   },
   "keywords": [
     "ionic",
@@ -34,7 +34,7 @@
   "scripts": {
     "dev": "rollup -c ./build/rollup.config.js",
     "watch": "rollup -w -c ./build/rollup.config.js",
-    "prod": "rollup -c ./build/rollup.config.js --configProd",
+    "prod": "NODE_ENV=production rollup -c ./build/rollup.config.js --configProd",
     "release": "bash ./build/release.sh",
     "lint": "eslint src/* build/*.js"
   },

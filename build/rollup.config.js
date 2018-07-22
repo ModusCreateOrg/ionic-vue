@@ -1,3 +1,4 @@
+import path from 'path'
 import buble from 'rollup-plugin-buble'
 import vue from 'rollup-plugin-vue'
 import { terser } from 'rollup-plugin-terser'
@@ -11,11 +12,13 @@ const banner = `
  */
 `
 
+const resolve = _path => path.resolve(__dirname, '../', _path)
+
 function outputConfig(suffix, format, opts = {}) {
   return Object.assign(
     {
-      file: `./dist/ion-router-vue${suffix}.js`,
-      name: 'IonRouterVue',
+      file: resolve(`./dist/ion-vue-router${suffix}.js`),
+      name: 'IonVueRouter',
       sourcemap: true,
       format,
       banner,
@@ -26,7 +29,7 @@ function outputConfig(suffix, format, opts = {}) {
 
 function baseConfig() {
   return {
-    input: './src/router.js',
+    input: resolve('./src/index.js'),
     output: [
       outputConfig('', 'umd', { globals: {} }),
       outputConfig('.esm', 'esm'),

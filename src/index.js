@@ -1,7 +1,22 @@
 import VueRouter from 'vue-router'
-import IonRouterVue from './ion-router-vue.vue'
+import IonVueRouter from './ion-vue-router.vue'
 
-export default class Router extends VueRouter {
+let globalVue = null
+let globalVueRouter = null
+
+if (typeof window !== 'undefined') {
+  globalVue = window.Vue
+  globalVueRouter = window.VueRouter
+} else if (typeof global !== 'undefined') {
+  globalVue = global.Vue
+  globalVueRouter = global.VueRouter
+}
+
+if (!globalVueRouter) {
+  globalVueRouter = VueRouter
+}
+
+export default class Router extends globalVueRouter {
   constructor(...args) {
     super(...args)
     this.direction = args.direction || 1
@@ -58,17 +73,12 @@ export default class Router extends VueRouter {
 Router.install = function(Vue) {
   if (Router.install.installed) return
   Router.install.installed = true
-  VueRouter.install(Vue)
-  Vue.component('IonRouterVue', IonRouterVue)
+
+  globalVueRouter.install(Vue)
+  Vue.component('IonVueRouter', IonVueRouter)
 }
 
 // Auto-install when Vue is found (i.e. in browser via <script> tag)
-let globalVue = null
-if (typeof window !== 'undefined') {
-  globalVue = window.Vue
-} else if (typeof global !== 'undefined') {
-  globalVue = global.Vue
-}
 if (globalVue) {
   globalVue.use(Router)
 }

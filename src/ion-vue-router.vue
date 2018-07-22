@@ -21,7 +21,7 @@
 
 <script>
 export default {
-  name: 'IonRouterVue',
+  name: 'IonVueRouter',
   props: {
     name: {
       type: String,
@@ -85,9 +85,9 @@ export default {
       this.leavingEl = el
     },
     leave(el, done) {
-      this.transition(this.enteringEl, el)
-        .finally(() => done())
-        .catch(err => console.error(err))
+      const promise = this.transition(this.enteringEl, el)
+      if (!promise) return
+      promise.finally(() => done()).catch(err => console.error(err))
     },
     enter(el, done) {
       done()
