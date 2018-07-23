@@ -86,7 +86,7 @@ export default {
     },
     leave(el, done) {
       const promise = this.transition(this.enteringEl, el)
-      if (!promise) return
+      if (!promise) return done()
       promise.finally(() => done()).catch(err => console.error(err))
     },
     enter(el, done) {
