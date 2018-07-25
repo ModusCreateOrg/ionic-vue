@@ -18,7 +18,7 @@ function outputConfig(suffix, format, opts = {}) {
   return Object.assign(
     {
       file: resolve(`./dist/ionic-vue${suffix}.js`),
-      name: 'IonVueRouter',
+      name: 'IonicVue',
       sourcemap: true,
       format,
       banner,

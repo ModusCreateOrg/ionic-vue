@@ -8,7 +8,7 @@
         <meta name="msapplication-tap-highlight" content="no">
         <script src="https://unpkg.com/vue"></script>
         <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
-        <script src="../dist/ion-vue-router.js"></script>
+        <script src="../dist/ionic-vue.js"></script>
         <script src="https://unpkg.com/@ionic/core@4.0.0-alpha.11/dist/ionic.js"></script>
         <link rel="stylesheet" href="https://unpkg.com/@ionic/core@4.0.0-alpha.11/css/ionic.min.css"/>
     </head>
@@ -58,7 +58,7 @@
             Vue.config.ignoredElements.push(/^ion-/)
 
             new Vue({
-                router: new IonVueRouter({
+                router: new IonicVue.IonicVueRouter({
                     routes: [
                         { path: '/', component: Home },
                         { path: '/page', component: Page },
