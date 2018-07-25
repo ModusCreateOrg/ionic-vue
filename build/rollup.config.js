@@ -6,7 +6,7 @@ import { version } from '../package.json'
 
 const banner = `
 /*!
- * ion-router-vue v${version}
+ * ionic-vue v${version}
  * ${new Date().getFullYear()} Michael Tintiuc - Modus Create
  * @license MIT
  */
@@ -17,7 +17,7 @@ const resolve = _path => path.resolve(__dirname, '../', _path)
 function outputConfig(suffix, format, opts = {}) {
   return Object.assign(
     {
-      file: resolve(`./dist/ion-vue-router${suffix}.js`),
+      file: resolve(`./dist/ionic-vue${suffix}.js`),
       name: 'IonVueRouter',
       sourcemap: true,
       format,
@@ -35,8 +35,15 @@ function baseConfig() {
       outputConfig('.esm', 'esm'),
       outputConfig('.common', 'cjs'),
     ],
-    external: ['vue-router'],
-    plugins: [vue(), buble()],
+    external: ['vue', 'vue-router'],
+    plugins: [
+      vue(),
+      buble({
+        transforms: {
+          dangerousForOf: true,
+        },
+      }),
+    ],
   }
 }
 
