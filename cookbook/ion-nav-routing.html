@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Ionic v4 + Vue.js - Basic routing</title>
+        <title>Ionic v4 + Vue.js - ion-nav routing</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
@@ -15,7 +15,7 @@
 
     <body>
         <ion-app>
-            <ion-vue-router></ion-vue-router>
+            <div id="app"></div>
         </ion-app>
 
         <script>
@@ -36,9 +36,14 @@
                 template: `<ion-page class="ion-page">
                     <toolbar title="Home"/>
                     <ion-content class="ion-content" padding>
-                        <router-link to="/page">Go to page</router-link>
+                        <ion-button @click="goPage">Go to page</ion-button>
                     </ion-content>
-                </ion-page>`
+                </ion-page>`,
+                methods: {
+                    goPage() {
+                        this.$ionic.newNavController().then(ctrl => ctrl.push(Page))
+                    }
+                }
             }
 
             const Page = {
@@ -50,21 +55,16 @@
                 </ion-page>`,
                 methods: {
                     goHome() {
-                        this.$router.back()
+                        this.$ionic.newNavController().then(ctrl => ctrl.popToRoot())
                     }
                 }
             }
 
             Vue.config.ignoredElements.push(/^ion-/)
+            Vue.use(IonicVue.IonicAPI)
+            IonicVue.IonicAPI.newNavController(Home)
 
-            new Vue({
-                router: new IonicVue.IonicVueRouter({
-                    routes: [
-                        { path: '/', component: Home },
-                        { path: '/page', component: Page },
-                    ],
-                }),
-            }).$mount('ion-app')
+            new Vue().$mount('#app')
         </script>
     </body>
 </html>

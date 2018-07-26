@@ -1,10 +1,20 @@
 import Vue from 'vue'
 
+let globalVue = null
+
+if (typeof window !== 'undefined') {
+  globalVue = window.Vue
+} else if (typeof global !== 'undefined') {
+  globalVue = global.Vue
+} else {
+  globalVue = Vue
+}
+
 export function attachViewToDom(parentElement, vueComponent, propsOrData, classes) {
   const wrapper = document.createElement(shouldWrapInIonPage(parentElement) ? 'ion-page' : 'div')
 
   parentElement.appendChild(wrapper)
-  const vueElement = Vue.extend(vueComponent)
+  const vueElement = globalVue.extend(vueComponent)
   const page = new vueElement().$mount(wrapper)
 
   if (classes) {

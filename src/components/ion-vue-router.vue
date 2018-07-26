@@ -64,7 +64,7 @@ export default {
         return
       }
 
-      enteringEl.classList.add('ion-page', 'hide-page')
+      enteringEl.classList.add('ion-page', 'ion-page-invisible')
 
       return ionRouterOutlet
         .componentOnReady()
