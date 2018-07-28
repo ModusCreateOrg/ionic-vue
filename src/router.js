@@ -20,8 +20,8 @@ export default class Router extends globalVueRouter {
   constructor(...args) {
     super(...args)
     this.direction = args.direction || 1
-    this.viewCount = args.viewCount || 1
-    this.prevRouteStack = [this.history.current]
+    this.viewCount = args.viewCount || 0
+    this.prevRouteStack = []
     this.extendHistory()
   }
   extendHistory() {
@@ -33,35 +33,37 @@ export default class Router extends globalVueRouter {
     }
   }
   canGoBack() {
-    return this.viewCount > 0 && this.currentRoute.fullPath.length > 1
+    return this.viewCount > 1 && this.currentRoute.fullPath.length > 1
   }
   guessDirection(nextRoute) {
-    // Nowhere to go but forward
-    if (this.prevRouteStack.length === 0) {
-      return 1
-    }
+    if (this.prevRouteStack.length !== 0) {
+      const prevRoute = this.prevRouteStack[this.prevRouteStack.length - 1]
 
-    const prevRoute = this.prevRouteStack[this.prevRouteStack.length - 1]
-
-    // Last route is the same as the next one - go back
-    // If we're going to / reset the stack otherwise pop a route
-    if (prevRoute.fullPath === nextRoute.fullPath) {
-      if (prevRoute.fullPath.length === 1) {
-        this.prevRouteStack = [nextRoute]
-      } else {
-        this.prevRouteStack.pop()
+      // Last route is the same as the next one - go back
+      // If we're going to / reset the stack otherwise pop a route
+      if (prevRoute.fullPath === nextRoute.fullPath) {
+        if (prevRoute.fullPath.length === 1) {
+          this.prevRouteStack = []
+        } else {
+          this.prevRouteStack.pop()
+        }
+        return -1
       }
-      return -1
     }
 
     // Forward movement, push next route to stack
-    this.prevRouteStack.push(this.history.current)
+    if (this.history.current.fullPath !== nextRoute.fullPath) {
+      this.prevRouteStack.push(this.history.current)
+    }
     return 1
   }
 }
 
 Router.install = function(Vue) {
-  if (Router.install.installed) return
+  if (Router.install.installed) {
+    return
+  }
+
   Router.install.installed = true
 
   globalVueRouter.install(Vue)

@@ -1,8 +1,8 @@
 module.exports = {
-  testEnvironment: "node",
-  moduleFileExtensions: [ "js", "vue" ],
+  testURL: 'http://localhost/',
+  moduleFileExtensions: ['js', 'vue'],
   transform: {
-    "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
-    ".*\\.(vue)$": "<rootDir>/node_modules/jest-vue-preprocessor"
-  }
+    '^.+\\.js$': '<rootDir>/node_modules/babel-jest',
+    '.*\\.(vue)$': '<rootDir>/node_modules/jest-vue-preprocessor',
+  },
 }

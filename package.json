@@ -41,7 +41,8 @@
     "prod": "NODE_ENV=production rollup -c ./build/rollup.config.js --configProd",
     "release": "bash ./build/release.sh",
     "lint": "eslint src/**/* build/*.js test/**/*",
-    "test": "jest"
+    "test": "jest --coverage",
+    "test:node": "jest --coverage --env=node"
   },
   "devDependencies": {
     "babel-jest": "^23.4.2",
@@ -62,7 +63,7 @@
     "rollup-plugin-vue": "^4.3.0",
     "vue-test-utils": "^1.0.0-beta.11"
   },
-  "dependencies": {
+  "peerDependencies": {
     "vue": "^2.5.16",
     "vue-template-compiler": "^2.5.16",
     "vue-router": "^3.0.1"
