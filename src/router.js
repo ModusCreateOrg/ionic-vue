@@ -4,7 +4,7 @@ import IonVueRouter from './components/ion-vue-router.vue'
 let globalVue = null
 let globalVueRouter = null
 
-if (typeof window !== 'undefined') {
+if (typeof window !== 'undefined' && window.Vue !== undefined) {
   globalVue = window.Vue
   globalVueRouter = window.VueRouter
 } else if (typeof global !== 'undefined') {
