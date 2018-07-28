@@ -20,7 +20,7 @@ export default class Router extends globalVueRouter {
   constructor(...args) {
     super(...args)
     this.direction = args.direction || 1
-    this.viewCount = args.viewCount || 0
+    this.viewCount = args.viewCount || 1
     this.prevRouteStack = [this.history.current]
     this.extendHistory()
   }
@@ -31,16 +31,6 @@ export default class Router extends globalVueRouter {
       this.viewCount += this.direction
       this.history._updateRoute(nextRoute)
     }
-  }
-  push(...args) {
-    super.push(...args)
-    this.direction = 1
-    this.viewCount++
-  }
-  go(n) {
-    super.go(n)
-    this.viewCount += n
-    this.direction = n > 0 ? 1 : -1
   }
   canGoBack() {
     return this.viewCount > 0 && this.currentRoute.fullPath.length > 1

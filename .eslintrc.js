@@ -5,22 +5,23 @@ module.exports = {
     es6: true,
   },
   extends: [
-    'plugin:vue/recommended',
     'prettier',
     'eslint:recommended',
+    'plugin:vue/recommended',
+    'plugin:jest/recommended',
     'plugin:promise/recommended',
   ],
-  plugins: ['prettier', 'promise'],
+  plugins: ['prettier', 'promise', 'jest'],
   parserOptions: {
     sourceType: 'module',
     ecmaVersion: 2017,
   },
   rules: {
-    'prettier/prettier': 'error',
     'no-console': 0,
-    indent: ['error', 2],
+    'prettier/prettier': 'error',
     'linebreak-style': ['error', 'unix'],
-    quotes: ['error', 'single'],
+    indent: ['error', 2],
     semi: ['error', 'never'],
+    quotes: ['error', 'single'],
   },
 }

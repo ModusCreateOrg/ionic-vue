@@ -6,8 +6,11 @@ if (typeof window !== 'undefined') {
   globalVue = window.Vue
 } else if (typeof global !== 'undefined') {
   globalVue = global.Vue
-} else {
+}
+
+if (!globalVue) {
   globalVue = Vue
+  globalVue.config.productionTip = false
 }
 
 export function attachViewToDom(parentElement, vueComponent, propsData, classes) {
