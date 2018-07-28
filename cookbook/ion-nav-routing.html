@@ -14,9 +14,7 @@
     </head>
 
     <body>
-        <ion-app>
-            <div id="app"></div>
-        </ion-app>
+        <ion-app></ion-app>
 
         <script>
             const Toolbar = Vue.component('Toolbar', {
@@ -37,20 +35,30 @@
                     <toolbar title="Home"/>
                     <ion-content class="ion-content" padding>
                         <ion-button @click="goPage">Go to page</ion-button>
+                        <ion-button @click="goPageWithData">Go to page with data</ion-button>
                     </ion-content>
                 </ion-page>`,
                 methods: {
                     goPage() {
                         this.$ionic.newNavController().then(ctrl => ctrl.push(Page))
+                    },
+                    goPageWithData() {
+                        this.$ionic.newNavController().then(ctrl => ctrl.push(Page, { buttonText: 'New text' }))
                     }
                 }
             }
 
             const Page = {
+                props: {
+                    buttonText: {
+                        type: String,
+                        default: 'Go home',
+                    },
+                },
                 template: `<ion-page class="ion-page">
                     <toolbar title="Page" backURL="/"/>
                     <ion-content class="ion-content" padding>
-                        <ion-button @click="goHome">Go home</ion-button>
+                        <ion-button @click="goHome">{{ buttonText }}</ion-button>
                     </ion-content>
                 </ion-page>`,
                 methods: {
@@ -60,11 +68,13 @@
                 }
             }
 
-            Vue.config.ignoredElements.push(/^ion-/)
             Vue.use(IonicVue.IonicAPI)
-            IonicVue.IonicAPI.newNavController(Home)
 
-            new Vue().$mount('#app')
+            new Vue({
+                mounted() {
+                    this.$ionic.newNavController(Home)
+                }
+            }).$mount('ion-app')
         </script>
     </body>
 </html>

@@ -10,12 +10,12 @@ if (typeof window !== 'undefined') {
   globalVue = Vue
 }
 
-export function attachViewToDom(parentElement, vueComponent, propsOrData, classes) {
+export function attachViewToDom(parentElement, vueComponent, propsData, classes) {
   const wrapper = document.createElement(shouldWrapInIonPage(parentElement) ? 'ion-page' : 'div')
 
   parentElement.appendChild(wrapper)
   const vueElement = globalVue.extend(vueComponent)
-  const page = new vueElement().$mount(wrapper)
+  const page = new vueElement({ propsData }).$mount(wrapper)
 
   if (classes) {
     for (const cls of classes) {
