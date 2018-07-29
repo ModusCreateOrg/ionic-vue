@@ -41,8 +41,8 @@
     "prod": "NODE_ENV=production rollup -c ./build/rollup.config.js --configProd",
     "release": "bash ./build/release.sh",
     "lint": "eslint src/**/* build/*.js test/**/*",
-    "test": "jest --coverage",
-    "test:node": "jest --coverage --env=node"
+    "test": "jest --coverage --verbose",
+    "test:node": "jest --coverage --verbose --env=node"
   },
   "devDependencies": {
     "babel-jest": "^23.4.2",
