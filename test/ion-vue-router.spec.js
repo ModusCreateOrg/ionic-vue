@@ -3,23 +3,42 @@ import Router from '../src/router.js'
 import IonVueRouter from '../src/components/ion-vue-router.vue'
 
 describe('IonVueRouter', () => {
-  it('Renders correctly', () => {
-    Vue.use(Router)
-    Vue.config.ignoredElements.push(/^ion-/)
+  Vue.use(Router)
+  Vue.config.ignoredElements.push(/^ion-/)
 
-    const app = new Vue({
-      render(h) {
-        return h('ion-vue-router')
-      },
-      router: new Router({
-        routes: [{ path: '/', component: { template: '<h1>foo</h1>' } }],
-      }),
-    }).$mount()
+  const app = new Vue({
+    components: { Toolbar: Toolbar() },
+    render(h) {
+      return h('ion-vue-router')
+    },
+    router: new Router({
+      mode: 'abstract',
+      routes: [{ path: '/', component: Home() }, { path: '/page', component: Page() }],
+    }),
+  }).$mount()
 
-    app.$router.push('/foo')
-    app.$router.back()
+  it('Renders the home route correctly', done => {
+    app.$router.push('/')
+    setTimeout(() => {
+      expect(app.$el.textContent.trim()).toBe('Home Go to page')
+      done()
+    }, 1)
+  })
 
-    expect(app.$el.textContent).toBe('foo')
+  it('Renders the page route correctly', done => {
+    app.$router.push('/page')
+    setTimeout(() => {
+      expect(app.$el.textContent.trim()).toBe('Page Go home')
+      done()
+    }, 1)
+  })
+
+  it('Renders back route correctly', done => {
+    app.$router.go(-1)
+    setTimeout(() => {
+      expect(app.$el.textContent.trim()).toBe('Home Go to page')
+      done()
+    }, 1)
   })
 
   it('Sets the default data correctly', () => {
@@ -38,3 +57,51 @@ describe('IonVueRouter', () => {
     expect(component.name).toBe('default')
   })
 })
+
+function Toolbar() {
+  return Vue.component('Toolbar', {
+    name: 'Toolbar',
+    props: {
+      backURL: { type: String, default: '' },
+      title: { type: String, default: '' },
+    },
+    template: `
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-back-button :default-href="backURL"/>
+          </ion-buttons>
+          <ion-title>{{ title }}</ion-title>
+        </ion-toolbar>
+      </ion-header>`,
+  })
+}
+
+function Home() {
+  return Vue.component('Home', {
+    template: `
+      <ion-page class="ion-page">
+        <toolbar title="Home"/>
+        <ion-content class="ion-content" padding>
+          <router-link to="/page">Go to page</router-link>
+        </ion-content>
+      </ion-page>`,
+  })
+}
+
+function Page() {
+  return Vue.component('Page', {
+    methods: {
+      goHome() {
+        this.$router.back()
+      },
+    },
+    template: `
+      <ion-page class="ion-page">
+        <toolbar title="Page"/>
+        <ion-content class="ion-content" padding>
+          <ion-button @click="goHome">Go home</ion-button>
+        </ion-content>
+      </ion-page>`,
+  })
+}

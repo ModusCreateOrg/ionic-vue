@@ -60,6 +60,10 @@ export default {
     transition(enteringEl, leavingEl) {
       const ionRouterOutlet = this.$refs.ionRouterOutlet
 
+      if (typeof ionRouterOutlet.componentOnReady === 'undefined') {
+        return
+      }
+
       if (!enteringEl || enteringEl === leavingEl) {
         return
       }
