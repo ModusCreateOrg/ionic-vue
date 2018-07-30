@@ -20,6 +20,7 @@ module.exports = {
     'no-console': 0,
     'prettier/prettier': 'error',
     'linebreak-style': ['error', 'unix'],
+    'promise/no-callback-in-promise': 0,
     indent: ['error', 2],
     semi: ['error', 'never'],
     quotes: ['error', 'single'],

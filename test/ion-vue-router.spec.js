@@ -56,6 +56,38 @@ describe('IonVueRouter', () => {
     expect(component.animated).toBeTruthy()
     expect(component.name).toBe('default')
   })
+
+  it('Catches back button click event', () => {
+    const constructor = Vue.extend(IonVueRouter)
+    const component = new constructor()
+    component.catchIonicGoBack({})
+  })
+
+  it('Transitions correctly', () => {
+    expect.assertions(4)
+
+    const constructor = Vue.extend(IonVueRouter)
+    const component = new constructor({ router: new Router() })
+
+    component.$refs.ionRouterOutlet = mockIonRouterOutlet()
+    expect(component.transition()).toBeFalsy()
+
+    component.enteringEl = document.createElement('div')
+    component.leave(document.createElement('h1'), res => {
+      expect(res).toBeTruthy()
+    })
+
+    component.leave(null, res => {
+      expect(res).toBeInstanceOf(Error)
+    })
+
+    component
+      .transition(document.createElement('div'), document.createElement('h1'))
+      .then(res => {
+        return expect(res).toBeTruthy()
+      })
+      .catch(err => console.error(err))
+  })
 })
 
 function Toolbar() {
@@ -104,4 +136,18 @@ function Page() {
         </ion-content>
       </ion-page>`,
   })
+}
+
+function mockIonRouterOutlet() {
+  return {
+    componentOnReady() {
+      return new Promise(resolve => {
+        return resolve({
+          commit() {
+            return true
+          },
+        })
+      })
+    },
+  }
 }
