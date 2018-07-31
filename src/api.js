@@ -2,14 +2,12 @@ import { Delegate } from './framework-delegate'
 
 const api = {
   newNavController(root) {
-    const controller = initComponent('ion-nav', 'ion-app')
-      .then(ctrl => {
+    return Promise.resolve(
+      initComponent('ion-nav', 'ion-app').then(ctrl => {
         ctrl.root = root
         return ctrl
       })
-      .catch(err => console.log(err))
-
-    return Promise.resolve(controller)
+    )
   },
   newAlertController(props) {
     return this.newAbstractController('ion-alert-controller', props)
@@ -26,7 +24,10 @@ const api = {
 export default api
 
 api.install = function(Vue) {
-  if (api.install.installed) return
+  if (api.install.installed) {
+    return
+  }
+
   api.install.installed = true
 
   Vue.config.ignoredElements.push(/^ion-/)
