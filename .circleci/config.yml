@@ -17,10 +17,10 @@ jobs:
           - v1-dependencies-
 
       - run:
-        command: |
-          npm i -ci
-          # Peer dependencies
-          npm i vue vue-router vue-template-compiler
+          command: |
+            npm i -ci
+            # Peer dependencies
+            npm i vue vue-router vue-template-compiler
 
       - save_cache:
           paths:
