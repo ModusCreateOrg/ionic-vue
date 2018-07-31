@@ -16,3 +16,4 @@ yarn-error.log*
 !.eslintrc.js
 !.prettierrc
 !.babelrc
+!.circleci

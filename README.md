@@ -1,11 +1,11 @@
-[![Logo of the project](./images/modus.logo.svg)](https://moduscreate.com)
+[![Ionic-Vue](./images/modus.logo.svg)](https://moduscreate.com)
 
-# Name of the project
+# Ionic-Vue
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![MIT Licensed](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/your/your-project/blob/master/LICENSE)
 
-A brief description of your project, what it is used for.
+Ionic integration adapters for Vue.
 
 ## Installing / Getting started
 
@@ -13,7 +13,7 @@ A quick introduction of the minimal setup you need to get a hello world up &
 running.
 
 ```shell
-commands here
+npm install @modus/ionic-vue
 ```
 
 Here you should say what actually happens when you execute the code above.
@@ -22,7 +22,7 @@ Here you should say what actually happens when you execute the code above.
 
 ### Built With
 
-List main libraries, frameworks used including versions (React, Angular etc...)
+List main libraries, frameworks used including versions (Ionic, Vue etc...)
 
 ### Prerequisites
 
@@ -34,9 +34,9 @@ Here's a brief intro about what a developer must do in order to start developing
 the project further:
 
 ```shell
-git clone https://github.com/your/your-project.git
-cd your-project/
-packagemanager install
+git clone https://github.com/moduscreateorg/ionic-vue.git
+cd ionic-vue/
+npm install
 ```
 
 And state what happens step-by-step. If there is any virtual environment, local server or database feeder needed, explain here.
@@ -96,6 +96,4 @@ If the api is external, link to api documentation. If not describe your api incl
 
 ## Licensing
 
-State what the license is and how to find the text version of the license.
-
-e.g. This project is [MIT licensed](./LICENSE).
+This project is [MIT licensed](./LICENSE).
