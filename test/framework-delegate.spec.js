@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import { Delegate } from '../src/framework-delegate.js'
 
-describe('Framwork Delegation', () => {
+describe('Framework delegation', () => {
   it('Attaches to DOM', () => {
     expect.assertions(2)
     const component = Vue.component('foo', {

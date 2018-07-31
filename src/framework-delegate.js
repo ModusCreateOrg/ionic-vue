@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 let globalVue = null
 
-if (typeof window !== 'undefined') {
+if (typeof window !== 'undefined' && window.Vue !== undefined) {
   globalVue = window.Vue
 } else if (typeof global !== 'undefined') {
   globalVue = global.Vue
