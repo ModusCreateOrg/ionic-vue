@@ -21,6 +21,8 @@ jobs:
             npm i -ci
             # Peer dependencies
             npm i vue vue-router vue-template-compiler
+            # Code coverage
+            sudo pip install codecov
 
       - save_cache:
           paths:
@@ -28,6 +30,6 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       # run tests!
-      - run: npm test
+      - run: npm test && codecov
 
 
