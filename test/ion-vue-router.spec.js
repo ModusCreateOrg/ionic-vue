@@ -59,12 +59,29 @@ describe('IonVueRouter', () => {
 
   it('Catches back button click event', () => {
     const constructor = Vue.extend(IonVueRouter)
-    const component = new constructor()
-    component.catchIonicGoBack({})
+    const component = new constructor({ router: new Router({ mode: 'abstract' }) })
+
+    expect(component.catchIonicGoBack({})).toBeFalsy()
+
+    component.$router.push('/')
+    component.$router.push('/foo')
+    expect(component.$route.fullPath).toBe('/foo')
+
+    // Go back
+    component.catchIonicGoBack(mockBackEvent('/'))
+    expect(component.$route.fullPath).toBe('/')
+
+    // Should not go back
+    component.catchIonicGoBack(mockBackEvent())
+    expect(component.$route.fullPath).toBe('/')
+
+    // Go back to default route
+    component.catchIonicGoBack(mockBackEvent('/bar'))
+    expect(component.$route.fullPath).toBe('/bar')
   })
 
   it('Transitions correctly', () => {
-    expect.assertions(4)
+    expect.assertions(3)
 
     const constructor = Vue.extend(IonVueRouter)
     const component = new constructor({ router: new Router() })
@@ -77,16 +94,39 @@ describe('IonVueRouter', () => {
       expect(res).toBeTruthy()
     })
 
-    component.leave(null, res => {
-      expect(res).toBeInstanceOf(Error)
-    })
-
-    component
+    return component
       .transition(document.createElement('div'), document.createElement('h1'))
       .then(res => {
         return expect(res).toBeTruthy()
       })
-      .catch(err => console.error(err))
+  })
+
+  it('Gets duration correctly', () => {
+    const constructor = Vue.extend(IonVueRouter)
+    const component = new constructor({ router: new Router() })
+
+    expect(component.getDuration()).toBe(undefined)
+
+    component.animated = false
+    expect(component.getDuration()).toBe(0)
+  })
+
+  it('Gets direction correctly', () => {
+    const constructor = Vue.extend(IonVueRouter)
+    const component = new constructor({ router: new Router() })
+
+    expect(component.getDirection()).toBe('forward')
+
+    component.$router.direction = -1
+    expect(component.getDirection()).toBe('back')
+  })
+
+  it('Runs stub methods correctly', () => {
+    const constructor = Vue.extend(IonVueRouter)
+    const component = new constructor()
+
+    component.enterCancelled()
+    component.leaveCancelled()
   })
 })
 
@@ -149,5 +189,18 @@ function mockIonRouterOutlet() {
         })
       })
     },
+  }
+}
+
+function mockBackEvent(route) {
+  return {
+    target: {
+      closest() {
+        return {
+          defaultHref: route,
+        }
+      },
+    },
+    preventDefault() {},
   }
 }

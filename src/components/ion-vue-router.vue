@@ -70,17 +70,20 @@ export default {
 
       enteringEl.classList.add('ion-page', 'ion-page-invisible')
 
-      return ionRouterOutlet
-        .componentOnReady()
-        .then(el => {
-          return el.commit(enteringEl, leavingEl, {
-            duration: !this.animated ? 0 : undefined,
-            direction: this.$router.direction === 1 ? 'forward' : 'back',
-            deepWait: true,
-            showGoBack: this.$router.canGoBack(),
-          })
+      return ionRouterOutlet.componentOnReady().then(el => {
+        return el.commit(enteringEl, leavingEl, {
+          deepWait: true,
+          duration: this.getDuration(),
+          direction: this.getDirection(),
+          showGoBack: this.$router.canGoBack(),
         })
-        .catch(err => console.error(err))
+      })
+    },
+    getDuration() {
+      return !this.animated ? 0 : undefined
+    },
+    getDirection() {
+      return this.$router.direction === 1 ? 'forward' : 'back'
     },
     beforeEnter(el) {
       this.enteringEl = el
@@ -91,7 +94,7 @@ export default {
     leave(el, done) {
       const promise = this.transition(this.enteringEl, el)
       if (!promise) return done()
-      promise.then(() => done(true)).catch(err => console.error(err))
+      return promise.then(() => done(true))
     },
     enter(el, done) {
       done()
