@@ -16,8 +16,11 @@ jobs:
           - v1-dependencies-{{ checksum "package.json" }}
           - v1-dependencies-
 
-      - run: npm install
-      - run: npm i vue vue-router vue-template-compiler
+      - run:
+        command: |
+          npm i -ci
+          # Peer dependencies
+          npm i vue vue-router vue-template-compiler
 
       - save_cache:
           paths:
