@@ -1,6 +1,7 @@
 # Ionic-Vue
 
 [![CircleCI](https://circleci.com/gh/ModusCreateOrg/ionic-vue.svg?style=shield)](https://circleci.com/gh/ModusCreateOrg/ionic-vue)
+![alt A security rating](https://sonarcloud.io/api/project_badges/measure?project=ionic_vue&metric=security_rating)
 [![codecov](https://codecov.io/gh/ModusCreateOrg/ionic-vue/branch/master/graph/badge.svg?token=mvAX8xwXDJ)](https://codecov.io/gh/ModusCreateOrg/ionic-vue)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![MIT Licensed](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/your/your-project/blob/master/LICENSE)
@@ -165,7 +166,6 @@ The ionic-vue project uses SonarQube's SonarCloud product for static analysis sc
 Our publically available dashboard for the project can be found [here](https://sonarcloud.io/dashboard?id=ionic_vue)
 
 
-![alt A security rating](https://sonarcloud.io/api/project_badges/measure?project=ionic_vue&metric=security_rating)
 
 
 ## Modus Create
