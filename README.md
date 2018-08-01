@@ -110,7 +110,11 @@ npm test
 
 [Modus Create](https://moduscreate.com) is a digital product consultancy. We use a distributed team of the best talent in the world to offer a full suite of digital product design-build services; ranging from consumer facing apps, to digital migration, to agile development training, and business transformation.
 
-[![Modus Create](./images/modus.logo.svg)](https://moduscreate.com)
+[![Modus Create](https://res.cloudinary.com/modus-labs/image/upload/h_80/v1533109874/modus/logo-long-black.png)](https://moduscreate.com)
+
+This project is part of [Modus Labs](https://labs.moduscreate.com).
+
+[![Modus Labs](https://res.cloudinary.com/modus-labs/image/upload/h_80/v1531492623/labs/logo-black.png)](https://labs.moduscreate.com)
 
 ## Licensing
 
