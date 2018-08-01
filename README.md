@@ -1,3 +1,5 @@
+![@modus/ionic-vue](/images/ionic-vue-banner.png?raw=true "@modus/ionic-vue")
+
 # Ionic-Vue
 
 [![CircleCI](https://circleci.com/gh/ModusCreateOrg/ionic-vue.svg?style=shield)](https://circleci.com/gh/ModusCreateOrg/ionic-vue)
