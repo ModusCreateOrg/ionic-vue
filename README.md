@@ -8,6 +8,10 @@
 
 Ionic integration adapters for Vue.
 
+<p align="center">
+    <img src="/images/ionic-vue-banner.png?raw=true" alt="@modus/ionic-vue">
+</p>
+
 ## Installing / Getting started
 
 A quick introduction of the minimal setup you need to get a hello world up &
