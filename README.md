@@ -1,5 +1,3 @@
-[![Ionic-Vue](./images/modus.logo.svg)](https://moduscreate.com)
-
 # Ionic-Vue
 
 [![CircleCI](https://circleci.com/gh/ModusCreateOrg/ionic-vue.svg?style=shield)](https://circleci.com/gh/ModusCreateOrg/ionic-vue)
@@ -18,22 +16,42 @@ running.
 npm install @modus/ionic-vue
 ```
 
-Here you should say what actually happens when you execute the code above.
+Now you can use it during the initialization step of your Vue app.
+
+```js
+import Vue from 'vue'
+import { IonicVueRouter, IonicAPI } from '@modus/ionic-vue'
+import Home from './Home.vue'
+import Acc from './Acc.vue'
+import Pwd from './Pwd.vue'
+
+Vue.use(IonicVueRouter)
+Vue.use(IonicAPI)
+
+new Vue({
+  router: new IonicVueRouter({
+    routes: [
+      { path: '/', component: Home },
+      { path: '/acc', component: Acc },
+      { path: '/pwd', component: Pwd },
+    ],
+  }),
+}).$mount('ion-app')
+```
+
+### IonicAPI
+
+`IonicAPI` abstracts DOM interaction of Ionic UI components inside a Vue application.
+
+### IonicVueRouter
+
+Some Ionic components, such as [`NavController`](https://ionicframework.com/docs/api/navigation/NavController/), require routing support. `IonicVueRouter` binds Ionic routing functionalities with Vue Router.
 
 ## Developing
 
-### Built With
-
-List main libraries, frameworks used including versions (Ionic, Vue etc...)
-
-### Prerequisites
-
-What is needed to set up the dev environment. For instance, global dependencies or any other tools. Include download links.
-
 ### Setting up Dev
 
-Here's a brief intro about what a developer must do in order to start developing
-the project further:
+Simly clone the repo and install dependencies to get started with development.
 
 ```shell
 git clone https://github.com/moduscreateorg/ionic-vue.git
@@ -41,60 +59,62 @@ cd ionic-vue/
 npm install
 ```
 
-And state what happens step-by-step. If there is any virtual environment, local server or database feeder needed, explain here.
+Testing will require peer dependencies to be installed. Peer dependencies are:
+
+- `vue`
+- `vue-template-compiler`
+- `vue-router`
+
+You can install peer dependencies without modifying package.json.
+
+```sh
+npm install vue vue-template-compiler vue-router --no-save
+```
+
+We recommend trying out your `ionic-vue` changes in an actual app. You can do that with `npm link`:
+
+```sh
+cd ionic-vue/
+npm link
+cd ../sample-app/
+npm link @modus/ionic-vue
+```
+
+[Beep](https://github.com/ModusCreateOrg/beep) is a fantastic sample application you can use to test `ionic-vue`.
 
 ### Building
 
-If your project needs some additional steps for the developer to build the
-project after some code changes, state them here. for example:
+Rollup automatically creates distribution packages.
+
+For development build run:
 
 ```shell
-./configure
-make
-make install
+npm run dev
 ```
 
-Here again you should state what actually happens when the code above gets executed.
-
-### Deploying / Publishing
-
-give instructions on how to build and release a new version
-In case there's some step you have to take that publishes this project to a
-server, this is the right time to state it.
+For production build run:
 
 ```shell
-packagemanager deploy your-project -s server.com -u username -p password
+npm run prod
 ```
-
-And again you'd need to tell what the previous code actually does.
-
-## Configuration
-
-Here you should write what are all of the configurations a user can enter when
-using the project.
 
 ## Tests
 
-Describe and show how to run the tests with code examples.
-Explain what these tests test and why.
+Make sure you have installed peer dependencies (explained above) before running tests.
 
 ```shell
-Give an example
+npm test
 ```
-
-## Style guide
-
-Explain your code style and show how to check it.
-
-## Api Reference
-
-If the api is external, link to api documentation. If not describe your api including authentication methods as well as explaining all the endpoints with their required parameters.
 
 ## Modus Create
 
 [Modus Create](https://moduscreate.com) is a digital product consultancy. We use a distributed team of the best talent in the world to offer a full suite of digital product design-build services; ranging from consumer facing apps, to digital migration, to agile development training, and business transformation.
 
-[![Modus Create](./images/modus.logo.svg)](https://moduscreate.com)
+[![Modus Create](https://res.cloudinary.com/modus-labs/image/upload/h_80/v1533109874/modus/logo-long-black.png)](https://moduscreate.com)
+
+This project is part of [Modus Labs](https://labs.moduscreate.com).
+
+[![Modus Labs](https://res.cloudinary.com/modus-labs/image/upload/h_80/v1531492623/labs/logo-black.png)](https://labs.moduscreate.com)
 
 ## Licensing
 
