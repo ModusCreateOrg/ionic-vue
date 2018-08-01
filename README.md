@@ -22,8 +22,7 @@ Now you can use it during the initialization step of your Vue app.
 import Vue from 'vue'
 import { IonicVueRouter, IonicAPI } from '@modus/ionic-vue'
 import Home from './Home.vue'
-import Acc from './Acc.vue'
-import Pwd from './Pwd.vue'
+import Page from './Page.vue'
 
 Vue.use(IonicVueRouter)
 Vue.use(IonicAPI)
@@ -32,20 +31,66 @@ new Vue({
   router: new IonicVueRouter({
     routes: [
       { path: '/', component: Home },
-      { path: '/acc', component: Acc },
-      { path: '/pwd', component: Pwd },
+      { path: '/page', component: Page },
     ],
   }),
 }).$mount('ion-app')
 ```
 
+Ionic requires a root element of `ion-app` in your HTML.
+
+IonicVueRouter requires `ion-vue-router` element in order to render the components.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script src="https://unpkg.com/@ionic/core@4.0.0-beta.0/dist/ionic.js"></script>
+        <link rel="stylesheet" href="https://unpkg.com/@ionic/core@4.0.0-beta.0/css/ionic.min.css"/>
+    </head>
+
+    <body>
+        <ion-app>
+            <ion-vue-router/>
+        </ion-app>
+    </body>
+</html>
+```
+
 ### IonicAPI
 
-`IonicAPI` abstracts DOM interaction of Ionic UI components inside a Vue application.
+`IonicAPI` abstracts DOM interaction of Ionic UI components inside a Vue application and can be used ia `this.$ionic`.
+
+```js
+Vue.component('Foo', {
+  methods: {
+    notify() {
+      this.$ionic
+        .newAlertController({
+          header: 'Notification',
+          subHeader: null,
+          message: 'Hello World',
+          buttons: ['Bye'],
+        })
+        .then(o => o.present())
+        .catch(err => console.error(err))
+    }
+  }
+})
+```
 
 ### IonicVueRouter
 
 Some Ionic components, such as [`NavController`](https://ionicframework.com/docs/api/navigation/NavController/), require routing support. `IonicVueRouter` binds Ionic routing functionalities with Vue Router.
+
+It is an extension of the Vue Router thus it can be used as a drop-in replacement with all of the methods, hooks, etc. working as expected.
+
+### Cookbook examples
+
+* [Basic routing](cookbook/index.html)
+* [Named views](cookbook/named-views.html)
+* [IonNav routing](cookbook/ion-nav-routing.html)
+* _More to come_
 
 ## Developing
 
@@ -90,6 +135,12 @@ For development build run:
 
 ```shell
 npm run dev
+```
+
+For automatic rebuild on changes run:
+
+```shell
+npm run watch
 ```
 
 For production build run:
