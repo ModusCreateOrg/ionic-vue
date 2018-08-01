@@ -157,6 +157,17 @@ Make sure you have installed peer dependencies (explained above) before running 
 npm test
 ```
 
+
+## Static Analysis
+
+The ionic-vue project uses SonarQube's SonarCloud product for static analysis scans.
+
+Our publically available dashboard for the project can be found [here](https://sonarcloud.io/dashboard?id=ionic_vue)
+
+
+![alt A security rating](https://sonarcloud.io/api/project_badges/measure?project=ionic_vue&metric=security_rating)
+
+
 ## Modus Create
 
 [Modus Create](https://moduscreate.com) is a digital product consultancy. We use a distributed team of the best talent in the world to offer a full suite of digital product design-build services; ranging from consumer facing apps, to digital migration, to agile development training, and business transformation.
