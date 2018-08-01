@@ -1,7 +1,7 @@
 {
   "name": "@modus/ionic-vue",
   "version": "1.0.0",
-  "description": "Ion Vue Router",
+  "description": "Ionic Vue Router",
   "homepage": "https://moduscreate.com",
   "author": "Michael Tintiuc <michael.tintiuc@moduscreate.com>",
   "user": "michaeltintiuc",
@@ -39,10 +39,8 @@
     "dev": "rollup -c ./build/rollup.config.js",
     "watch": "rollup -w -c ./build/rollup.config.js",
     "prod": "NODE_ENV=production rollup -c ./build/rollup.config.js --configProd",
-    "release": "bash ./build/release.sh",
-    "lint": "eslint src/**/* build/*.js test/**/*",
-    "test": "jest --coverage --verbose",
-    "test:node": "jest --coverage --verbose --env=node"
+    "lint": "eslint src/**/* test/**/*",
+    "test": "jest --coverage --verbose"
   },
   "devDependencies": {
     "babel-jest": "^23.4.2",
