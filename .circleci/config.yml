@@ -28,7 +28,9 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       # run tests!
+      - run: mkdir reports
       - run: npm test && bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
+     
 
       # SonarQube download, config and scanning
       - run: echo "Starting SonarQube scan"
