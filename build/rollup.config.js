@@ -2,7 +2,9 @@ import path from 'path'
 import buble from 'rollup-plugin-buble'
 import vue from 'rollup-plugin-vue'
 import { terser } from 'rollup-plugin-terser'
-import { version } from '../package.json'
+import { version as packageVersion } from '../package.json'
+
+const version = process.env.VERSION || packageVersion
 
 const banner = `
 /*!
