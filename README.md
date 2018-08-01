@@ -8,7 +8,9 @@
 
 Ionic integration adapters for Vue.
 
-![@modus/ionic-vue](/images/ionic-vue-banner.png?raw=true "@modus/ionic-vue")
+<p align="center">
+    <img src="/images/ionic-vue-banner.png?raw=true" alt="@modus/ionic-vue">
+</p>
 
 ## Installing / Getting started
 
@@ -159,6 +161,16 @@ Make sure you have installed peer dependencies (explained above) before running 
 ```shell
 npm test
 ```
+
+
+## Static Analysis
+
+The ionic-vue project uses SonarQube's SonarCloud product for static analysis scans.
+
+Our publically available dashboard for the project can be found [here](https://sonarcloud.io/dashboard?id=ionic_vue)
+
+
+
 
 ## Modus Create
 
