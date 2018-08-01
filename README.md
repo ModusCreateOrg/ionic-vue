@@ -9,7 +9,9 @@
 Ionic integration adapters for Vue.
 
 <p align="center">
-    <img src="/images/ionic-vue-banner.png?raw=true" alt="@modus/ionic-vue">
+    <img src="https://res.cloudinary.com/modus-labs/image/upload/w_800/v1533141242/ionic-vue/ionic-vue-banner.png"
+    width="400"
+    alt="@modus/ionic-vue">
 </p>
 
 ## Installing / Getting started
@@ -34,10 +36,7 @@ Vue.use(IonicAPI)
 
 new Vue({
   router: new IonicVueRouter({
-    routes: [
-      { path: '/', component: Home },
-      { path: '/page', component: Page },
-    ],
+    routes: [{ path: '/', component: Home }, { path: '/page', component: Page }],
   }),
 }).$mount('ion-app')
 ```
@@ -79,8 +78,8 @@ Vue.component('Foo', {
         })
         .then(o => o.present())
         .catch(err => console.error(err))
-    }
-  }
+    },
+  },
 })
 ```
 
@@ -92,10 +91,10 @@ It is an extension of the Vue Router thus it can be used as a drop-in replacemen
 
 ### Cookbook examples
 
-* [Basic routing](cookbook/index.html)
-* [Named views](cookbook/named-views.html)
-* [IonNav routing](cookbook/ion-nav-routing.html)
-* _More to come_
+- [Basic routing](cookbook/index.html)
+- [Named views](cookbook/named-views.html)
+- [IonNav routing](cookbook/ion-nav-routing.html)
+- _More to come_
 
 ## Developing
 
@@ -162,15 +161,11 @@ Make sure you have installed peer dependencies (explained above) before running 
 npm test
 ```
 
-
 ## Static Analysis
 
 The ionic-vue project uses SonarQube's SonarCloud product for static analysis scans.
 
 Our publically available dashboard for the project can be found [here](https://sonarcloud.io/dashboard?id=ionic_vue)
-
-
-
 
 ## Modus Create
 
