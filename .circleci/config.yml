@@ -30,6 +30,7 @@ jobs:
       # run tests!
       - run: mkdir reports
       - run: npm test && bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
+      - run: npm run test
      
 
       # SonarQube download, config and scanning
