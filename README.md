@@ -180,3 +180,4 @@ This project is part of [Modus Labs](https://labs.moduscreate.com).
 ## Licensing
 
 This project is [MIT licensed](./LICENSE).
+
