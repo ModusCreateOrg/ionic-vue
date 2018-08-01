@@ -1,7 +1,7 @@
 {
   "name": "@modus/ionic-vue",
   "version": "1.0.0",
-  "description": "Ionic Vue Router",
+  "description": "Ionic integration adapters for Vue",
   "homepage": "https://moduscreate.com",
   "author": "Michael Tintiuc <michael.tintiuc@moduscreate.com>",
   "user": "michaeltintiuc",
