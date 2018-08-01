@@ -56,4 +56,11 @@ describe('API', () => {
       return done()
     })
   })
+
+  it('Creates modal controllers', done => {
+    return API.newModalController({ bar: 'foo' }).then(c => {
+      expect(c.bar).toBe('foo')
+      return done()
+    })
+  })
 })
