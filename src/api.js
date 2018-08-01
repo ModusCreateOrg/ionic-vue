@@ -15,6 +15,9 @@ const api = {
   newLoadingController(props) {
     return this.newAbstractController('ion-loading-controller', props)
   },
+  newModalController(props) {
+    return this.newAbstractController('ion-modal-controller', props)
+  },
   newAbstractController(tag, props) {
     const controller = initComponent(tag).then(ctrl => ctrl.create(props))
     return Promise.resolve(controller)
