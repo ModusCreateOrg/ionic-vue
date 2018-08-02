@@ -4,6 +4,7 @@ import IonVueRouter from './components/ion-vue-router.vue'
 let globalVue = null
 let globalVueRouter = null
 
+// Detect environment (browser, module, etc.)
 if (typeof window !== 'undefined' && window.Vue !== undefined) {
   globalVue = window.Vue
   globalVueRouter = window.VueRouter
@@ -16,23 +17,41 @@ if (!globalVueRouter) {
   globalVueRouter = VueRouter
 }
 
+// Extend the official VueRouter
 export default class Router extends globalVueRouter {
   constructor(...args) {
     super(...args)
+
+    // The direction user navigates in
     this.direction = args.direction || 1
+
+    // Number of views navigated
     this.viewCount = args.viewCount || 0
+
+    // Stack of previous routes
     this.prevRouteStack = []
+
+    // Extend the existing history object
     this.extendHistory()
   }
   extendHistory() {
+    // Save a reference to the original method
     this.history._updateRoute = this.history.updateRoute
+
     this.history.updateRoute = nextRoute => {
+      // Guesstimate the direction of the next route
       this.direction = this.guessDirection(nextRoute)
+
+      // Increment or decrement the view count
       this.viewCount += this.direction
+
+      // Call the original method
       this.history._updateRoute(nextRoute)
     }
   }
   canGoBack() {
+    // We can display the back button if we're not on /
+    // or there were more than 1 views rendered
     return this.viewCount > 1 && this.currentRoute.fullPath.length > 1
   }
   guessDirection(nextRoute) {
@@ -60,13 +79,17 @@ export default class Router extends globalVueRouter {
 }
 
 Router.install = function(Vue) {
+  // If already installed - skip
   if (Router.install.installed) {
     return
   }
 
   Router.install.installed = true
 
+  // Install the official VueRouter
   globalVueRouter.install(Vue)
+
+  // Register the IonVueRouter component globally
   Vue.component('IonVueRouter', IonVueRouter)
 }
 
