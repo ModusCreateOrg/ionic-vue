@@ -27,9 +27,6 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run:
-          command: |
-            npm i -D jest-sonar-reporter
 
       # run tests!
       - run: npm test && bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
@@ -43,5 +40,4 @@ jobs:
       - run: echo "sonar.organization=$sonarorg" >> sonar-project.properties 
       - run: sonar-scanner-3.2.0.1227-linux/bin/sonar-scanner
       - run: echo "Scan complete, data sent to sonarcloud"
-
 
