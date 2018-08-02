@@ -27,9 +27,6 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run:
-          command: |
-            npm i -D jest-sonar-reporter
 
       # run tests!
       - run: npm test && bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
