@@ -46,7 +46,16 @@ export default {
 
       // Component to be rendered
       enteringEl: null,
+
+      // Flag to see if we're still in a transition
+      inTransition: false,
     }
+  },
+  created() {
+    // Cancel navigation if there's a running transition
+    this.$router.beforeEach((to, from, next) => {
+      return next(!this.inTransition)
+    })
   },
   methods: {
     // Catch the bubbled-up event from the Ionic's back button
@@ -116,11 +125,19 @@ export default {
     leave(el, done) {
       const promise = this.transition(this.enteringEl, el)
 
+      this.inTransition = true
+
       // Skip any transition if we don't get back a Promise
-      if (!promise) return done()
+      if (!promise) {
+        this.inTransition = false
+        return done()
+      }
 
       // Perform navigation once the transition was finished
-      return promise.then(() => done(true))
+      return promise.then(() => {
+        this.inTransition = false
+        return done(true)
+      })
     },
     // Enter the new route
     enter(el, done) {
