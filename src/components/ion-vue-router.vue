@@ -66,6 +66,10 @@ export default {
 
       let defaultHref
 
+      // Explicitly override router direction
+      // This will always trigger a back transition
+      this.$router.directionOverride = -1
+
       // If we can go back - do so
       // otherwise if there's a default fall-back - use it
       // else - skip

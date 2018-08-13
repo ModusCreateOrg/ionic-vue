@@ -25,6 +25,9 @@ export default class Router extends globalVueRouter {
     // The direction user navigates in
     this.direction = args.direction || 1
 
+    // Override normal direction
+    this.directionOverride = null
+
     // Number of views navigated
     this.viewCount = args.viewCount || 0
 
@@ -40,13 +43,16 @@ export default class Router extends globalVueRouter {
 
     this.history.updateRoute = nextRoute => {
       // Guesstimate the direction of the next route
-      this.direction = this.guessDirection(nextRoute)
+      this.direction = this.directionOverride || this.guessDirection(nextRoute)
 
       // Increment or decrement the view count
       this.viewCount += this.direction
 
       // Call the original method
       this.history._updateRoute(nextRoute)
+
+      // Reset direction for overrides
+      this.directionOverride = null
     }
   }
   canGoBack() {
