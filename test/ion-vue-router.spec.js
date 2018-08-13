@@ -51,7 +51,7 @@ describe('IonVueRouter', () => {
 
   it('Sets the default props correctly', () => {
     const constructor = Vue.extend(IonVueRouter)
-    const component = new constructor()
+    const component = new constructor({ router: new Router() })
     expect(component.bindCss).toBeFalsy()
     expect(component.animated).toBeTruthy()
     expect(component.name).toBe('default')
@@ -123,7 +123,7 @@ describe('IonVueRouter', () => {
 
   it('Runs stub methods correctly', () => {
     const constructor = Vue.extend(IonVueRouter)
-    const component = new constructor()
+    const component = new constructor({ router: new Router() })
 
     component.enterCancelled()
     component.leaveCancelled()
