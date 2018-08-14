@@ -1,6 +1,6 @@
 {
   "name": "@modus/ionic-vue",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "Ionic integration adapters for Vue",
   "homepage": "https://moduscreate.com",
   "author": "Michael Tintiuc <michael.tintiuc@moduscreate.com>",
@@ -71,10 +71,5 @@
     "reportPath": "reports",
     "reportFile": "test-report.xml",
     "indent": 4
-  },
-  "dependencies": {
-    "vue": "^2.5.16",
-    "vue-router": "^3.0.1",
-    "vue-template-compiler": "^2.5.16"
   }
 }
