@@ -89,7 +89,6 @@ export default class Router extends globalVueRouter {
 }
 
 Router.install = function(Vue, { disableIonicTransitions } = {}) {
-  console.log(disableIonicTransitions)
   // If already installed - skip
   if (Router.install.installed) {
     return
