@@ -96,6 +96,7 @@ It is an extension of the Vue Router thus it can be used as a drop-in replacemen
 - [Named views with transitions](cookbook/named-views-transitions.html)
 - [IonNav routing](cookbook/ion-nav-routing.html)
 - [Custom transitions](cookbook/custom-transitions.html)
+- [Mix Ionic and custom transitions](cookbook/mixed-transitions.html)
 
 ## Developing
 

@@ -2,7 +2,11 @@
   <ion-router-outlet
     ref="ionRouterOutlet"
     @click="catchIonicGoBack">
+    <router-view
+      v-if="customTransition"
+      :name="name"/>
     <transition
+      v-else
       :css="bindCSS"
       mode="in-out"
       @before-enter="beforeEnter"
@@ -52,12 +56,17 @@ export default {
 
       // Flag to see if we're still in a transition
       inTransition: false,
+
+      customTransition: false,
     }
   },
   created() {
     // Cancel navigation if there's a running transition
     this.$router.beforeEach((to, from, next) => {
-      return next(!this.inTransition)
+      this.customTransition = to.meta.customTransition || false
+      return this.$nextTick(() => {
+        return next(!this.inTransition)
+      })
     })
   },
   methods: {
