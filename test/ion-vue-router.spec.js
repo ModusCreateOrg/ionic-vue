@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from '../src/router.js'
 import IonVueRouter from '../src/components/ion-vue-router.vue'
+import IonVueRouterTransitionless from '../src/components/ion-vue-router-transitionless.vue'
 
 describe('IonVueRouter', () => {
   Vue.use(Router)
@@ -58,7 +59,7 @@ describe('IonVueRouter', () => {
   })
 
   it('Catches back button click event', () => {
-    const constructor = Vue.extend(IonVueRouter)
+    const constructor = Vue.extend(IonVueRouterTransitionless)
     const component = new constructor({ router: new Router({ mode: 'abstract' }) })
 
     expect(component.catchIonicGoBack({})).toBeFalsy()
