@@ -2,6 +2,7 @@ import VueRouter from 'vue-router'
 import IonVueRouter from './components/ion-vue-router.vue'
 import IonVueRouterTransitionless from './components/ion-vue-router-transitionless.vue'
 
+
 let globalVue = null
 let globalVueRouter = null
 let globalDisableIonicTransitions = false
