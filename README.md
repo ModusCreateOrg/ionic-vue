@@ -63,7 +63,7 @@ IonicVueRouter requires `ion-vue-router` element in order to render the componen
 
 ### IonicAPI
 
-`IonicAPI` abstracts DOM interaction of Ionic UI components inside a Vue application and can be used ia `this.$ionic`.
+`IonicAPI` abstracts DOM interaction of Ionic UI components inside a Vue application and can be used via `this.$ionic`.
 
 ```js
 Vue.component('Foo', {
@@ -102,7 +102,7 @@ It is an extension of the Vue Router thus it can be used as a drop-in replacemen
 
 ### Setting up Dev
 
-Simly clone the repo and install dependencies to get started with development.
+Simply clone the repo and install dependencies to get started with development.
 
 ```shell
 git clone https://github.com/moduscreateorg/ionic-vue.git
@@ -167,7 +167,7 @@ npm test
 
 The ionic-vue project uses SonarQube's SonarCloud product for static analysis scans.
 
-Our publically available dashboard for the project can be found [here](https://sonarcloud.io/dashboard?id=ionic_vue)
+Our publicly available dashboard for the project can be found [here](https://sonarcloud.io/dashboard?id=ionic_vue)
 
 ## Modus Create
 
