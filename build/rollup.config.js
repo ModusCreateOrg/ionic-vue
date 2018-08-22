@@ -37,7 +37,14 @@ function baseConfig() {
       outputConfig('.esm', 'esm'),
       outputConfig('.common', 'cjs'),
     ],
-    external: ['vue', 'vue-router'],
+    external: [
+      'vue',
+      'vue-router',
+      '@ionic/core/dist/esm',
+      '@ionic/core/css/ionic.css',
+      '@ionic/core/dist/ionic/svg',
+      'ionicons/dist/collection/icon/icon.css',
+    ],
     plugins: [
       vue(),
       buble({

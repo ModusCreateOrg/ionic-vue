@@ -64,7 +64,8 @@
   "peerDependencies": {
     "vue": "^2.5.16",
     "vue-template-compiler": "^2.5.16",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "@ionic/core": "4.0.0-beta.3"
   },
   "jestSonar": {
     "reportPath": "reports",
