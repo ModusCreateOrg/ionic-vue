@@ -15,29 +15,14 @@ export default class Api {
     return getOrCreateController('_actionSheetController', 'ion-action-sheet-controller')
   }
 
-  // Set the ActionSheetController
-  set actionSheetController(value) {
-    this._actionSheetController = value
-  }
-
   // Create or return an AlertController instance
   get alertController() {
     return getOrCreateController('_alertController', 'ion-alert-controller')
   }
 
-  // Set the AlertController
-  set alertController(value) {
-    this._alertController = value
-  }
-
   // Create or return a LoadingController instance
   get loadingController() {
     return getOrCreateController('_loadingController', 'ion-loading-controller')
-  }
-
-  // Set the LoadingController
-  set loadingController(value) {
-    this._loadingController = value
   }
 
   // Create or return a MenuController instance
@@ -50,19 +35,9 @@ export default class Api {
     )
   }
 
-  // Set the menuController
-  set menuController(value) {
-    this._menuController = value
-  }
-
   // Create or return a ModalController instance
   get modalController() {
     return getOrCreateController('_modalController', 'ion-modal-controller')
-  }
-
-  // Set the ModalController
-  set modalController(value) {
-    this._modalController = value
   }
 
   // Create or return a PopoverController instance
@@ -70,19 +45,9 @@ export default class Api {
     return getOrCreateController('_popoverController', 'ion-popover-controller')
   }
 
-  // Set the PopoverController
-  set popoverController(value) {
-    this._popoverController = value
-  }
-
   // Create or return a ToastController instance
   get toastController() {
     return getOrCreateController('_toastController', 'ion-toast-controller')
-  }
-
-  // Set the ToastController
-  set toastController(value) {
-    this._toastController = value
   }
 }
 
