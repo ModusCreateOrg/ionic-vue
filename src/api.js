@@ -2,14 +2,6 @@ import ProxyController from './proxy-controller'
 import ProxyMenuController from './proxy-menu-controller'
 
 export default class Api {
-  constructor() {
-    // Cached controllers
-    this._actionSheetController = null
-    this._alertController = null
-    this._loadingController = null
-    this._modalController = null
-  }
-
   // Create or return a ActionSheetController instance
   get actionSheetController() {
     return getOrCreateController('_actionSheetController', 'ion-action-sheet-controller')
@@ -27,12 +19,7 @@ export default class Api {
 
   // Create or return a MenuController instance
   get menuController() {
-    return getOrCreateController(
-      '_menuController',
-      'ion-menu-controller',
-      null,
-      ProxyMenuController
-    )
+    return getOrCreateController('_menuController', 'ion-menu-controller', ProxyMenuController)
   }
 
   // Create or return a ModalController instance
@@ -50,6 +37,15 @@ export default class Api {
     return getOrCreateController('_toastController', 'ion-toast-controller')
   }
 }
+
+// Cached controllers
+Api._actionSheetController = null
+Api._alertController = null
+Api._loadingController = null
+Api._menuController = null
+Api._modalController = null
+Api._popoverController = null
+Api._toastController = null
 
 Api.install = function(Vue) {
   // If installed - skip
@@ -71,9 +67,9 @@ Api.install = function(Vue) {
 }
 
 // Get existing controller instance or initialize a new one
-function getOrCreateController(cache, tag, wrapper, proxy = ProxyController) {
+function getOrCreateController(cache, tag, proxy = ProxyController) {
   if (!Api[cache]) {
-    Api[cache] = new proxy(tag, wrapper)
+    Api[cache] = new proxy(tag)
   }
 
   return Api[cache]
