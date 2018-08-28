@@ -1,43 +1,98 @@
-import { Delegate } from './framework-delegate'
+import ProxyController from './proxy-controller'
+import ProxyMenuController from './proxy-menu-controller'
 
-const api = {
-  // Create or return a NavController instance and set root to a Vue component
-  newNavController(root) {
-    return Promise.resolve(
-      initComponent('ion-nav', 'ion-app').then(ctrl => {
-        ctrl.root = root
-        return ctrl
-      })
+export default class Api {
+  constructor() {
+    // Cached controllers
+    this._actionSheetController = null
+    this._alertController = null
+    this._loadingController = null
+    this._modalController = null
+  }
+
+  // Create or return a ActionSheetController instance
+  get actionSheetController() {
+    return getOrCreateController('_actionSheetController', 'ion-action-sheet-controller')
+  }
+
+  // Set the ActionSheetController
+  set actionSheetController(value) {
+    this._actionSheetController = value
+  }
+
+  // Create or return an AlertController instance
+  get alertController() {
+    return getOrCreateController('_alertController', 'ion-alert-controller')
+  }
+
+  // Set the AlertController
+  set alertController(value) {
+    this._alertController = value
+  }
+
+  // Create or return a LoadingController instance
+  get loadingController() {
+    return getOrCreateController('_loadingController', 'ion-loading-controller')
+  }
+
+  // Set the LoadingController
+  set loadingController(value) {
+    this._loadingController = value
+  }
+
+  // Create or return a MenuController instance
+  get menuController() {
+    return getOrCreateController(
+      '_menuController',
+      'ion-menu-controller',
+      null,
+      ProxyMenuController
     )
-  },
-  // Create or return an AlertController instance and set it's properties
-  newAlertController(props) {
-    return this.newAbstractController('ion-alert-controller', props)
-  },
-  // Create or return a LoadingController instance and set it's properties
-  newLoadingController(props) {
-    return this.newAbstractController('ion-loading-controller', props)
-  },
-  // Create or return a ModalController  instance and set it's properties
-  newModalController(props) {
-    return this.newAbstractController('ion-modal-controller', props)
-  },
-  // Initialize an Ionic component and set it's properties
-  newAbstractController(tag, props) {
-    const controller = initComponent(tag).then(ctrl => ctrl.create(props))
-    return Promise.resolve(controller)
-  },
+  }
+
+  // Set the menuController
+  set menuController(value) {
+    this._menuController = value
+  }
+
+  // Create or return a ModalController instance
+  get modalController() {
+    return getOrCreateController('_modalController', 'ion-modal-controller')
+  }
+
+  // Set the ModalController
+  set modalController(value) {
+    this._modalController = value
+  }
+
+  // Create or return a PopoverController instance
+  get popoverController() {
+    return getOrCreateController('_popoverController', 'ion-popover-controller')
+  }
+
+  // Set the PopoverController
+  set popoverController(value) {
+    this._popoverController = value
+  }
+
+  // Create or return a ToastController instance
+  get toastController() {
+    return getOrCreateController('_toastController', 'ion-toast-controller')
+  }
+
+  // Set the ToastController
+  set toastController(value) {
+    this._toastController = value
+  }
 }
 
-export default api
-
-api.install = function(Vue) {
+Api.install = function(Vue) {
   // If installed - skip
-  if (api.install.installed) {
+  if (Api.install.installed) {
     return
   }
 
-  api.install.installed = true
+  Api.install.installed = true
 
   // Ignore Ionic custom elements
   Vue.config.ignoredElements.push(/^ion-/)
@@ -45,31 +100,16 @@ api.install = function(Vue) {
   // Give access to the API methods
   Object.defineProperty(Vue.prototype, '$ionic', {
     get() {
-      return api
+      return new Api()
     },
   })
 }
 
-// Initialize an Ionic component and append it to DOM
-function initComponent(tag, wrapper = 'body') {
-  // If wrapper doesn't exist use body as fall-back
-  const wrapperEl = document.querySelector(wrapper) || document.body
-  const element = getOrAppendElement(tag, wrapperEl)
-
-  // Set the framework-specific implementations for Ionic's internals
-  element.delegate = Delegate
-
-  // Return a Promise
-  return element.componentOnReady()
-}
-
-// Return existing Element (tag) or create a new one
-function getOrAppendElement(tag, wrapper) {
-  let element = document.querySelector(tag)
-
-  if (element) {
-    return element
+// Get existing controller instance or initialize a new one
+function getOrCreateController(cache, tag, wrapper, proxy = ProxyController) {
+  if (!Api[cache]) {
+    Api[cache] = new proxy(tag, wrapper)
   }
 
-  return wrapper.appendChild(document.createElement(tag))
+  return Api[cache]
 }

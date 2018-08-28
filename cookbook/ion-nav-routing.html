@@ -8,7 +8,7 @@
         <meta name="msapplication-tap-highlight" content="no">
         <script src="https://unpkg.com/vue"></script>
         <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
-        <script src="https://unpkg.com/@modus/ionic-vue@latest/dist/ionic-vue.js"></script>
+        <script src="../dist/ionic-vue.js"></script>
         <script src="https://unpkg.com/@ionic/core@latest/dist/ionic.js"></script>
         <link rel="stylesheet" href="https://unpkg.com/@ionic/core@latest/css/ionic.min.css"/>
     </head>
@@ -36,14 +36,20 @@
                     <ion-content class="ion-content" padding>
                         <ion-button @click="goPage">Go to page</ion-button>
                         <ion-button @click="goPageWithData">Go to page with data</ion-button>
-                    </ion-content>
+                    </ion-con<ion-menu side="start">
+    <ion-header>
+      <ion-toolbar color="secondary">
+        <ion-title>Left Menu</ion-title>
+      </ion-toolbar>
+    </ion-header>
+  </ion-menu>tent>
                 </ion-page>`,
                 methods: {
                     goPage() {
-                        this.$ionic.newNavController().then(ctrl => ctrl.push(Page))
+                        this.$ionic.navController.push(Page)
                     },
                     goPageWithData() {
-                        this.$ionic.newNavController().then(ctrl => ctrl.push(Page, { buttonText: 'New text' }))
+                        this.$ionic.navController.push(Page, { buttonText: 'New text' })
                     }
                 }
             }
@@ -63,7 +69,7 @@
                 </ion-page>`,
                 methods: {
                     goHome() {
-                        this.$ionic.newNavController().then(ctrl => ctrl.popToRoot())
+                        this.$ionic.navController.popToRoot()
                     }
                 }
             }
@@ -71,8 +77,9 @@
             Vue.use(IonicVue.IonicAPI)
 
             new Vue({
-                mounted() {
-                    this.$ionic.newNavController(Home)
+                async mounted() {
+                    //const x = await this.$ionic.loadingController.create({ message: 'asdasdasd' })
+                   // x.present()
                 }
             }).$mount('ion-app')
         </script>
