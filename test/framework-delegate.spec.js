@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import API from '../src/api'
-import { Delegate } from '../src/framework-delegate.js'
+import Delegate from '../src/framework-delegate.js'
 
 // Make sure the _Vue variable is accessible
 API.install(Vue)

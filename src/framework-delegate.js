@@ -1,6 +1,6 @@
 import { _Vue } from './api'
 
-export const Delegate = {
+export default {
   // Attach the passed Vue component to DOM
   attachViewToDom(parentElement, component, propsData, classes) {
     // Create a Vue component constructor

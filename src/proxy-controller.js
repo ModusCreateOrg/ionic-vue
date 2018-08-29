@@ -1,5 +1,5 @@
 import * as apiUtils from './api-utils'
-import { Delegate } from './framework-delegate'
+import Delegate from './framework-delegate'
 
 // A proxy class that allows early access to controller methods
 export default class ProxyController {
