@@ -1,6 +1,8 @@
 import ProxyController from './proxy-controller'
 import ProxyMenuController from './proxy-menu-controller'
 
+export let _Vue
+
 export default class Api {
   // Create or return a ActionSheetController instance
   get actionSheetController() {
@@ -49,9 +51,11 @@ Api._toastController = null
 
 Api.install = function(Vue) {
   // If installed - skip
-  if (Api.install.installed) {
+  if (Api.install.installed && _Vue === Vue) {
     return
   }
+
+  _Vue = Vue
 
   Api.install.installed = true
 

@@ -1,4 +1,5 @@
 import * as apiUtils from './api-utils'
+import { Delegate } from './framework-delegate'
 
 // A proxy class that allows early access to controller methods
 export default class ProxyController {
@@ -6,7 +7,8 @@ export default class ProxyController {
     this.tag = tag
   }
 
-  create(opts) {
+  create(opts = {}) {
+    opts.delegate = Delegate
     return apiUtils.proxyMethod(this.tag, 'create', opts)
   }
 
