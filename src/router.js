@@ -2,27 +2,13 @@ import VueRouter from 'vue-router'
 import IonVueRouter from './components/ion-vue-router.vue'
 import IonVueRouterTransitionless from './components/ion-vue-router-transitionless.vue'
 
-let globalVue = null
-let globalVueRouter = null
-let globalDisableIonicTransitions = false
+const inBrowser = typeof window !== 'undefined'
 
 // Detect environment (browser, module, etc.)
-if (typeof window !== 'undefined' && window.Vue !== undefined) {
-  globalVue = window.Vue
-  globalVueRouter = window.VueRouter
-  globalDisableIonicTransitions = window.disableIonicTransitions
-} else if (typeof global !== 'undefined') {
-  globalVue = global.Vue
-  globalVueRouter = global.VueRouter
-  globalDisableIonicTransitions = global.disableIonicTransitions
-}
-
-if (!globalVueRouter) {
-  globalVueRouter = VueRouter
-}
+const _VueRouter = inBrowser && window.VueRouter ? window.VueRouter : VueRouter
 
 // Extend the official VueRouter
-export default class Router extends globalVueRouter {
+export default class Router extends _VueRouter {
   constructor(...args) {
     super(...args)
 
@@ -97,17 +83,14 @@ Router.install = function(Vue, { disableIonicTransitions } = {}) {
   Router.install.installed = true
 
   // Install the official VueRouter
-  globalVueRouter.install(Vue)
+  _VueRouter.install(Vue)
 
   // Register the IonVueRouter component globally
   // either with default Ionic transitions turned on or off
-  Vue.component(
-    'IonVueRouter',
-    !disableIonicTransitions ? IonVueRouter : IonVueRouterTransitionless
-  )
+  Vue.component('IonVueRouter', disableIonicTransitions ? IonVueRouterTransitionless : IonVueRouter)
 }
 
 // Auto-install when Vue is found (i.e. in browser via <script> tag)
-if (globalVue) {
-  globalVue.use(Router, { disableIonicTransitions: globalDisableIonicTransitions })
+if (inBrowser && window.Vue) {
+  window.Vue.use(Router, { disableIonicTransitions: window.disableIonicTransitions })
 }
