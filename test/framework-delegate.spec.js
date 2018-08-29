@@ -1,9 +1,7 @@
 import Vue from 'vue'
-import API from '../src/api'
 import Delegate from '../src/framework-delegate.js'
 
-// Make sure the _Vue variable is accessible
-API.install(Vue)
+const delegate = new Delegate(Vue)
 
 const app = document.createElement('div')
 app.id = 'app'
@@ -18,7 +16,7 @@ describe('Framework delegation', () => {
       template: '<p>foo</p>',
     }
 
-    return Delegate.attachViewToDom(app, component, { foo: 'bar' }, ['foo']).then(el => {
+    return delegate.attachViewToDom(app, component, { foo: 'bar' }, ['foo']).then(el => {
       expect(el.classList.contains('foo')).toBeTruthy()
       expect(el.__vue__.foo).toBe('bar')
       return
@@ -30,7 +28,7 @@ describe('Framework delegation', () => {
     const div = document.querySelector('p')
     expect(typeof div.__vue__).toBe('object')
 
-    return Delegate.removeViewFromDom(app, div).then(() => {
+    return delegate.removeViewFromDom(app, div).then(() => {
       return expect(div.__vue__).toBe(null)
     })
   })

@@ -1,26 +1,28 @@
-import { _Vue } from './api'
+export default class Delegate {
+  constructor(Vue) {
+    this.Vue = Vue
+  }
 
-export default {
   // Attach the passed Vue component to DOM
   attachViewToDom(parentElement, component, propsData, classes) {
     // Create a Vue component constructor
-    const vueComponent = _Vue.extend(component)
+    const vueController = this.Vue.extend(component)
 
     // Create a new instance of the Vue component
-    const page = new vueComponent({ propsData }).$mount()
+    const vueComponent = new vueController({ propsData }).$mount()
 
     // Add any classes the Vue component's root element
     if (classes) {
       for (const cls of classes) {
-        page.$el.classList.add(cls)
+        vueComponent.$el.classList.add(cls)
       }
     }
 
-    parentElement.appendChild(page.$el)
+    parentElement.appendChild(vueComponent.$el)
 
     // Resolve the Vue component element
-    return Promise.resolve(page.$el)
-  },
+    return Promise.resolve(vueComponent.$el)
+  }
 
   // Remove the earlier created Vue component from DOM
   removeViewFromDom(parentElement, childElement) {
@@ -33,5 +35,5 @@ export default {
     parentElement.removeChild(childElement)
 
     return Promise.resolve()
-  },
+  }
 }
