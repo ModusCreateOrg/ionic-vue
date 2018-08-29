@@ -4,11 +4,14 @@ import ProxyController from './proxy-controller'
 export default class ProxyDelegateController extends ProxyController {
   constructor(tag, delegate) {
     super(tag)
-    this.delegate = delegate
+
+    if (!ProxyDelegateController.delegate) {
+      ProxyDelegateController.delegate = delegate
+    }
   }
 
   create(opts = {}) {
-    opts.delegate = this.delegate
+    opts.delegate = ProxyDelegateController.delegate
     return super.create(opts)
   }
 }
