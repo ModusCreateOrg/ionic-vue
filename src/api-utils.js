@@ -1,6 +1,5 @@
 // A proxy method that initializes the controller and calls requested method
 export function proxyMethod(tag, method, ...opts) {
-  console.log(opts)
   return initController(tag).then(ctrl => ctrl[method].apply(ctrl, opts))
 }
 

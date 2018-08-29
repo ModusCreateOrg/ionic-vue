@@ -39,7 +39,7 @@ describe('API', () => {
     const app = new Vue()
 
     expect(typeof app.$ionic).toBe('object')
-    expect(API.install()).toBeFalsy()
+    expect(API.install(Vue)).toBeFalsy()
   })
 
   it('Creates action sheet controller', () => {

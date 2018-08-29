@@ -19,7 +19,7 @@ export const Delegate = {
     parentElement.appendChild(page.$el)
 
     // Resolve the Vue component element
-    return Promise.resolve(parentElement)
+    return Promise.resolve(page.$el)
   },
 
   // Remove the earlier created Vue component from DOM
