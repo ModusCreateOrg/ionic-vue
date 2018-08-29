@@ -3,7 +3,7 @@ import ProxyController from './proxy-controller'
 import ProxyMenuController from './proxy-menu-controller'
 import ProxyDelegateController from './proxy-delegate-controller'
 
-let _Vue
+let _Vue, _Delegate
 
 export default class Api {
   // Create or return a ActionSheetController instance
@@ -60,6 +60,7 @@ Api.install = function(Vue) {
   }
 
   _Vue = Vue
+  _Delegate = new Delegate(Vue)
 
   Api.install.installed = true
 
@@ -95,7 +96,7 @@ function getOrCreateMenuController(tag) {
 // Get existing Delegated controller instance or initialize a new one
 function getOrCreateDelegatedController(tag) {
   if (!Api.cache[tag]) {
-    Api.cache[tag] = new ProxyDelegateController(tag, new Delegate(_Vue))
+    Api.cache[tag] = new ProxyDelegateController(tag, _Delegate)
   }
 
   return Api.cache[tag]
