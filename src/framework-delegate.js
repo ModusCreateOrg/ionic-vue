@@ -27,12 +27,9 @@ export default class Delegate {
   // Remove the earlier created Vue component from DOM
   removeViewFromDom(parentElement, childElement) {
     // Destroy the Vue component instance
-    if (childElement.hasOwnProperty('__vue__')) {
+    if (childElement.__vue__) {
       childElement.__vue__.$destroy()
     }
-
-    // Remove from DOM
-    parentElement.removeChild(childElement)
 
     return Promise.resolve()
   }
