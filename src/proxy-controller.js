@@ -6,7 +6,7 @@ export default class ProxyController {
     this.tag = tag
   }
 
-  create(opts) {
+  create(opts = {}) {
     return apiUtils.proxyMethod(this.tag, 'create', opts)
   }
 

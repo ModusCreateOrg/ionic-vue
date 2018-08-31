@@ -1,74 +1,56 @@
-import Vue from 'vue'
+export default class Delegate {
+  constructor(Vue) {
+    this.Vue = Vue
+  }
 
-let globalVue = null
+  // Attach the passed Vue component to DOM
+  attachViewToDom(parentElement, component, opts, classes) {
+    // Get the Vue controller
+    return this.vueController(component).then(controller => {
+      const vueComponent = this.vueComponent(controller, opts)
 
-// Detect environment (browser, module, etc.)
-if (typeof window !== 'undefined' && window.Vue !== undefined) {
-  globalVue = window.Vue
-} else if (typeof global !== 'undefined') {
-  globalVue = global.Vue
-}
+      // Add any classes to the Vue component's root element
+      addClasses(vueComponent.$el, classes)
 
-if (!globalVue) {
-  globalVue = Vue
-  globalVue.config.productionTip = false
-}
+      // Append the Vue component to DOM
+      parentElement.appendChild(vueComponent.$el)
+      return vueComponent.$el
+    })
+  }
 
-// Attach the passed Vue component to DOM
-export function attachViewToDom(parentElement, vueComponent, propsData, classes) {
-  // Create an appropriate wrapper for the component
-  const wrapper = document.createElement(shouldWrapInIonPage(parentElement) ? 'ion-page' : 'div')
+  // Remove the earlier created Vue component from DOM
+  removeViewFromDom(parentElement, childElement) {
+    // Destroy the Vue component instance
+    if (childElement.__vue__) {
+      childElement.__vue__.$destroy()
+    }
 
-  parentElement.appendChild(wrapper)
+    return Promise.resolve()
+  }
 
-  // Create a Vue component constructor
-  const vueElement = globalVue.extend(vueComponent)
+  // Handle creation of sync and async components
+  vueController(component) {
+    return Promise.resolve(
+      typeof component === 'function' && component.cid === undefined
+        ? component().then(c => this.Vue.extend(isESModule(c) ? c.default : c))
+        : this.Vue.extend(component)
+    )
+  }
 
   // Create a new instance of the Vue component
-  const page = new vueElement({ propsData }).$mount(wrapper)
-
-  // Add any classes the Vue component's root element
-  if (classes) {
-    for (const cls of classes) {
-      page.$el.classList.add(cls)
-    }
+  vueComponent(controller, opts) {
+    return new controller(opts).$mount()
   }
-
-  // Resolve the Vue component element
-  return Promise.resolve(page.$el)
 }
 
-// Remove the earlier created Vue component from DOM
-export function removeViewFromDom(parentElement, childElement) {
-  // Destroy the Vue component instance
-  if (childElement.hasOwnProperty('__vue__')) {
-    childElement.__vue__.$destroy()
+const hasSymbol = typeof Symbol === 'function' && typeof Symbol.toStringTag === 'symbol'
+
+function isESModule(obj) {
+  return obj.__esModule || (hasSymbol && obj[Symbol.toStringTag] === 'Module')
+}
+
+function addClasses(element, classes = []) {
+  for (const cls of classes) {
+    element.classList.add(cls)
   }
-
-  // Remove from DOM
-  parentElement.removeChild(childElement)
-
-  return Promise.resolve()
-}
-
-const Delegate = {
-  attachViewToDom,
-  removeViewFromDom,
-}
-
-export { Delegate }
-
-// Detect wrapper to be used
-function shouldWrapInIonPage(element) {
-  return isElementModal(element) || isElementNav(element)
-}
-
-// Check if element is ION-NAV
-function isElementNav(element) {
-  return element.tagName.toUpperCase() === 'ION-NAV'
-}
-
-// Check if element has modal-wrapper class
-function isElementModal(element) {
-  return element.classList.contains('modal-wrapper')
 }

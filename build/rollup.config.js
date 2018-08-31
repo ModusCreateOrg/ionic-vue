@@ -41,7 +41,7 @@ function baseConfig() {
       'vue',
       'vue-router',
       '@ionic/core/dist/esm',
-      '@ionic/core/css/ionic.css',
+      '@ionic/core/css/ionic.bundle.css',
       '@ionic/core/dist/ionic/svg',
       'ionicons/dist/collection/icon/icon.css',
     ],
