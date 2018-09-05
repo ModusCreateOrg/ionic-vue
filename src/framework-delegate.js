@@ -7,10 +7,10 @@ export default class Delegate {
   attachViewToDom(parentElement, component, opts, classes) {
     // Handle HTML elements
     if (isElement(component)) {
-      // Add any classes to the Vue component's root element
+      // Add any classes to the element
       addClasses(component, classes)
 
-      // Append the Vue component to DOM
+      // Append the element to DOM
       parentElement.appendChild(component)
       return Promise.resolve(component)
     }
