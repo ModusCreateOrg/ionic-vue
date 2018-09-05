@@ -5,6 +5,16 @@ export default class Delegate {
 
   // Attach the passed Vue component to DOM
   attachViewToDom(parentElement, component, opts, classes) {
+    // Handle HTML elements
+    if (isElement(component)) {
+      // Add any classes to the element
+      addClasses(component, classes)
+
+      // Append the element to DOM
+      parentElement.appendChild(component)
+      return Promise.resolve(component)
+    }
+
     // Get the Vue controller
     return this.vueController(component).then(controller => {
       const vueComponent = this.vueComponent(controller, opts)
@@ -43,12 +53,20 @@ export default class Delegate {
   }
 }
 
+// Check Symbol support
 const hasSymbol = typeof Symbol === 'function' && typeof Symbol.toStringTag === 'symbol'
 
+// Check if object is an ES module
 function isESModule(obj) {
   return obj.__esModule || (hasSymbol && obj[Symbol.toStringTag] === 'Module')
 }
 
+// Check if value is an Element
+function isElement(el) {
+  return typeof Element !== 'undefined' && el instanceof Element
+}
+
+// Add an array of classes to an element
 function addClasses(element, classes = []) {
   for (const cls of classes) {
     element.classList.add(cls)
