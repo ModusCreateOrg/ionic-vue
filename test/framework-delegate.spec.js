@@ -52,6 +52,15 @@ describe('Framework delegation', () => {
     })
   })
 
+  it('Attaches HTML elements to DOM', () => {
+    expect.assertions(1)
+    const element = document.createElement('p')
+
+    return delegate.attachViewToDom(app, element, null, ['foo']).then(el => {
+      return expect(el.classList.contains('foo')).toBeTruthy()
+    })
+  })
+
   it('Removes from DOM', () => {
     expect.assertions(2)
     const div = document.querySelector('p')
