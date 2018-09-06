@@ -33,7 +33,12 @@ export default class Router extends _VueRouter {
 
     this.history.updateRoute = nextRoute => {
       // Guesstimate the direction of the next route
-      this.direction = this.directionOverride || this.guessDirection(nextRoute)
+      this.direction = this.guessDirection(nextRoute)
+
+      // Override the direction
+      if (this.directionOverride) {
+        this.direction = this.directionOverride
+      }
 
       // Increment or decrement the view count
       this.viewCount += this.direction
