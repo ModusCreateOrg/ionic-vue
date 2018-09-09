@@ -9,9 +9,7 @@
 Ionic integration adapters for Vue.
 
 <p align="center">
-    <img src="https://res.cloudinary.com/modus-labs/image/upload/w_800/v1533141242/ionic-vue/ionic-vue-banner.png"
-    width="400"
-    alt="@modus/ionic-vue">
+    <img src="https://res.cloudinary.com/modus-labs/image/upload/w_560/v1535019553/labs/logo-ionic-vue.svg" width="260" alt="@modus/ionic-vue">
 </p>
 
 ## Installing / Getting started
