@@ -46,10 +46,7 @@ IonicVueRouter requires `ion-vue-router` element in order to render the componen
 ```html
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <script src="https://unpkg.com/@ionic/core@4.0.0-beta.0/dist/ionic.js"></script>
-        <link rel="stylesheet" href="https://unpkg.com/@ionic/core@4.0.0-beta.0/css/ionic.min.css"/>
-    </head>
+    <head>...</head>
 
     <body>
         <ion-app>
@@ -67,23 +64,33 @@ IonicVueRouter requires `ion-vue-router` element in order to render the componen
 Vue.component('Foo', {
   methods: {
     notify() {
-      this.$ionic
-        .newAlertController({
+      this.$ionic.alertController
+        .create({
           header: 'Notification',
           subHeader: null,
           message: 'Hello World',
           buttons: ['Bye'],
         })
-        .then(o => o.present())
-        .catch(err => console.error(err))
+        .then(a => a.present())
+        .catch(console.error)
     },
   },
 })
 ```
 
+IonicVueAPI supports the following Ionic controllers:
+
+- [Action Sheet](https://github.com/ionic-team/ionic/tree/master/core/src/components/action-sheet-controller)
+- [Alert](https://github.com/ionic-team/ionic/tree/master/core/src/components/alert-controller)
+- [Loading](https://github.com/ionic-team/ionic/tree/master/core/src/components/loading-controller)
+- [Menu](https://github.com/ionic-team/ionic/tree/master/core/src/components/menu-controller)
+- [Modal](https://github.com/ionic-team/ionic/tree/master/core/src/components/modal-controller)
+- [Popover](https://github.com/ionic-team/ionic/tree/master/core/src/components/popover-controller)
+- [Toast](https://github.com/ionic-team/ionic/tree/master/core/src/components/toast-controller)
+
 ### IonicVueRouter
 
-Some Ionic components, such as [`NavController`](https://ionicframework.com/docs/api/navigation/NavController/), require routing support. `IonicVueRouter` binds Ionic routing functionalities with Vue Router.
+`IonicVueRouter` binds Ionic transitions and routing functionalities with Vue Router.
 
 It is an extension of the Vue Router thus it can be used as a drop-in replacement with all of the methods, hooks, etc. working as expected.
 
@@ -94,6 +101,7 @@ It is an extension of the Vue Router thus it can be used as a drop-in replacemen
 - [Named views with transitions](cookbook/named-views-transitions.html)
 - [Custom transitions](cookbook/custom-transitions.html)
 - [Mix Ionic and custom transitions](cookbook/mixed-transitions.html)
+- [Ionic controllers](cookbook/ionic-controllers.html)
 
 ## Developing
 
