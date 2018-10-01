@@ -1,7 +1,7 @@
 import path from 'path'
-import buble from 'rollup-plugin-buble'
 import vue from 'rollup-plugin-vue'
 import { terser } from 'rollup-plugin-terser'
+import typescript from 'rollup-plugin-typescript'
 import { version as packageVersion } from '../package.json'
 
 const version = process.env.VERSION || packageVersion
@@ -45,14 +45,7 @@ function baseConfig() {
       '@ionic/core/dist/ionic/svg',
       'ionicons/dist/collection/icon/icon.css',
     ],
-    plugins: [
-      vue(),
-      buble({
-        transforms: {
-          dangerousForOf: true,
-        },
-      }),
-    ],
+    plugins: [vue(), typescript()],
   }
 }
 
