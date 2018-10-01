@@ -29,6 +29,7 @@ import { IonicVueRouter, IonicAPI } from '@modus/ionic-vue'
 import Home from './Home.vue'
 import Page from './Page.vue'
 
+Ionic.init();
 Vue.use(IonicVueRouter)
 Vue.use(IonicAPI)
 
