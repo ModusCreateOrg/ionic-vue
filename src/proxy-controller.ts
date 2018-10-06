@@ -1,20 +1,19 @@
-import * as apiUtils from './api-utils'
+import * as apiUtils from './api-utils';
+import { ProxyControllerInterface } from './types/interfaces';
 
 // A proxy class that allows early access to controller methods
-export default class ProxyController {
-  constructor(tag) {
-    this.tag = tag
+export default class ProxyController implements ProxyControllerInterface {
+  constructor(public tag: string) {}
+
+  create(opts: object = {}): Promise<any> {
+    return apiUtils.proxyMethod(this.tag, 'create', opts);
   }
 
-  create(opts = {}) {
-    return apiUtils.proxyMethod(this.tag, 'create', opts)
+  dismiss(): Promise<any> {
+    return apiUtils.proxyMethod(this.tag, 'dismiss');
   }
 
-  dismiss() {
-    return apiUtils.proxyMethod(this.tag, 'dismiss')
-  }
-
-  getTop() {
-    return apiUtils.proxyMethod(this.tag, 'getTop')
+  getTop(): Promise<any> {
+    return apiUtils.proxyMethod(this.tag, 'getTop');
   }
 }

@@ -1,4 +1,11 @@
 import Vue from 'vue';
+import { VueConstructor } from 'vue/types/vue';
+
+declare module 'vue/types/vue' {
+  interface Vue {
+    $ionic: object;
+  }
+}
 
 export interface HTMLVueElement extends HTMLElement {
   __vue__: Vue;
@@ -19,6 +26,16 @@ export interface FrameworkDelegate {
   removeViewFromDom(parentElement: HTMLElement, childElement: HTMLVueElement): Promise<void>;
 }
 
-interface IonBackButton extends HTMLElement {
+export interface IonBackButton extends HTMLElement {
   defaultHref?: string;
+}
+
+export interface ApiCache {
+  [key: string]: any;
+}
+
+export interface ProxyControllerInterface {
+  create(opts: object): Promise<any>;
+  dismiss(): Promise<any>;
+  getTop(): Promise<any>;
 }
