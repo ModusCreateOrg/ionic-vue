@@ -18,3 +18,7 @@ export interface FrameworkDelegate {
   attachViewToDom(parentElement: HTMLElement, component: HTMLElement | WebpackFunction | object | Vue, opts?: object, classes?: string[]): Promise<HTMLElement>;
   removeViewFromDom(parentElement: HTMLElement, childElement: HTMLVueElement): Promise<void>;
 }
+
+interface IonBackButton extends HTMLElement {
+  defaultHref?: string;
+}
