@@ -1,12 +1,12 @@
 export default {
   methods: {
     // Catch the bubbled-up event from the Ionic's back button
-    catchIonicGoBack(event) {
+    catchIonicGoBack(event: Event) {
       // We only care for the event coming from Ionic's back button
-      const backButton = event.target && event.target.closest('ion-back-button')
+      const backButton: Element = event.target && (<Element>event.target).closest('ion-back-button')
       if (!backButton) return
 
-      let defaultHref
+      let defaultHref: string
 
       // Explicitly override router direction
       // This will always trigger a back transition

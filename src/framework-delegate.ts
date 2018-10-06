@@ -1,18 +1,19 @@
-export default class Delegate {
-  constructor(Vue) {
-    this.Vue = Vue
-  }
+import { Vue, VueConstructor } from 'vue/types/vue'
+import { HTMLVueElement, FrameworkDelegate, WebpackFunction } from './types/interfaces'
+
+export default class Delegate implements FrameworkDelegate {
+  constructor(public Vue: VueConstructor) {}
 
   // Attach the passed Vue component to DOM
-  attachViewToDom(parentElement, component, opts, classes) {
+  attachViewToDom(parentElement: HTMLElement, component: HTMLElement|WebpackFunction|object|Vue, opts?: object, classes?: string[]): Promise<HTMLElement> {
     // Handle HTML elements
     if (isElement(component)) {
       // Add any classes to the element
-      addClasses(component, classes)
+      addClasses(component as HTMLElement, classes)
 
       // Append the element to DOM
-      parentElement.appendChild(component)
-      return Promise.resolve(component)
+      parentElement.appendChild(component as HTMLElement)
+      return Promise.resolve(component as HTMLElement)
     }
 
     // Get the Vue controller
@@ -29,7 +30,7 @@ export default class Delegate {
   }
 
   // Remove the earlier created Vue component from DOM
-  removeViewFromDom(parentElement, childElement) {
+  removeViewFromDom(_parentElement: HTMLElement, childElement: HTMLVueElement): Promise<void> {
     // Destroy the Vue component instance
     if (childElement.__vue__) {
       childElement.__vue__.$destroy()
@@ -39,16 +40,16 @@ export default class Delegate {
   }
 
   // Handle creation of sync and async components
-  vueController(component) {
+  vueController(component: WebpackFunction|object|Vue) {
     return Promise.resolve(
-      typeof component === 'function' && component.cid === undefined
-        ? component().then(c => this.Vue.extend(isESModule(c) ? c.default : c))
+      typeof component === 'function' && (component as WebpackFunction).cid === undefined
+      ? (component as WebpackFunction)().then((c: any) => this.Vue.extend(isESModule(c) ? c.default : c))
         : this.Vue.extend(component)
     )
   }
 
   // Create a new instance of the Vue component
-  vueComponent(controller, opts) {
+  vueComponent(controller: VueConstructor, opts?: object) {
     return new controller(opts).$mount()
   }
 }
@@ -57,17 +58,17 @@ export default class Delegate {
 const hasSymbol = typeof Symbol === 'function' && typeof Symbol.toStringTag === 'symbol'
 
 // Check if object is an ES module
-function isESModule(obj) {
+function isESModule(obj: any) {
   return obj.__esModule || (hasSymbol && obj[Symbol.toStringTag] === 'Module')
 }
 
 // Check if value is an Element
-function isElement(el) {
+function isElement(el: any) {
   return typeof Element !== 'undefined' && el instanceof Element
 }
 
 // Add an array of classes to an element
-function addClasses(element, classes = []) {
+function addClasses(element: HTMLElement, classes: string[] = []) {
   for (const cls of classes) {
     element.classList.add(cls)
   }
