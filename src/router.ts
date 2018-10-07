@@ -1,101 +1,115 @@
-import VueRouter from 'vue-router'
-import IonVueRouter from './components/ion-vue-router.vue'
-import IonVueRouterTransitionless from './components/ion-vue-router-transitionless.vue'
+import VueRouter, { Route } from 'vue-router';
+import { PluginFunction } from 'vue';
+import { RouterArgs, VueWindow } from './types/interfaces';
+import IonVueRouter from './components/ion-vue-router.vue';
+import IonVueRouterTransitionless from './components/ion-vue-router-transitionless.vue';
 
-const inBrowser = typeof window !== 'undefined'
+const vueWindow = window as VueWindow;
+const inBrowser: boolean = typeof window !== 'undefined';
 
 // Detect environment (browser, module, etc.)
-const _VueRouter = inBrowser && window.VueRouter ? window.VueRouter : VueRouter
+const _VueRouter: typeof VueRouter = inBrowser && vueWindow.VueRouter ? vueWindow.VueRouter : VueRouter;
 
 // Extend the official VueRouter
 export default class Router extends _VueRouter {
-  constructor(...args) {
-    super(...args)
+  direction: number;
+  directionOverride: number | null;
+  viewCount: number;
+  prevRouteStack: Route[];
+  history: any;
+  static installed: boolean;
+  static install: PluginFunction<never>;
+
+  constructor(args: RouterArgs = {} as RouterArgs) {
+    super(args);
 
     // The direction user navigates in
-    this.direction = args.direction || 1
+    this.direction = args.direction || 1;
 
     // Override normal direction
-    this.directionOverride = null
+    this.directionOverride = null;
 
     // Number of views navigated
-    this.viewCount = args.viewCount || 0
+    this.viewCount = args.viewCount || 0;
 
     // Stack of previous routes
-    this.prevRouteStack = []
+    this.prevRouteStack = [];
 
     // Extend the existing history object
-    this.extendHistory()
+    this.extendHistory();
   }
-  extendHistory() {
-    // Save a reference to the original method
-    this.history._updateRoute = this.history.updateRoute
 
-    this.history.updateRoute = nextRoute => {
+  extendHistory(): void {
+    // Save a reference to the original method
+    this.history._updateRoute = this.history.updateRoute;
+
+    this.history.updateRoute = (nextRoute: Route) => {
       // Guesstimate the direction of the next route
-      this.direction = this.guessDirection(nextRoute)
+      this.direction = this.guessDirection(nextRoute);
 
       // Override the direction
       if (this.directionOverride) {
-        this.direction = this.directionOverride
+        this.direction = this.directionOverride;
       }
 
       // Increment or decrement the view count
-      this.viewCount += this.direction
+      this.viewCount += this.direction;
 
       // Call the original method
-      this.history._updateRoute(nextRoute)
+      this.history._updateRoute(nextRoute);
 
       // Reset direction for overrides
-      this.directionOverride = null
-    }
+      this.directionOverride = null;
+    };
   }
-  canGoBack() {
+
+  canGoBack(): boolean {
     // We can display the back button if we're not on /
     // or there were more than 1 views rendered
-    return this.viewCount > 1 && this.currentRoute.fullPath.length > 1
+    return this.viewCount > 1 && this.currentRoute.fullPath.length > 1;
   }
-  guessDirection(nextRoute) {
+
+  guessDirection(nextRoute: Route): number {
     if (this.prevRouteStack.length !== 0) {
-      const prevRoute = this.prevRouteStack[this.prevRouteStack.length - 1]
+      const prevRoute: Route = this.prevRouteStack[this.prevRouteStack.length - 1];
 
       // Last route is the same as the next one - go back
       // If we're going to / reset the stack otherwise pop a route
       if (prevRoute.fullPath === nextRoute.fullPath) {
         if (prevRoute.fullPath.length === 1) {
-          this.prevRouteStack = []
+          this.prevRouteStack = [];
         } else {
-          this.prevRouteStack.pop()
+          this.prevRouteStack.pop();
         }
-        return -1
+        return -1;
       }
     }
 
     // Forward movement, push next route to stack
     if (this.history.current.fullPath !== nextRoute.fullPath) {
-      this.prevRouteStack.push(this.history.current)
+      this.prevRouteStack.push(this.history.current);
     }
-    return 1
+    return 1;
   }
 }
 
-Router.install = function(Vue, { disableIonicTransitions } = {}) {
+Router.install = (Vue, { disableIonicTransitions = false }: { disableIonicTransitions?: boolean } = {}): void => {
   // If already installed - skip
-  if (Router.install.installed) {
-    return
+  if (Router.installed) {
+    return;
   }
 
-  Router.install.installed = true
+  Router.installed = true;
 
   // Install the official VueRouter
-  _VueRouter.install(Vue)
+  _VueRouter.install(Vue);
 
   // Register the IonVueRouter component globally
   // either with default Ionic transitions turned on or off
-  Vue.component('IonVueRouter', disableIonicTransitions ? IonVueRouterTransitionless : IonVueRouter)
-}
+  Vue.component('IonVueRouter', disableIonicTransitions ? IonVueRouterTransitionless : IonVueRouter);
+};
 
 // Auto-install when Vue is found (i.e. in browser via <script> tag)
-if (inBrowser && window.Vue) {
-  window.Vue.use(Router, { disableIonicTransitions: window.disableIonicTransitions })
+if (inBrowser && vueWindow.Vue) {
+  vueWindow.Vue.use(Router, { disableIonicTransitions: vueWindow.disableIonicTransitions });
 }

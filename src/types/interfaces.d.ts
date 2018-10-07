@@ -1,14 +1,21 @@
-import Vue from 'vue';
-import { VueConstructor } from 'vue/types/vue';
+import Vue, { VueConstructor } from 'vue';
+import VueRouter from 'vue-router';
+import { RouterOptions } from 'vue-router/types/router';
 
 declare module 'vue/types/vue' {
   interface Vue {
-    $ionic: object;
+    $ionic: any;
   }
 }
 
 export interface HTMLVueElement extends HTMLElement {
   __vue__: Vue;
+}
+
+export interface VueWindow extends Window {
+  Vue: typeof Vue;
+  VueRouter: typeof VueRouter;
+  disableIonicTransitions: boolean;
 }
 
 export interface WebpackFunction extends Function {
@@ -34,8 +41,31 @@ export interface ApiCache {
   [key: string]: any;
 }
 
+export interface RouterArgs extends RouterOptions {
+  direction: number;
+  viewCount: number;
+}
+
 export interface ProxyControllerInterface {
   create(opts: object): Promise<any>;
-  dismiss(): Promise<any>;
+  dismiss(): Promise<void>;
   getTop(): Promise<any>;
+}
+
+export interface ProxyDelegateOptions extends Object {
+  [key: string]: any;
+  delegate: FrameworkDelegate;
+}
+
+export interface ProxyMenuControllerInterface {
+  open(menuId?: string): Promise<boolean>;
+  close(menuId?: string): Promise<boolean>;
+  toggle(menuId?: string): Promise<boolean>;
+  enable(shouldEnable: boolean, menuId?: string): Promise<HTMLElement>;
+  swipeEnable(shouldEnable: boolean, menuId?: string): Promise<HTMLElement>;
+  isOpen(menuId?: string): Promise<boolean>;
+  isEnabled(menuId?: string): Promise<boolean>;
+  get(menuId?: string): Promise<HTMLElement>;
+  getOpen(): Promise<HTMLElement>;
+  getMenus(): Promise<HTMLElement>;
 }

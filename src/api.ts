@@ -1,41 +1,19 @@
-import { VueConstructor } from 'vue/types/vue';
-import { PluginObject } from 'vue/types/plugin';
+import Vue, { PluginFunction } from 'vue';
 import { ApiCache, FrameworkDelegate } from './types/interfaces';
 import Delegate from './framework-delegate';
 import ProxyController from './proxy-controller';
 import ProxyMenuController from './proxy-menu-controller';
 import ProxyDelegateController from './proxy-delegate-controller';
 
-let _Vue: VueConstructor, _Delegate: FrameworkDelegate;
+let _Vue: typeof Vue, _Delegate: FrameworkDelegate;
 
-export default class Api implements PluginObject<object> {
+export default class Api {
   static cache: ApiCache;
   static installed = false;
-
-  install(Vue: VueConstructor): void {
-    // If installed - skip
-    if (Api.installed && _Vue === Vue) {
-      return;
-    }
-
-    _Vue = Vue;
-    _Delegate = new Delegate(Vue);
-
-    Api.installed = true;
-
-    // Ignore Ionic custom elements
-    Vue.config.ignoredElements.push(/^ion-/);
-
-    // Give access to the API methods
-    Object.defineProperty(Vue.prototype, '$ionic', {
-      get() {
-        return new Api();
-      },
-    });
-  }
+  static install: PluginFunction<never>;
 
   // Create or return a ActionSheetController instance
-  get actionSheetController() {
+  get actionSheetController(): typeof ProxyController {
     return getOrCreateController('ion-action-sheet-controller');
   }
 
@@ -79,6 +57,28 @@ Api.cache = {
   'ion-modal-controller': null,
   'ion-popover-controller': null,
   'ion-toast-controller': null,
+};
+
+Api.install = (Vue): void => {
+  // If installed - skip
+  if (Api.installed && _Vue === Vue) {
+    return;
+  }
+
+  _Vue = Vue;
+  _Delegate = new Delegate(Vue);
+
+  Api.installed = true;
+
+  // Ignore Ionic custom elements
+  Vue.config.ignoredElements.push(/^ion-/);
+
+  // Give access to the API methods
+  Object.defineProperty(Vue.prototype, '$ionic', {
+    get() {
+      return new Api();
+    },
+  });
 };
 
 // Get existing Base controller instance or initialize a new one

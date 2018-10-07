@@ -1,17 +1,20 @@
-import ProxyController from './proxy-controller'
+import ProxyController from './proxy-controller';
+import { FrameworkDelegate, ProxyDelegateOptions } from './types/interfaces';
 
 // A proxy class that allows early access to controller methods
 export default class ProxyDelegateController extends ProxyController {
-  constructor(tag, delegate) {
-    super(tag)
+  static delegate: FrameworkDelegate;
+
+  constructor(public tag: string, delegate: FrameworkDelegate) {
+    super(tag);
 
     if (!ProxyDelegateController.delegate) {
-      ProxyDelegateController.delegate = delegate
+      ProxyDelegateController.delegate = delegate;
     }
   }
 
-  create(opts = {}) {
-    opts.delegate = ProxyDelegateController.delegate
-    return super.create(opts)
+  create(opts: ProxyDelegateOptions = {} as ProxyDelegateOptions) {
+    opts.delegate = ProxyDelegateController.delegate;
+    return super.create(opts);
   }
 }
