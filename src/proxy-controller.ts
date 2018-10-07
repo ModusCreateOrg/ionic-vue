@@ -5,7 +5,7 @@ import { ProxyControllerInterface } from './types/interfaces';
 export default class ProxyController implements ProxyControllerInterface {
   constructor(public tag: string) {}
 
-  create(opts: object = {}): Promise<any> {
+  create(opts: object = {}): Promise<HTMLElement> {
     return apiUtils.proxyMethod(this.tag, 'create', opts);
   }
 
@@ -13,7 +13,7 @@ export default class ProxyController implements ProxyControllerInterface {
     return apiUtils.proxyMethod(this.tag, 'dismiss');
   }
 
-  getTop(): Promise<any> {
+  getTop(): Promise<HTMLElement> {
     return apiUtils.proxyMethod(this.tag, 'getTop');
   }
 }

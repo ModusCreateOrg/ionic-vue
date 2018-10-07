@@ -1,10 +1,11 @@
 import Vue, { VueConstructor } from 'vue';
+import IonicApi from '../api';
 import VueRouter from 'vue-router';
 import { RouterOptions } from 'vue-router/types/router';
 
 declare module 'vue/types/vue' {
   interface Vue {
-    $ionic: any;
+    $ionic: IonicApi;
   }
 }
 
@@ -33,8 +34,12 @@ export interface FrameworkDelegate {
   removeViewFromDom(parentElement: HTMLElement, childElement: HTMLVueElement): Promise<void>;
 }
 
-export interface IonBackButton extends HTMLElement {
+export interface IonBackButton extends HTMLStencilElement {
   defaultHref?: string;
+}
+
+export interface IonRouterOutlet extends HTMLStencilElement {
+  commit(enterinEl: HTMLElement, leavingEl: HTMLElement | undefined, opts?: object | undefined): Promise<boolean>;
 }
 
 export interface ApiCache {
@@ -47,9 +52,9 @@ export interface RouterArgs extends RouterOptions {
 }
 
 export interface ProxyControllerInterface {
-  create(opts: object): Promise<any>;
+  create(opts: object): Promise<HTMLElement>;
   dismiss(): Promise<void>;
-  getTop(): Promise<any>;
+  getTop(): Promise<HTMLElement>;
 }
 
 export interface ProxyDelegateOptions extends Object {

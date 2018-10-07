@@ -1,11 +1,11 @@
-import { Vue, VueConstructor } from 'vue/types/vue';
+import { VueConstructor } from 'vue';
 import { FrameworkDelegate, HTMLVueElement, WebpackFunction } from './types/interfaces';
 
 export default class Delegate implements FrameworkDelegate {
   constructor(public vue: VueConstructor) {}
 
   // Attach the passed Vue component to DOM
-  attachViewToDom(parentElement: HTMLElement, component: HTMLElement | WebpackFunction | object | Vue, opts?: object, classes?: string[]): Promise<HTMLElement> {
+  attachViewToDom(parentElement: HTMLElement, component: HTMLElement | WebpackFunction | object | VueConstructor, opts?: object, classes?: string[]): Promise<HTMLElement> {
     // Handle HTML elements
     if (isElement(component)) {
       // Add any classes to the element
@@ -40,7 +40,7 @@ export default class Delegate implements FrameworkDelegate {
   }
 
   // Handle creation of sync and async components
-  vueController(component: WebpackFunction | object | Vue): Promise<VueConstructor> {
+  vueController(component: WebpackFunction | object | VueConstructor): Promise<VueConstructor> {
     return Promise.resolve(
       typeof component === 'function' && (component as WebpackFunction).cid === undefined
       ? (component as WebpackFunction)().then((c: any) => this.vue.extend(isESModule(c) ? c.default : c))

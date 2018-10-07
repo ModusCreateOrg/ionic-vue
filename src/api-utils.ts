@@ -6,7 +6,7 @@ export function proxyMethod(tag: string, method: string, ...opts: any[]): Promis
 }
 
 // Initialize an Ionic controller and append it to DOM
-export function initController(tag: string): Promise<any> {
+export function initController(tag: string): Promise<HTMLStencilElement> {
   let element = document.querySelector(tag) as HTMLElement;
 
   if (!element) {

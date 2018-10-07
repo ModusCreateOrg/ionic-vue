@@ -1,7 +1,7 @@
 import path from 'path'
 import vue from 'rollup-plugin-vue'
 import { terser } from 'rollup-plugin-terser'
-import typescript from 'rollup-plugin-typescript'
+import typescript from 'rollup-plugin-typescript2'
 import { version as packageVersion } from '../package.json'
 
 const version = process.env.VERSION || packageVersion
@@ -39,6 +39,8 @@ function baseConfig() {
     external: [
       'vue',
       'vue-router',
+      'vue-class-component',
+      'vue-property-decorator',
       '@ionic/core/loader',
       '@ionic/core/css/ionic.bundle.css',
       '@ionic/core/dist/ionic/svg',
