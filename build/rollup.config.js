@@ -1,13 +1,12 @@
 import path from 'path'
-import buble from 'rollup-plugin-buble'
 import vue from 'rollup-plugin-vue'
 import { terser } from 'rollup-plugin-terser'
+import typescript from 'rollup-plugin-typescript2'
 import { version as packageVersion } from '../package.json'
 
 const version = process.env.VERSION || packageVersion
 
-const banner = `
-/*!
+const banner = `/*!
  * ionic-vue v${version}
  * ${new Date().getFullYear()} Michael Tintiuc - Modus Create
  * @license MIT
@@ -31,7 +30,7 @@ function outputConfig(suffix, format, opts = {}) {
 
 function baseConfig() {
   return {
-    input: resolve('./src/index.js'),
+    input: resolve('./src/index.ts'),
     output: [
       outputConfig('', 'umd', { globals: {} }),
       outputConfig('.esm', 'esm'),
@@ -40,19 +39,14 @@ function baseConfig() {
     external: [
       'vue',
       'vue-router',
+      'vue-class-component',
+      'vue-property-decorator',
       '@ionic/core/loader',
       '@ionic/core/css/ionic.bundle.css',
       '@ionic/core/dist/ionic/svg',
       'ionicons/dist/collection/icon/icon.css',
     ],
-    plugins: [
-      vue(),
-      buble({
-        transforms: {
-          dangerousForOf: true,
-        },
-      }),
-    ],
+    plugins: [vue(), typescript()],
   }
 }
 
