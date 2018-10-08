@@ -5,6 +5,7 @@ dist/
 node_modules/
 coverage/
 reports/
+src/**/*.js
 
 # ignore log files
 *.log
