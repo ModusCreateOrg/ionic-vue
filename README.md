@@ -47,13 +47,13 @@ IonicVueRouter requires `ion-vue-router` element in order to render the componen
 ```html
 <!DOCTYPE html>
 <html lang="en">
-    <head>...</head>
+  <head>...</head>
 
-    <body>
-        <ion-app>
-            <ion-vue-router/>
-        </ion-app>
-    </body>
+  <body>
+    <ion-app>
+      <ion-vue-router/>
+    </ion-app>
+  </body>
 </html>
 ```
 
