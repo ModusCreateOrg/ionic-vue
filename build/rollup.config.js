@@ -7,7 +7,7 @@ import { version as packageVersion } from '../package.json'
 const version = process.env.VERSION || packageVersion
 
 const banner = `/*!
- * ionic-vue v${version}
+ * @modus/ionic-vue v${version}
  * ${new Date().getFullYear()} Michael Tintiuc - Modus Create
  * @license MIT
  */
