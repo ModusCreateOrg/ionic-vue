@@ -1,5 +1,5 @@
 import { VueConstructor } from 'vue';
-import { FrameworkDelegate, HTMLVueElement, WebpackFunction } from './types/interfaces';
+import { FrameworkDelegate, HTMLVueElement, WebpackFunction, EsModule } from './types/interfaces';
 
 export default class Delegate implements FrameworkDelegate {
   constructor(public vue: VueConstructor) {}
@@ -43,7 +43,7 @@ export default class Delegate implements FrameworkDelegate {
   vueController(component: WebpackFunction | object | VueConstructor): Promise<VueConstructor> {
     return Promise.resolve(
       typeof component === 'function' && (component as WebpackFunction).cid === undefined
-      ? (component as WebpackFunction)().then((c: any) => this.vue.extend(isESModule(c) ? c.default : c))
+        ? (component as WebpackFunction)().then((cmp: any) => this.vue.extend(isESModule(cmp) ? cmp.default : cmp))
         : this.vue.extend(component)
     );
   }
@@ -58,7 +58,7 @@ export default class Delegate implements FrameworkDelegate {
 const hasSymbol = typeof Symbol === 'function' && typeof Symbol.toStringTag === 'symbol';
 
 // Check if object is an ES module
-function isESModule(obj: any) {
+function isESModule(obj: EsModule) {
   return obj.__esModule || (hasSymbol && obj[Symbol.toStringTag] === 'Module');
 }
 

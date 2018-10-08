@@ -23,6 +23,11 @@ export interface WebpackFunction extends Function {
   cid: number;
 }
 
+export interface EsModule extends Object {
+  __esModule?: boolean;
+  [Symbol.toStringTag]: string;
+}
+
 export interface HTMLStencilElement extends HTMLElement {
   componentOnReady(): Promise<this>;
   componentOnReady(done: (el?: this) => void): void;
