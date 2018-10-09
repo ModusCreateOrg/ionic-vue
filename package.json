@@ -14,7 +14,8 @@
   "jsdelivr": "dist/ionic-vue.js",
   "files": [
     "src/",
-    "dist/*.js"
+    "dist/*.js",
+    "dist/*.ts"
   ],
   "bugs": {
     "url": "https://github.com/ModusCreateOrg/ionic-vue/issues"

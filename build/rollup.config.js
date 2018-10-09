@@ -32,7 +32,13 @@ function baseConfig() {
   return {
     input: resolve('./src/index.ts'),
     output: [
-      outputConfig('', 'umd', { globals: {} }),
+      outputConfig('', 'umd', {
+        globals: {
+          vue: 'Vue',
+          'vue-class-component': 'VueClassComponent',
+          'vue-property-decorator': 'vue-property-decorator',
+        },
+      }),
       outputConfig('.esm', 'esm'),
       outputConfig('.common', 'cjs'),
     ],
