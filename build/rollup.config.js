@@ -52,7 +52,7 @@ function baseConfig() {
       '@ionic/core/dist/ionic/svg',
       'ionicons/dist/collection/icon/icon.css',
     ],
-    plugins: [vue(), typescript()],
+    plugins: [vue(), typescript({ useTsconfigDeclarationDir: true })],
   }
 }
 

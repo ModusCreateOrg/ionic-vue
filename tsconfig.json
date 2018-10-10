@@ -5,6 +5,8 @@
     "allowSyntheticDefaultImports": true,
     "allowUnreachableCode": false,
     "declaration": true,
+    "declarationMap": true,
+    "declarationDir": "types",
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
@@ -26,8 +28,10 @@
     "strictPropertyInitialization": false,
     "target": "es5"
   },
-  "files": [
-    "src/index.ts",
-    "src/sfc.d.ts"
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
   ]
 }

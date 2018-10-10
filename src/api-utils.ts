@@ -1,4 +1,4 @@
-import { HTMLStencilElement } from './types/interfaces';
+import { HTMLStencilElement } from './interfaces';
 
 // A proxy method that initializes the controller and calls requested method
 export function proxyMethod(tag: string, method: string, ...opts: any[]): Promise<any> {

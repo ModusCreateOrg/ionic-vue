@@ -1,5 +1,5 @@
 import * as apiUtils from './api-utils';
-import { ProxyMenuControllerInterface } from './types/interfaces';
+import { ProxyMenuControllerInterface } from './interfaces';
 
 // A proxy class that allows early access to controller methods
 export default class ProxyMenuController implements ProxyMenuControllerInterface {

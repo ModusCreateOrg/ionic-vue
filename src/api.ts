@@ -1,5 +1,5 @@
 import Vue, { PluginFunction } from 'vue';
-import { ApiCache, FrameworkDelegate } from './types/interfaces';
+import { ApiCache, FrameworkDelegate } from './interfaces';
 import Delegate from './framework-delegate';
 import ProxyController from './proxy-controller';
 import ProxyMenuController from './proxy-menu-controller';
@@ -13,37 +13,37 @@ export default class Api {
   static install: PluginFunction<never>;
 
   // Create or return a ActionSheetController instance
-  get actionSheetController(): typeof ProxyController {
+  get actionSheetController(): ProxyController {
     return getOrCreateController('ion-action-sheet-controller');
   }
 
   // Create or return an AlertController instance
-  get alertController(): typeof ProxyController {
+  get alertController(): ProxyController {
     return getOrCreateController('ion-alert-controller');
   }
 
   // Create or return a LoadingController instance
-  get loadingController(): typeof ProxyController {
+  get loadingController(): ProxyController {
     return getOrCreateController('ion-loading-controller');
   }
 
   // Create or return a MenuController instance
-  get menuController(): typeof ProxyMenuController {
+  get menuController(): ProxyMenuController {
     return getOrCreateMenuController('ion-menu-controller');
   }
 
   // Create or return a ModalController instance
-  get modalController(): typeof ProxyDelegateController {
+  get modalController(): ProxyDelegateController {
     return getOrCreateDelegatedController('ion-modal-controller');
   }
 
   // Create or return a PopoverController instance
-  get popoverController(): typeof ProxyDelegateController {
+  get popoverController(): ProxyDelegateController {
     return getOrCreateDelegatedController('ion-popover-controller');
   }
 
   // Create or return a ToastController instance
-  get toastController(): typeof ProxyController {
+  get toastController(): ProxyController {
     return getOrCreateController('ion-toast-controller');
   }
 }
@@ -82,7 +82,7 @@ Api.install = (Vue): void => {
 };
 
 // Get existing Base controller instance or initialize a new one
-function getOrCreateController(tag: string): typeof ProxyController {
+function getOrCreateController(tag: string): ProxyController {
   if (!Api.cache[tag]) {
     Api.cache[tag] = new ProxyController(tag);
   }
@@ -91,7 +91,7 @@ function getOrCreateController(tag: string): typeof ProxyController {
 }
 
 // Get existing Menu controller instance or initialize a new one
-function getOrCreateMenuController(tag: string): typeof ProxyMenuController {
+function getOrCreateMenuController(tag: string): ProxyMenuController {
   if (!Api.cache[tag]) {
     Api.cache[tag] = new ProxyMenuController(tag);
   }
@@ -100,7 +100,7 @@ function getOrCreateMenuController(tag: string): typeof ProxyMenuController {
 }
 
 // Get existing Delegated controller instance or initialize a new one
-function getOrCreateDelegatedController(tag: string): typeof ProxyDelegateController {
+function getOrCreateDelegatedController(tag: string): ProxyDelegateController {
   if (!Api.cache[tag]) {
     Api.cache[tag] = new ProxyDelegateController(tag, _Delegate);
   }

@@ -1,7 +1,7 @@
 import Vue from 'vue';
-import Router from '../router'
+import Router from '../router';
 import Component from 'vue-class-component';
-import { IonBackButton } from '../types/interfaces';
+import { IonBackButton } from '../interfaces';
 
 @Component
 export default class CatchIonicGoBack extends Vue {
@@ -33,4 +33,4 @@ export default class CatchIonicGoBack extends Vue {
       $router.push(defaultHref);
     }
   }
-};
+}

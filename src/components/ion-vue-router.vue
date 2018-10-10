@@ -26,9 +26,8 @@
 <script lang="ts">
 import { Prop } from 'vue-property-decorator';
 import Component, { mixins } from 'vue-class-component';
-import CatchIonicGoBack from '../mixins/catch-ionic-go-back.js';
-import { IonRouterOutlet } from '../types/interfaces.js';
-import Router from '../router.js';
+import CatchIonicGoBack from '../mixins/catch-ionic-go-back';
+import { IonRouterOutlet } from '../interfaces';
 
 @Component
 export default class IonVueRouter extends mixins(CatchIonicGoBack) {
@@ -78,7 +77,7 @@ export default class IonVueRouter extends mixins(CatchIonicGoBack) {
         deepWait: true,
         duration: this.getDuration(),
         direction: this.getDirection(),
-        showGoBack: (this.$router as Router).canGoBack(),
+        showGoBack: this.$router.canGoBack(),
       });
     });
   }
@@ -90,7 +89,7 @@ export default class IonVueRouter extends mixins(CatchIonicGoBack) {
 
   // Get the navigation direction from the router
   getDirection() {
-    return (this.$router as Router).direction === 1 ? 'forward' : 'back';
+    return this.$router.direction === 1 ? 'forward' : 'back';
   }
 
   // Set the component to be rendered before we render the new route

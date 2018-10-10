@@ -8,12 +8,13 @@
   "license": "MIT",
   "repository": "github:ModusCreateOrg/ionic-vue",
   "main": "dist/ionic-vue.common.js",
-  "typings": "dist/index.d.ts",
+  "typings": "types/index.d.ts",
   "module": "dist/ionic-vue.esm.js",
   "unpkg": "dist/ionic-vue.js",
   "jsdelivr": "dist/ionic-vue.js",
   "files": [
     "src/",
+    "types/",
     "dist/*.js",
     "dist/*.ts"
   ],
