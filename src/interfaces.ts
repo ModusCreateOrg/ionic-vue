@@ -1,11 +1,19 @@
-import Vue, { VueConstructor } from 'vue';
-import IonicApi from '../api';
+import Vue from 'vue';
+import IonicApi from './api';
 import VueRouter from 'vue-router';
 import { RouterOptions } from 'vue-router/types/router';
 
 declare module 'vue/types/vue' {
   interface Vue {
     $ionic: IonicApi;
+  }
+}
+
+declare module 'vue-router/types/router' {
+  interface VueRouter {
+    direction: number;
+    directionOverride: number | null;
+    canGoBack(): boolean;
   }
 }
 
@@ -64,7 +72,7 @@ export interface ProxyControllerInterface {
 
 export interface ProxyDelegateOptions extends Object {
   [key: string]: any;
-  delegate: FrameworkDelegate;
+  delegate?: FrameworkDelegate;
 }
 
 export interface ProxyMenuControllerInterface {

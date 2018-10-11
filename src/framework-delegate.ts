@@ -1,5 +1,5 @@
 import { VueConstructor } from 'vue';
-import { FrameworkDelegate, HTMLVueElement, WebpackFunction, EsModule } from './types/interfaces';
+import { EsModule, FrameworkDelegate, HTMLVueElement, WebpackFunction } from './interfaces';
 
 export default class Delegate implements FrameworkDelegate {
   constructor(public vue: VueConstructor) {}

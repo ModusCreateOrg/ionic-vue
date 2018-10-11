@@ -1,5 +1,5 @@
 import ProxyController from './proxy-controller';
-import { FrameworkDelegate, ProxyDelegateOptions } from './types/interfaces';
+import { FrameworkDelegate, ProxyDelegateOptions } from './interfaces';
 
 // A proxy class that allows early access to controller methods
 export default class ProxyDelegateController extends ProxyController {

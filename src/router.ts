@@ -1,6 +1,6 @@
 import VueRouter, { Route } from 'vue-router';
 import { PluginFunction } from 'vue';
-import { RouterArgs, VueWindow } from './types/interfaces';
+import { RouterArgs, VueWindow } from './interfaces';
 import IonVueRouter from './components/ion-vue-router.vue';
 import IonVueRouterTransitionless from './components/ion-vue-router-transitionless.vue';
 
