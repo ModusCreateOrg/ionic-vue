@@ -25,7 +25,7 @@ Now you can use it during the initialization step of your Vue app.
 
 ```js
 import Vue from 'vue'
-import { IonicVueRouter, IonicAPI } from '@modus/ionic-vue'
+import { Ionic, IonicVueRouter, IonicAPI } from '@modus/ionic-vue'
 import Home from './Home.vue'
 import Page from './Page.vue'
 
