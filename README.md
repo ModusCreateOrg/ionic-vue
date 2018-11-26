@@ -1,3 +1,11 @@
+# Ionic-Vue becomes @ionic/vue
+**Important: This project has been contributed to the Ionic core and can be used as [@ionic/vue](https://github.com/ionic-team/ionic/tree/master/vue).**
+
+Modus Create engineers will continue to support the community at the Ionic's official [Issue board](https://github.com/ionic-team/ionic/issues)
+
+---
+---
+
 # Ionic-Vue
 
 [![CircleCI](https://circleci.com/gh/ModusCreateOrg/ionic-vue.svg?style=shield)](https://circleci.com/gh/ModusCreateOrg/ionic-vue)
