@@ -33,7 +33,7 @@ Now you can use it during the initialization step of your Vue app.
 
 ```js
 import Vue from 'vue'
-import { IonicVueRouter, IonicAPI } from '@modus/ionic-vue'
+import { Ionic, IonicVueRouter, IonicAPI } from '@modus/ionic-vue'
 import Home from './Home.vue'
 import Page from './Page.vue'
 
@@ -55,13 +55,13 @@ IonicVueRouter requires `ion-vue-router` element in order to render the componen
 ```html
 <!DOCTYPE html>
 <html lang="en">
-    <head>...</head>
+  <head>...</head>
 
-    <body>
-        <ion-app>
-            <ion-vue-router/>
-        </ion-app>
-    </body>
+  <body>
+    <ion-app>
+      <ion-vue-router/>
+    </ion-app>
+  </body>
 </html>
 ```
 
@@ -110,6 +110,7 @@ It is an extension of the Vue Router thus it can be used as a drop-in replacemen
 - [Named views with transitions](cookbook/named-views-transitions.html)
 - [Custom transitions](cookbook/custom-transitions.html)
 - [Mix Ionic and custom transitions](cookbook/mixed-transitions.html)
+- [Ionic tabs](cookbook/tabs.html)
 - [Ionic controllers](cookbook/ionic-controllers.html)
 
 ## Developing
