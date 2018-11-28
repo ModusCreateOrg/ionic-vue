@@ -48,6 +48,10 @@
     "test": "jest --coverage --verbose",
     "install.peer": "npm i --no-save vue vue-template-compiler vue-router @ionic/core"
   },
+  "dependencies": {
+    "vue-class-component": "^6.2.0",
+    "vue-property-decorator": "^7.2.0"
+  },
   "devDependencies": {
     "@vue/test-utils": "^1.0.0-beta.24",
     "babel-jest": "^23.4.2",
@@ -63,15 +67,13 @@
     "tslib": "1.9.3",
     "tslint": "5.11.0",
     "tslint-ionic-rules": "0.0.19",
-    "typescript": "3.1.1",
-    "vue-class-component": "^6.2.0",
-    "vue-property-decorator": "^7.2.0"
+    "typescript": "3.1.1"
   },
   "peerDependencies": {
     "vue": "^2.5.16",
     "vue-template-compiler": "^2.5.16",
     "vue-router": "^3.0.1",
-    "@ionic/core": "4.0.0-beta.12"
+    "@ionic/core": "4.0.0-beta.16"
   },
   "jestSonar": {
     "reportPath": "reports",
