@@ -9,8 +9,8 @@ export default class ProxyController implements ProxyControllerInterface {
     return apiUtils.proxyMethod(this.tag, 'create', opts);
   }
 
-  dismiss(): Promise<void> {
-    return apiUtils.proxyMethod(this.tag, 'dismiss');
+  dismiss(data?: any, role?: string, id?: string): Promise<void> {
+    return apiUtils.proxyMethod(this.tag, 'dismiss', data, role, id);
   }
 
   getTop(): Promise<HTMLElement> {
