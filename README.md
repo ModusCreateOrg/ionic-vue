@@ -33,13 +33,12 @@ Now you can use it during the initialization step of your Vue app.
 
 ```js
 import Vue from 'vue'
-import { Ionic, IonicVueRouter, IonicAPI } from '@modus/ionic-vue'
+import Ionic, { IonicVueRouter } from '@modus/ionic-vue'
 import Home from './Home.vue'
 import Page from './Page.vue'
 
-Ionic.init();
+Vue.use(Ionic)
 Vue.use(IonicVueRouter)
-Vue.use(IonicAPI)
 
 new Vue({
   router: new IonicVueRouter({
@@ -65,9 +64,9 @@ IonicVueRouter requires `ion-vue-router` element in order to render the componen
 </html>
 ```
 
-### IonicAPI
+### IonicVue
 
-`IonicAPI` abstracts DOM interaction of Ionic UI components inside a Vue application and can be used via `this.$ionic`.
+`IonicVue` abstracts DOM interaction of Ionic UI components inside a Vue application and can be used via `this.$ionic`.
 
 ```js
 Vue.component('Foo', {
@@ -87,7 +86,7 @@ Vue.component('Foo', {
 })
 ```
 
-IonicVueAPI supports the following Ionic controllers:
+IonicVue supports the following Ionic controllers:
 
 - [Action Sheet](https://github.com/ionic-team/ionic/tree/master/core/src/components/action-sheet-controller)
 - [Alert](https://github.com/ionic-team/ionic/tree/master/core/src/components/alert-controller)
@@ -130,11 +129,12 @@ Testing will require peer dependencies to be installed. Peer dependencies are:
 - `vue`
 - `vue-template-compiler`
 - `vue-router`
+- `@ionic/core`
 
 You can install peer dependencies without modifying package.json.
 
 ```sh
-npm install vue vue-template-compiler vue-router --no-save
+npm run install.peer
 ```
 
 We recommend trying out your `ionic-vue` changes in an actual app. You can do that with `npm link`:
