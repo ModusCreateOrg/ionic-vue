@@ -1,7 +1,7 @@
 import { PopoverOptions } from '@ionic/core';
 import { OverlayBaseController } from '../util';
 import { VueDelegate } from './vue-delegate';
-export declare const CTRL = "ion-modal-controller";
+export declare const CTRL = "ion-popover-controller";
 export declare class PopoverController extends OverlayBaseController<PopoverOptions, HTMLIonPopoverElement> {
     private delegate;
     constructor(delegate: VueDelegate);
