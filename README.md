@@ -3,6 +3,12 @@
 
 Modus Create engineers will continue to support the community at the Ionic's official [Issue board](https://github.com/ionic-team/ionic/issues)
 
+However, this repository is still being actively maintained and kept in-sync with the official @ionic/vue. The main difference being the availability of `IonicVueRouter` and flexibility of choosing dependency versions.
+
+Our goal is to allow developers to be on the bleeding-edge and freely experiment, thus we are delivering features and bug fixes as fast as possible. Apart from the router you can switch between the libraries without any changes to your code-base.
+
+Bug fixes, features, documentation and any other changes will be contributed back as well.
+
 ---
 ---
 
@@ -35,21 +41,23 @@ Now you can use it during the initialization step of your Vue app.
 import Vue from 'vue'
 import Ionic, { IonicVueRouter } from '@modus/ionic-vue'
 import Home from './Home.vue'
-import Page from './Page.vue'
 
 Vue.use(Ionic)
 Vue.use(IonicVueRouter)
 
 new Vue({
   router: new IonicVueRouter({
-    routes: [{ path: '/', component: Home }, { path: '/page', component: Page }],
+    routes: [
+      { path: '/', component: Home },
+      { path: '/page', component: () => import('./Page.vue') }
+    ],
   }),
 }).$mount('ion-app')
 ```
 
 Ionic requires a root element of `ion-app` in your HTML.
 
-IonicVueRouter requires `ion-vue-router` element in order to render the components.
+IonicVueRouter requires `ion-vue-router` element in order to render Ionic transitions. Otherwise you can use the [official VueRouter](https://router.vuejs.org/)
 
 ```html
 <!DOCTYPE html>
@@ -58,7 +66,7 @@ IonicVueRouter requires `ion-vue-router` element in order to render the componen
 
   <body>
     <ion-app>
-      <ion-vue-router/>
+      <ion-vue-router />
     </ion-app>
   </body>
 </html>
@@ -86,13 +94,14 @@ Vue.component('Foo', {
 })
 ```
 
-IonicVue supports the following Ionic controllers:
+IonicVue supports all of the Ionic controllers:
 
 - [Action Sheet](https://github.com/ionic-team/ionic/tree/master/core/src/components/action-sheet-controller)
 - [Alert](https://github.com/ionic-team/ionic/tree/master/core/src/components/alert-controller)
 - [Loading](https://github.com/ionic-team/ionic/tree/master/core/src/components/loading-controller)
 - [Menu](https://github.com/ionic-team/ionic/tree/master/core/src/components/menu-controller)
 - [Modal](https://github.com/ionic-team/ionic/tree/master/core/src/components/modal-controller)
+- [Picker](https://github.com/ionic-team/ionic/tree/master/core/src/components/picker-controller)
 - [Popover](https://github.com/ionic-team/ionic/tree/master/core/src/components/popover-controller)
 - [Toast](https://github.com/ionic-team/ionic/tree/master/core/src/components/toast-controller)
 
@@ -100,9 +109,11 @@ IonicVue supports the following Ionic controllers:
 
 `IonicVueRouter` binds Ionic transitions and routing functionalities with Vue Router.
 
-It is an extension of the Vue Router thus it can be used as a drop-in replacement with all of the methods, hooks, etc. working as expected.
+It is an extension of the official Vue Router thus it can be used as a drop-in replacement with all of the methods, hooks, etc. working as expected.
 
 ### Cookbook examples
+
+**Important: these examples are deprecated, please use the [ionic-vue-examples](https://github.com/ModusCreateOrg/ionic-vue-examples/) instead.**
 
 - [Basic routing](cookbook/index.html)
 - [Named views](cookbook/named-views.html)
