@@ -11,7 +11,7 @@ import {
 import { IonicConfig } from '@ionic/core';
 import { appInitialize } from './app-initialize';
 import { VueDelegate } from './controllers/vue-delegate';
-import IonRouterOutlet  from './components/router-outlet';
+import IonRouterOutlet from './components/router-outlet';
 
 export interface Controllers {
   actionSheetController: ActionSheetController;
