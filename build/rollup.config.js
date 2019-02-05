@@ -49,9 +49,8 @@ function baseConfig() {
       'vue-property-decorator',
       '@ionic/core',
       '@ionic/core/loader',
-      '@ionic/core/css/ionic.bundle.css',
-      '@ionic/core/dist/ionic/svg',
-      'ionicons/dist/collection/icon/icon.css',
+      'ionicons',
+      'ionicons/icons',
     ],
     plugins: [vue(), typescript({ useTsconfigDeclarationDir: true })],
   }

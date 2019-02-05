@@ -2,14 +2,8 @@
 // tslint:disable-next-line:no-import-side-effect
 import { IonicConfig } from '@ionic/core';
 
-// Webpack import for ionicons
-// @ts-ignore
-// tslint:disable-next-line:no-import-side-effect
-import '@ionic/core/dist/ionic/svg';
-
-
-// import '@ionic/core/css/ionic.bundle.css';
-// import 'ionicons/dist/collection/icon/icon.css';
+import { addIcons } from 'ionicons';
+import { ICON_PATHS } from 'ionicons/icons';
 
 import { defineCustomElements } from '@ionic/core/loader';
 import { IonicWindow } from './interfaces';
@@ -20,4 +14,6 @@ export function appInitialize(config?: IonicConfig) {
 
   Ionic.config = config;
   defineCustomElements(window);
+
+  addIcons(ICON_PATHS);
 }
