@@ -2,6 +2,7 @@ import { PluginFunction } from 'vue';
 import { ActionSheetController, AlertController, LoadingController, MenuController, ModalController, PopoverController, ToastController } from './controllers';
 import { IonicConfig } from '@ionic/core';
 export interface Controllers {
+    cachedTabs: {};
     actionSheetController: ActionSheetController;
     alertController: AlertController;
     loadingController: LoadingController;

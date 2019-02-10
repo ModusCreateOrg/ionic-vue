@@ -1,4 +1,4 @@
-import { PluginFunction, VueConstructor, default as VueImport } from 'vue';
+import { PluginFunction, VNode, VueConstructor, default as VueImport } from 'vue';
 import {
   ActionSheetController,
   AlertController,
@@ -11,9 +11,13 @@ import {
 import { IonicConfig } from '@ionic/core';
 import { appInitialize } from './app-initialize';
 import { VueDelegate } from './controllers/vue-delegate';
-import IonRouterOutlet from './components/router-outlet';
+// import IonRouterOutlet from './components/router-outlet';
+import IonTabs from './components/navigation/IonTabs.vue';
+import IonTabs2 from './components/navigation/IonTabs2';
+// import IonTabBar from './components/navigation/IonTabBar.vue';
 
 export interface Controllers {
+  cachedTabs: {};
   actionSheetController: ActionSheetController;
   alertController: AlertController;
   loadingController: LoadingController;
@@ -30,10 +34,17 @@ declare module 'vue/types/vue' {
 }
 
 
-function createApi(Vue: VueConstructor, $root: VueImport) {
+function createApi(Vue: VueConstructor) {
   const cache: Partial<Controllers> = {};
-  const vueDelegate = new VueDelegate(Vue, $root);
+  const vueDelegate = new VueDelegate(Vue);
+  let cachedTabs = [] as VNode[];
   const api: Controllers = {
+    get cachedTabs() {
+      return cachedTabs;
+    },
+    set cachedTabs(v: VNode[]) {
+      cachedTabs = v;
+    },
     get actionSheetController() {
       if (!cache.actionSheetController) {
         cache.actionSheetController = new ActionSheetController();
@@ -94,11 +105,16 @@ export const install: PluginFunction<IonicConfig> = (_Vue, config) => {
   }
   Vue = _Vue;
   Vue.config.ignoredElements.push(/^ion-/);
-  Vue.component('IonRouterView', IonRouterOutlet);
+  // Vue.component('IonRouterView', IonRouterOutlet);
+  Vue.component('IonTabs', IonTabs);
+  Vue.component('IonTabs2', IonTabs2);
+  // Vue.component('IonTabBar', IonTabBar);
 
   appInitialize(config);
 
+  const api = createApi(Vue);
+
   Object.defineProperty(Vue.prototype, '$ionic', {
-    get() { return createApi(Vue, this.$root); }
+    get() { return api; }
   });
 };

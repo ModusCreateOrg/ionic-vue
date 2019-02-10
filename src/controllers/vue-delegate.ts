@@ -1,4 +1,4 @@
-import { VueConstructor, default as Vue } from 'vue';
+import { VueConstructor } from 'vue';
 import { FrameworkDelegate, LIFECYCLE_DID_ENTER, LIFECYCLE_DID_LEAVE, LIFECYCLE_WILL_ENTER, LIFECYCLE_WILL_LEAVE, LIFECYCLE_WILL_UNLOAD } from '@ionic/core';
 import { EsModule, HTMLVueElement, WebpackFunction } from '../interfaces';
 
@@ -15,7 +15,6 @@ function createVueComponent(vue: VueConstructor, component: WebpackFunction | ob
 export class VueDelegate implements FrameworkDelegate {
   constructor(
     public vue: VueConstructor,
-    public $root: Vue
   ) {}
 
   // Attach the passed Vue component to DOM
