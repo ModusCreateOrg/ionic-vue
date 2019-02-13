@@ -1,6 +1,5 @@
 import Vue, { CreateElement, RenderContext, VNode } from 'vue';
 
-// ion-tabs styles
 const hostStyles = {
   display: 'flex',
   position: 'absolute',
@@ -19,12 +18,12 @@ const tabsInner = {
 };
 
 const tabBars = [] as VNode[];
+const cachedTabs = [] as VNode[];
 
 export default {
   name: 'IonTabs',
   functional: true,
   render(h: CreateElement, { parent, data, slots }: RenderContext) {
-    const cachedTabs = parent.$ionic.tabs as VNode[];
     const renderQueue = [] as VNode[];
     const postRenderQueue = [] as VNode[];
     const routePath = parent.$route.path;
@@ -68,21 +67,18 @@ export default {
         continue;
       }
 
-      // Tab was previously cached, push to render queue but hide it for future display
+      // Tab was previously cached, push to render queue but don't activate
       if (tabIsCached) {
         renderQueue.push(vnode);
       }
     }
-
-    // Update global cached tabs
-    parent.$ionic.tabs = cachedTabs;
 
     // Post processing after initial render
     // Required for tabs within Vue components or router view
     Vue.nextTick(() => {
       for (let i = 0; i < postRenderQueue.length; i++) {
         const vnode = postRenderQueue[i];
-        if (vnode.elm && vnode.elm.nodeName === 'ION-TAB') {
+        if (vnode && vnode.elm && vnode.elm.nodeName === 'ION-TAB') {
           const ionTab = vnode.elm as HTMLIonTabElement;
           const routeMatch = routePath.indexOf(ionTab.tab) > -1;
           ionTab.active = routeMatch;
@@ -105,7 +101,7 @@ export default {
     // Render
     return h('div', { ...data, style: hostStyles }, [
       parseSlot(slots().top, selectedTab),
-      h('div', { ...data, class: 'tabs-inner', style: tabsInner }, renderQueue),
+      h('div', { class: 'tabs-inner', style: tabsInner }, renderQueue),
       parseSlot(slots().bottom, selectedTab),
     ]);
   }
@@ -144,13 +140,15 @@ function parseTabBar(vnode: VNode, tab: string): VNode {
   if (vnode.children) {
     for (const child of vnode.children) {
       if (child.tag && child.tag === 'ion-tab-button') {
-        Object.assign(child.data, {
-          on: {
-            click: () => {
-              vnode.context!.$router.push((child.elm as HTMLIonTabButtonElement).tab || '/');
+        if (!child.data || !child.data!.on || !child.data!.on!.click) {
+          Object.assign(child.data, {
+            on: {
+              click: () => {
+                vnode.context!.$router.push((child.elm as HTMLIonTabButtonElement).tab || '/');
+              }
             }
-          }
-        });
+          });
+        }
       }
     }
   }
