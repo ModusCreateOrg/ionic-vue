@@ -11,13 +11,10 @@ import {
 import { IonicConfig } from '@ionic/core';
 import { appInitialize } from './app-initialize';
 import { VueDelegate } from './controllers/vue-delegate';
-// import IonRouterOutlet from './components/router-outlet';
-import IonTabs from './components/navigation/IonTabs.vue';
-import IonTabs2 from './components/navigation/IonTabs2';
-// import IonTabBar from './components/navigation/IonTabBar.vue';
+import IonTabs from './components/navigation/IonTabs';
 
 export interface Controllers {
-  cachedTabs: {};
+  tabs: VNode[];
   actionSheetController: ActionSheetController;
   alertController: AlertController;
   loadingController: LoadingController;
@@ -38,11 +35,12 @@ function createApi(Vue: VueConstructor) {
   const cache: Partial<Controllers> = {};
   const vueDelegate = new VueDelegate(Vue);
   let cachedTabs = [] as VNode[];
-  const api: Controllers = {
-    get cachedTabs() {
+
+  return {
+    get tabs() {
       return cachedTabs;
     },
-    set cachedTabs(v: VNode[]) {
+    set tabs(v: VNode[]) {
       cachedTabs = v;
     },
     get actionSheetController() {
@@ -88,8 +86,6 @@ function createApi(Vue: VueConstructor) {
       return cache.toastController;
     }
   };
-
-  return api;
 }
 
 let Vue: typeof VueImport;
@@ -105,10 +101,7 @@ export const install: PluginFunction<IonicConfig> = (_Vue, config) => {
   }
   Vue = _Vue;
   Vue.config.ignoredElements.push(/^ion-/);
-  // Vue.component('IonRouterView', IonRouterOutlet);
   Vue.component('IonTabs', IonTabs);
-  Vue.component('IonTabs2', IonTabs2);
-  // Vue.component('IonTabBar', IonTabBar);
 
   appInitialize(config);
 

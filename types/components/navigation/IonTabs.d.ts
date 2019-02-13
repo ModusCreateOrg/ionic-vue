@@ -5,4 +5,4 @@ declare const _default: {
     render(h: CreateElement, { parent, data, slots }: RenderContext<Record<string, any>>): VNode;
 };
 export default _default;
-//# sourceMappingURL=IonTabs2.d.ts.map
+//# sourceMappingURL=IonTabs.d.ts.map
