@@ -1,7 +1,8 @@
-import { PluginFunction } from 'vue';
+import { PluginFunction, VNode } from 'vue';
 import { ActionSheetController, AlertController, LoadingController, MenuController, ModalController, PopoverController, ToastController } from './controllers';
 import { IonicConfig } from '@ionic/core';
 export interface Controllers {
+    tabs: VNode[];
     actionSheetController: ActionSheetController;
     alertController: AlertController;
     loadingController: LoadingController;
