@@ -1,4 +1,5 @@
 import Vue, { CreateElement, RenderContext, VNode } from 'vue';
+import { Route } from 'vue-router';
 
 const hostStyles = {
   display: 'flex',
@@ -26,8 +27,8 @@ export default {
   render(h: CreateElement, { parent, data, slots }: RenderContext) {
     const renderQueue = [] as VNode[];
     const postRenderQueue = [] as VNode[];
-    const routePath = parent.$route.path;
-    let selectedTab = null;
+    const route = parent.$route;
+    let selectedTab = '';
 
     if (!parent.$router) {
       throw new Error('IonTabs requires an instance of either VueRouter or IonicVueRouter');
@@ -44,19 +45,13 @@ export default {
         continue;
       }
 
-      // Check if tab attribute is present
-      if (!vnode.data || !vnode.data.attrs || !vnode.data.attrs.tab) {
-        throw new Error('The tab attribute is required for an ion-tab element');
-      }
-
       // Render, cache or ignore ion-tabs
-      const tabName = vnode.data.attrs.tab;
-      const tabMatchesRoute = routePath.indexOf(tabName) > -1;
+      const tabName = matchRouteToTab(vnode, route);
       const tabIsCached = cachedTabs[i];
 
       // Landed on tab route
       // Cache the tab, push to render queue and continue iteration
-      if (tabMatchesRoute) {
+      if (tabName) {
         if (!tabIsCached) {
           cachedTabs[i] = vnode;
         }
@@ -80,17 +75,22 @@ export default {
         const vnode = postRenderQueue[i];
         if (vnode && vnode.elm && vnode.elm.nodeName === 'ION-TAB') {
           const ionTab = vnode.elm as HTMLIonTabElement;
-          const routeMatch = routePath.indexOf(ionTab.tab) > -1;
-          ionTab.active = routeMatch;
+          const vnodeData = {
+            data: {
+              attrs: { tab: ionTab.getAttribute('tab'), routes: ionTab.getAttribute('route') },
+            },
+          };
+          const tabName = matchRouteToTab(vnodeData as any, route);
+          ionTab.active = !!tabName;
 
           // Loop through all tab-bars and set active tab
-          if (routeMatch) {
+          if (tabName) {
             for (const tabBar of tabBars) {
-              (tabBar.elm as HTMLIonTabBarElement).selectedTab = ionTab.tab;
+              (tabBar.elm as HTMLIonTabBarElement).selectedTab = tabName;
             }
           }
 
-          parent.$ionic.tabs[i] = vnode;
+          cachedTabs[i] = vnode;
         }
       }
 
@@ -157,4 +157,32 @@ function parseTabBar(vnode: VNode, tab: string): VNode {
   tabBars.push(vnode);
 
   return vnode;
+}
+
+function matchRouteToTab(vnode: VNode, route: Route): string {
+  if (!vnode.data || !vnode.data.attrs || !vnode.data.attrs.tab) {
+    throw new Error('The tab attribute is required for an ion-tab element');
+  }
+
+  const tabName = vnode.data.attrs.tab;
+
+  // Handle route matching by provided attribute
+  if (vnode.data.attrs.routes) {
+    const routes = Array.isArray(vnode.data.attrs.routes)
+      ? vnode.data.attrs.routes
+      : vnode.data.attrs.routes.replace(' ', '').split(',');
+
+    // Parse an array of possible matches
+    for (const r of routes) {
+      if (route.name === r) {
+        return tabName;
+      }
+    }
+  } else {
+    if (route.path.indexOf(tabName) > -1) {
+      return tabName;
+    }
+  }
+
+  return '';
 }
