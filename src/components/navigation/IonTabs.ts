@@ -143,8 +143,11 @@ function parseTabBar(vnode: VNode, tab: string): VNode {
         if (!child.data || !child.data!.on || !child.data!.on!.click) {
           Object.assign(child.data, {
             on: {
-              click: () => {
-                vnode.context!.$router.push((child.elm as HTMLIonTabButtonElement).tab || '/');
+              click: (e: Event) => {
+                const url = (child.elm as HTMLIonTabButtonElement).tab || '/';
+                const route = hasDataAttr(child, 'to') ? child.data!.attrs!.to : url;
+                e.preventDefault();
+                vnode.context!.$router.push(route);
               }
             }
           });
@@ -157,6 +160,10 @@ function parseTabBar(vnode: VNode, tab: string): VNode {
   tabBars.push(vnode);
 
   return vnode;
+}
+
+function hasDataAttr(child: VNode, attr: string) {
+  return child.data && child.data.attrs && child.data.attrs[attr];
 }
 
 function matchRouteToTab(vnode: VNode, route: Route): string {
