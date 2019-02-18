@@ -1,23 +1,6 @@
 import Vue, { CreateElement, RenderContext, VNode } from 'vue';
 import { Route } from 'vue-router';
 
-const hostStyles = {
-  display: 'flex',
-  position: 'absolute',
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0,
-  flexDirection: 'column',
-  width: '100%',
-  height: '100%',
-};
-
-const tabsInner = {
-  position: 'relative',
-  flex: 1,
-};
-
 const tabBars = [] as VNode[];
 const cachedTabs = [] as VNode[];
 
@@ -62,10 +45,9 @@ export default {
         continue;
       }
 
-      // Tab was previously cached, push to render queue but don't activate
-      if (tabIsCached) {
-        renderQueue.push(vnode);
-      }
+      // If tab was previously cached, push to render queue but don't activate
+      // Otherwise push an empty node
+      renderQueue.push(tabIsCached ? vnode : h());
     }
 
     // Post processing after initial render
@@ -193,3 +175,20 @@ function matchRouteToTab(vnode: VNode, route: Route): string {
 
   return '';
 }
+
+const hostStyles = {
+  display: 'flex',
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  flexDirection: 'column',
+  width: '100%',
+  height: '100%',
+};
+
+const tabsInner = {
+  position: 'relative',
+  flex: 1,
+};
