@@ -28,7 +28,6 @@ export default {
         continue;
       }
 
-      // Render, cache or ignore ion-tabs
       const tabName = matchRouteToTab(vnode, route);
       const tabIsCached = cachedTabs[i];
 
@@ -55,6 +54,7 @@ export default {
     Vue.nextTick(() => {
       for (let i = 0; i < postRenderQueue.length; i++) {
         const vnode = postRenderQueue[i];
+
         if (vnode && vnode.elm && vnode.elm.nodeName === 'ION-TAB') {
           const ionTab = vnode.elm as HTMLIonTabElement;
           const vnodeData = {
@@ -63,6 +63,8 @@ export default {
             },
           };
           const tabName = matchRouteToTab(vnodeData as any, route);
+
+          // Set tab active state
           ionTab.active = !!tabName;
 
           // Loop through all tab-bars and set active tab
@@ -119,10 +121,11 @@ function parseTabBar(vnode: VNode, tab: string): VNode {
   }
 
   // Loop through ion-tab-buttons and assign click handlers
+  // If custom click handler was provided, do not override it
   if (vnode.children) {
     for (const child of vnode.children) {
       if (child.tag && child.tag === 'ion-tab-button') {
-        if (!child.data || !child.data!.on || !child.data!.on!.click) {
+        if (!child.data || !child.data.on || !child.data.on.click) {
           Object.assign(child.data, {
             on: {
               click: (e: Event) => {
@@ -144,10 +147,13 @@ function parseTabBar(vnode: VNode, tab: string): VNode {
   return vnode;
 }
 
-function hasDataAttr(child: VNode, attr: string) {
-  return child.data && child.data.attrs && child.data.attrs[attr];
+// Check if a VNode has a specific attribute set
+function hasDataAttr(vnode: VNode, attr: string) {
+  return vnode.data && vnode.data.attrs && vnode.data.attrs[attr];
 }
 
+// Match tab to route through :routes property
+// Otherwise match by URL
 function matchRouteToTab(vnode: VNode, route: Route): string {
   if (!vnode.data || !vnode.data.attrs || !vnode.data.attrs.tab) {
     throw new Error('The tab attribute is required for an ion-tab element');
@@ -155,7 +161,7 @@ function matchRouteToTab(vnode: VNode, route: Route): string {
 
   const tabName = vnode.data.attrs.tab;
 
-  // Handle route matching by provided attribute
+  // Handle route matching by :routes attribute
   if (vnode.data.attrs.routes) {
     const routes = Array.isArray(vnode.data.attrs.routes)
       ? vnode.data.attrs.routes
@@ -176,6 +182,7 @@ function matchRouteToTab(vnode: VNode, route: Route): string {
   return '';
 }
 
+// CSS for ion-tabs inner and outer elements
 const hostStyles = {
   display: 'flex',
   position: 'absolute',
@@ -186,9 +193,11 @@ const hostStyles = {
   flexDirection: 'column',
   width: '100%',
   height: '100%',
+  contain: 'layout size style',
 };
 
 const tabsInner = {
   position: 'relative',
   flex: 1,
+  contain: 'layout size style',
 };
