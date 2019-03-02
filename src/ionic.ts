@@ -1,4 +1,4 @@
-import { PluginFunction, VNode, VueConstructor, default as VueImport } from 'vue';
+import { PluginFunction, VueConstructor, default as VueImport } from 'vue';
 import {
   ActionSheetController,
   AlertController,
@@ -14,7 +14,6 @@ import { VueDelegate } from './controllers/vue-delegate';
 import IonTabs from './components/navigation/IonTabs';
 
 export interface Controllers {
-  tabs: VNode[];
   actionSheetController: ActionSheetController;
   alertController: AlertController;
   loadingController: LoadingController;
@@ -34,15 +33,8 @@ declare module 'vue/types/vue' {
 function createApi(Vue: VueConstructor) {
   const cache: Partial<Controllers> = {};
   const vueDelegate = new VueDelegate(Vue);
-  let cachedTabs = [] as VNode[];
 
   return {
-    get tabs() {
-      return cachedTabs;
-    },
-    set tabs(v: VNode[]) {
-      cachedTabs = v;
-    },
     get actionSheetController() {
       if (!cache.actionSheetController) {
         cache.actionSheetController = new ActionSheetController();
