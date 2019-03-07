@@ -60,8 +60,8 @@ export interface ApiCache {
 }
 
 export interface RouterArgs extends RouterOptions {
-  direction: number;
-  viewCount: number;
+  direction?: number;
+  viewCount?: number;
 }
 
 export interface ProxyControllerInterface {
