@@ -46,8 +46,8 @@ export interface ApiCache {
     [key: string]: any;
 }
 export interface RouterArgs extends RouterOptions {
-    direction: number;
-    viewCount: number;
+    direction?: number;
+    viewCount?: number;
 }
 export interface ProxyControllerInterface {
     create(opts: object): Promise<HTMLElement>;
