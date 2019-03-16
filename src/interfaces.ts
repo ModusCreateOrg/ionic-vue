@@ -6,6 +6,7 @@ declare module 'vue-router/types/router' {
   interface VueRouter {
     direction: number;
     directionOverride: number | null;
+    transition: Promise<void>;
     canGoBack(): boolean;
   }
 }
