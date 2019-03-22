@@ -26,6 +26,20 @@ Ionic integration adapters for Vue.
     <img src="https://res.cloudinary.com/modus-labs/image/upload/w_560/v1535019553/labs/logo-ionic-vue.svg" width="260" alt="@modus/ionic-vue">
 </p>
 
+## Roadmap
+
+Overview: all of the controllers and major features such as transitions and router have been implemented and tested for several months now.
+Apart from minor improvements and further testing of various mixes of Ionic components and implementations this library is considered feature complete.
+
+| Feature     | Status  | @ionic/vue | Notes |
+|-------------|---------|------------|-------|
+| Router      | :heavy_check_mark: | :x: | Essentially an extension of Vue's official router <br/>Probably the most stable of all components<br>Present in @ionic/vue, not exported and pending approval |
+| Router View | :heavy_check_mark: | :x: | Wrapper around official `<router-view>` <br> Enables Ionic transitions <br> [Latest PR](https://github.com/ionic-team/ionic/pull/17821) pending |
+| Tabs        | :heavy_check_mark: | :x: |  Development sponsored by [JustWatch](https://www.justwatch.com/)  <br> [PR](https://github.com/ionic-team/ionic/pull/17678) pending |
+| Controllers | :heavy_check_mark: | :heavy_check_mark: | Fully implemented |
+| TypeScript  | :heavy_check_mark: | :heavy_check_mark: | Fully implemented |
+| Unit tests  | :x: | :x: |  Outdated as were originally written in plain JS, need to be updated for TS |
+
 ## Installing / Getting started
 
 A quick introduction of the minimal setup you need to get a hello world up &
@@ -110,18 +124,6 @@ IonicVue supports all of the Ionic controllers:
 `IonicVueRouter` binds Ionic transitions and routing functionalities with Vue Router.
 
 It is an extension of the official Vue Router thus it can be used as a drop-in replacement with all of the methods, hooks, etc. working as expected.
-
-### Cookbook examples
-
-**Important: these examples are deprecated, please use the [ionic-vue-examples](https://github.com/ModusCreateOrg/ionic-vue-examples/) instead.**
-
-- [Basic routing](cookbook/index.html)
-- [Named views](cookbook/named-views.html)
-- [Named views with transitions](cookbook/named-views-transitions.html)
-- [Custom transitions](cookbook/custom-transitions.html)
-- [Mix Ionic and custom transitions](cookbook/mixed-transitions.html)
-- [Ionic tabs](cookbook/tabs.html)
-- [Ionic controllers](cookbook/ionic-controllers.html)
 
 ## Developing
 
