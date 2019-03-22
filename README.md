@@ -33,9 +33,9 @@ Apart from minor improvements and further testing of various mixes of Ionic comp
 
 | Feature     | Status  | @ionic/vue | Notes |
 |-------------|---------|------------|-------|
-| Router      | :heavy_check_mark: | :x: | Essentially an extension of Vue's official router <br/>Probably the most stable of all components<br>Present in @ionic/vue, not exported and pending approval |
-| Router View | :heavy_check_mark: | :x: | Wrapper around official `<router-view>` <br> Enables Ionic transitions <br> [Latest PR](https://github.com/ionic-team/ionic/pull/17821) pending |
-| Tabs        | :heavy_check_mark: | :x: |  Development sponsored by [JustWatch](https://www.justwatch.com/)  <br> [PR](https://github.com/ionic-team/ionic/pull/17678) pending |
+| Router      | :heavy_check_mark: | :heavy_check_mark: | Awaiting release |
+| Router View | :heavy_check_mark: | :heavy_check_mark: | Awaiting release |
+| Tabs        | :heavy_check_mark: | :heavy_check_mark: | Awaiting release |
 | Controllers | :heavy_check_mark: | :heavy_check_mark: | Fully implemented |
 | TypeScript  | :heavy_check_mark: | :heavy_check_mark: | Fully implemented |
 | Unit tests  | :x: | :x: |  Outdated as were originally written in plain JS, need to be updated for TS |
