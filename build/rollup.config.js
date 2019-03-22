@@ -20,6 +20,7 @@ function outputConfig(suffix, format, opts = {}) {
     {
       file: resolve(`./dist/ionic-vue${suffix}.js`),
       name: 'IonicVue',
+      exports: 'named',
       sourcemap: true,
       format,
       banner,
