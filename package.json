@@ -1,6 +1,6 @@
 {
   "name": "@modus/ionic-vue",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "Ionic integration adapters for Vue",
   "homepage": "https://moduscreate.com",
   "author": "Michael Tintiuc <michael.tintiuc@moduscreate.com>",
