@@ -2,6 +2,7 @@
 // tslint:disable-next-line:no-import-side-effect
 import { IonicConfig } from '@ionic/core';
 
+// Webpack import for ionicons
 import { addIcons } from 'ionicons';
 import { ICON_PATHS } from 'ionicons/icons';
 
@@ -14,6 +15,5 @@ export function appInitialize(config?: IonicConfig) {
 
   Ionic.config = config;
   defineCustomElements(window);
-
   addIcons(ICON_PATHS);
 }

@@ -1,10 +1,11 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import { RouterDirection } from '@ionic/core';
 import { RouterOptions } from 'vue-router/types/router';
 declare module 'vue-router/types/router' {
     interface VueRouter {
-        direction: number;
-        directionOverride: number | null;
+        direction: RouterDirection;
+        directionOverride: RouterDirection | null;
         transition: Promise<void>;
         canGoBack(): boolean;
     }
@@ -47,7 +48,7 @@ export interface ApiCache {
     [key: string]: any;
 }
 export interface RouterArgs extends RouterOptions {
-    direction?: number;
+    direction?: RouterDirection;
     viewCount?: number;
 }
 export interface ProxyControllerInterface {
