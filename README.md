@@ -33,9 +33,9 @@ Apart from minor improvements and further testing of various mixes of Ionic comp
 
 | Feature     | Status  | @ionic/vue | Notes |
 |-------------|---------|------------|-------|
-| Router      | :heavy_check_mark: | :heavy_check_mark: | Awaiting release |
-| Router View | :heavy_check_mark: | :heavy_check_mark: | Awaiting release |
-| Tabs        | :heavy_check_mark: | :heavy_check_mark: | Awaiting release |
+| Router      | :heavy_check_mark: | :heavy_check_mark: | Fully implemented |
+| Router View | :heavy_check_mark: | :heavy_check_mark: | Fully implemented |
+| Tabs        | :heavy_check_mark: | :heavy_check_mark: | Fully implemented |
 | Controllers | :heavy_check_mark: | :heavy_check_mark: | Fully implemented |
 | TypeScript  | :heavy_check_mark: | :heavy_check_mark: | Fully implemented |
 | Unit tests  | :x: | :x: |  Outdated as were originally written in plain JS, need to be updated for TS |
