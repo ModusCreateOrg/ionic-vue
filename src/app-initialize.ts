@@ -4,9 +4,9 @@ import { IonicConfig } from '@ionic/core';
 
 // Webpack import for ionicons
 import { addIcons } from 'ionicons';
-import { ICON_PATHS } from 'ionicons/icons';
+import { arrowBack, arrowDown, arrowForward, close, closeCircle, menu, reorder, search } from 'ionicons/icons';
 
-import { defineCustomElements } from '@ionic/core/loader';
+import { applyPolyfills, defineCustomElements } from '@ionic/core/loader';
 import { IonicWindow } from './interfaces';
 
 export function appInitialize(config?: IonicConfig) {
@@ -14,6 +14,28 @@ export function appInitialize(config?: IonicConfig) {
   const Ionic = (win.Ionic = win.Ionic || {});
 
   Ionic.config = config;
-  defineCustomElements(window);
-  addIcons(ICON_PATHS);
+  // defineCustomElements(window);
+  // addIcons(ICON_PATHS);
+  addIcons({
+  'ios-close': close.ios,
+  'md-close': close.md,
+  'ios-reorder': reorder.ios,
+  'md-reorder': reorder.md,
+  'ios-menu': menu.ios,
+  'md-menu': menu.md,
+  'ios-arrow-forward': arrowForward.ios,
+  'md-arrow-forward': arrowForward.md,
+  'ios-arrow-back': arrowBack.ios,
+  'md-arrow-back': arrowBack.md,
+  'ios-arrow-down': arrowDown.ios,
+  'md-arrow-down': arrowDown.md,
+  'ios-search': search.ios,
+  'md-search': search.md,
+  'ios-close-circle': closeCircle.ios,
+  'md-close-circle': closeCircle.md,
+});
+
+  return applyPolyfills().then(() => {
+      return defineCustomElements(win);
+    });
 }
