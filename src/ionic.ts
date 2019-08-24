@@ -12,6 +12,8 @@ import { IonicConfig } from '@ionic/core';
 import { appInitialize } from './app-initialize';
 import { VueDelegate } from './controllers/vue-delegate';
 import IonTabs from './components/navigation/ion-tabs';
+import IonPage from './components/navigation/ion-page';
+import { createInputComponents } from './components/inputs';
 
 export interface Controllers {
   actionSheetController: ActionSheetController;
@@ -30,9 +32,9 @@ declare module 'vue/types/vue' {
 }
 
 
-function createApi(Vue: VueConstructor) {
+function createApi(vueInstance: VueConstructor) {
   const cache: Partial<Controllers> = {};
-  const vueDelegate = new VueDelegate(Vue);
+  const vueDelegate = new VueDelegate(vueInstance);
 
   return {
     get actionSheetController() {
@@ -94,6 +96,9 @@ export const install: PluginFunction<IonicConfig> = (_Vue, config) => {
   Vue = _Vue;
   Vue.config.ignoredElements.push(/^ion-/);
   Vue.component('IonTabs', IonTabs);
+  Vue.component('IonPage', IonPage);
+
+  createInputComponents();
 
   appInitialize(config);
 

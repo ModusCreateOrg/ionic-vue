@@ -4,16 +4,14 @@ import { terser } from 'rollup-plugin-terser'
 import typescript from 'rollup-plugin-typescript2'
 import { version as packageVersion } from '../package.json'
 
+const resolve = _path => path.resolve(__dirname, '../', _path)
 const version = process.env.VERSION || packageVersion
-
 const banner = `/*!
  * @modus/ionic-vue v${version}
  * ${new Date().getFullYear()} Michael Tintiuc - Modus Create
  * @license MIT
  */
 `
-
-const resolve = _path => path.resolve(__dirname, '../', _path)
 
 function outputConfig(suffix, format, opts = {}) {
   return Object.assign(
@@ -36,8 +34,6 @@ function baseConfig() {
       outputConfig('', 'umd', {
         globals: {
           vue: 'Vue',
-          'vue-class-component': 'VueClassComponent',
-          'vue-property-decorator': 'vue-property-decorator',
         },
       }),
       outputConfig('.esm', 'esm'),
@@ -46,14 +42,19 @@ function baseConfig() {
     external: [
       'vue',
       'vue-router',
-      'vue-class-component',
-      'vue-property-decorator',
       '@ionic/core',
       '@ionic/core/loader',
       'ionicons',
       'ionicons/icons',
     ],
-    plugins: [vue(), typescript({ useTsconfigDeclarationDir: true })],
+    plugins: [
+      vue(),
+      typescript({
+        useTsconfigDeclarationDir: true,
+        objectHashIgnoreUnknownHack: true,
+        clean: true
+      })
+    ],
   }
 }
 

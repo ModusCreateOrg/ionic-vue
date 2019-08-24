@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import { RouterDirection } from '@ionic/core';
+import { HTMLStencilElement, IonicConfig, RouterDirection } from '@ionic/core';
 import { RouterOptions } from 'vue-router/types/router';
 declare module 'vue-router/types/router' {
     interface VueRouter {
@@ -26,13 +26,12 @@ export interface EsModule extends Object {
     [Symbol.toStringTag]: string;
 }
 export interface IonicGlobal {
-    config?: any;
-    ael?: (elm: any, eventName: string, cb: (ev: Event) => void, opts: any) => void;
-    raf?: (ts: number) => void;
-    rel?: (elm: any, eventName: string, cb: (ev: Event) => void, opts: any) => void;
+    config?: IonicConfig;
+    asyncQueue?: boolean;
 }
 export interface IonicWindow extends Window {
     Ionic: IonicGlobal;
+    __zone_symbol__requestAnimationFrame?: (ts: FrameRequestCallback) => number;
 }
 export interface FrameworkDelegate {
     attachViewToDom(parentElement: HTMLElement, component: HTMLElement | WebpackFunction | object | Vue, opts?: object, classes?: string[]): Promise<HTMLElement>;

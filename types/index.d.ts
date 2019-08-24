@@ -5,4 +5,5 @@ declare const _default: {
 export default _default;
 export { Controllers } from './ionic';
 export { default as IonicVueRouter } from './router';
+export * from './components/inputs';
 //# sourceMappingURL=index.d.ts.map
