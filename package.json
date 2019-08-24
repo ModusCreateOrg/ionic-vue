@@ -37,7 +37,14 @@
     "api",
     "wrapper",
     "framework",
-    "delegate"
+    "delegate",
+    "mobile",
+    "pwa",
+    "progressive web app",
+    "cordova",
+    "capacitor",
+    "app",
+    "webapp"
   ],
   "scripts": {
     "dev": "rollup -c ./build/rollup.config.js",
@@ -47,10 +54,6 @@
     "lint.fix": "tslint --project . --fix",
     "test": "jest --coverage --verbose",
     "install.peer": "npm i --no-save vue vue-template-compiler vue-router @ionic/core"
-  },
-  "dependencies": {
-    "vue-class-component": "^6.2.0",
-    "vue-property-decorator": "^7.2.0"
   },
   "devDependencies": {
     "@vue/test-utils": "^1.0.0-beta.24",
@@ -73,7 +76,7 @@
     "vue": "^2.5.16",
     "vue-template-compiler": "^2.5.16",
     "vue-router": "^3.0.1",
-    "@ionic/core": "^4.0.0"
+    "@ionic/core": "^4.6.0"
   },
   "jestSonar": {
     "reportPath": "reports",
