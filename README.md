@@ -55,6 +55,7 @@ Now you can use it during the initialization step of your Vue app.
 
 ```js
 import Vue from 'vue'
+import '@ionic/core/css/ionic.bundle.css'
 import Ionic, { IonicVueRouter } from '@modus/ionic-vue'
 import Home from './Home.vue'
 
