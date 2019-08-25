@@ -33,11 +33,11 @@ jobs:
 
       # SonarQube download, config and scanning
       - run: echo "Starting SonarQube scan"
-      - run: wget https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.2.0.1227-linux.zip
-      - run: unzip sonar-scanner-cli-3.2.0.1227-linux.zip
-      - run: echo "sonar.host.url=https://sonarcloud.io" > sonar-scanner-3.2.0.1227-linux/conf/sonar-scanner.properties
+      - run: wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.0.0.1744-linux.zip
+      - run: unzip sonar-scanner-cli-4.0.0.1744-linux.zip
+      - run: echo "sonar.host.url=https://sonarcloud.io" > sonar-scanner-4.0.0.1744-linux/conf/sonar-scanner.properties
       - run: echo "sonar.login=$sonarqubekey" >> sonar-project.properties
       - run: echo "sonar.organization=$sonarorg" >> sonar-project.properties
-      - run: sonar-scanner-3.2.0.1227-linux/bin/sonar-scanner
+      - run: sonar-scanner-4.0.0.1744-linux/bin/sonar-scanner
       - run: echo "Scan complete, data sent to sonarcloud"
 
