@@ -3,11 +3,11 @@
 
 Modus Create engineers will continue to support the community at the Ionic's official [Issue board](https://github.com/ionic-team/ionic/issues)
 
-However, this repository is still being actively maintained and kept in-sync with the official @ionic/vue. The main difference being the availability of `IonicVueRouter` and flexibility of choosing dependency versions.
+However, this repository is still being actively maintained and kept in-sync with the official @ionic/vue. The main difference being the availability of pending upstream pull requests and flexibility of choosing dependency versions.
 
-Our goal is to allow developers to be on the bleeding-edge and freely experiment, thus we are delivering features and bug fixes as fast as possible. Apart from the router you can switch between the libraries without any changes to your code-base.
+Our goal is to allow developers to be on the bleeding-edge and freely experiment, thus we are delivering features and bug fixes as fast as possible.
 
-Bug fixes, features, documentation and any other changes will be contributed back as well.
+Bug fixes, features, documentation and any other changes are always contributed back to upstream @ionic/vue.
 
 ---
 ---
@@ -38,15 +38,17 @@ Apart from minor improvements and further testing of various mixes of Ionic comp
 | Tabs        | :heavy_check_mark: | :heavy_check_mark: | Fully implemented |
 | Controllers | :heavy_check_mark: | :heavy_check_mark: | Fully implemented |
 | TypeScript  | :heavy_check_mark: | :heavy_check_mark: | Fully implemented |
+| MS Edge Fix | :heavy_check_mark: | [Pending](https://github.com/ionic-team/ionic/pull/19176) | - |
+| Router keep-alive | :heavy_check_mark: | [Pending](https://github.com/ionic-team/ionic/pull/18561) | - |
+| Functional Inputs | :heavy_check_mark: | [Pending](https://github.com/ionic-team/ionic/pull/19087) | - |
 | Unit tests  | :x: | :x: |  Outdated as were originally written in plain JS, need to be updated for TS |
 
 ## Installing / Getting started
 
-A quick introduction of the minimal setup you need to get a hello world up &
-running.
+A quick introduction of the minimal setup you need to get a hello world up and running.
 
 ```shell
-npm install @modus/ionic-vue
+npm install @ionic/core @modus/ionic-vue
 ```
 
 Now you can use it during the initialization step of your Vue app.
