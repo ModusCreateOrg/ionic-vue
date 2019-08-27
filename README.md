@@ -41,6 +41,7 @@ Apart from minor improvements and further testing of various mixes of Ionic comp
 | MS Edge Fix | :heavy_check_mark: | :heavy_check_mark: | Fully implemented |
 | Router keep-alive | :heavy_check_mark: | [Pending](https://github.com/ionic-team/ionic/pull/18561) | - |
 | Functional Inputs | :heavy_check_mark: | [Pending](https://github.com/ionic-team/ionic/pull/19087) | - |
+| Import controllers directly | :soon: | :x: | Improve treeshaking and sync with react and angular implementations |
 | Unit tests  | :x: | :x: |  Outdated as were originally written in plain JS, need to be updated for TS |
 
 ## Installing / Getting started
