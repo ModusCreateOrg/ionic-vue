@@ -38,7 +38,7 @@ Apart from minor improvements and further testing of various mixes of Ionic comp
 | Tabs        | :heavy_check_mark: | :heavy_check_mark: | Fully implemented |
 | Controllers | :heavy_check_mark: | :heavy_check_mark: | Fully implemented |
 | TypeScript  | :heavy_check_mark: | :heavy_check_mark: | Fully implemented |
-| MS Edge Fix | :heavy_check_mark: | [Pending](https://github.com/ionic-team/ionic/pull/19176) | - |
+| MS Edge Fix | :heavy_check_mark: | :heavy_check_mark: | Fully implemented |
 | Router keep-alive | :heavy_check_mark: | [Pending](https://github.com/ionic-team/ionic/pull/18561) | - |
 | Functional Inputs | :heavy_check_mark: | [Pending](https://github.com/ionic-team/ionic/pull/19087) | - |
 | Unit tests  | :x: | :x: |  Outdated as were originally written in plain JS, need to be updated for TS |
