@@ -76,7 +76,7 @@
     "vue": "^2.5.16",
     "vue-template-compiler": "^2.5.16",
     "vue-router": "^3.0.1",
-    "@ionic/core": "^4.6.0"
+    "@ionic/core": "latest"
   },
   "jestSonar": {
     "reportPath": "reports",
