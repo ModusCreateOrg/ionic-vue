@@ -1,7 +1,6 @@
 import { PluginFunction, VueConstructor, default as VueImport } from 'vue';
 import {
   IonicConfig,
-  MenuControllerI,
   OverlayController
 } from '@ionic/core';
 import {
@@ -9,8 +8,8 @@ import {
   alertController,
   loadingController,
   menuController,
-  toastController,
   pickerController,
+  toastController,
 } from './controllers';
 import { modalController } from './controllers/modal-controller';
 import { popoverController } from './controllers/popover-controller';
@@ -24,7 +23,7 @@ export interface Controllers {
   actionSheetController: OverlayController;
   alertController: OverlayController;
   loadingController: OverlayController;
-  menuController: Partial<MenuControllerI>;
+  menuController: typeof menuController;
   modalController: OverlayController;
   popoverController: OverlayController;
   toastController: OverlayController;
@@ -99,7 +98,7 @@ export const install: PluginFunction<IonicConfig> = (_Vue, config) => {
   if (Vue && _Vue === Vue) {
     if (process.env.NODE_ENV !== 'production') {
       console.error(
-        '[Ionic] already installed. Vue.use(Ionic) should be called only once.'
+        '[Ionic] Plugin already installed. Vue.use(Ionic) should be called only once.'
       );
     }
     return;
@@ -117,7 +116,7 @@ export const install: PluginFunction<IonicConfig> = (_Vue, config) => {
 
   Object.defineProperty(Vue.prototype, '$ionic', {
     get() {
-      console.warn('The usage of the global $ionic Vue property is deprecated and will be removed in the future versions.\nInstead import controllers directly with "import { alertController } from \'@ionic/vue\'"');
+      console.warn('[Ionic] The usage of the global $ionic Vue property is deprecated and will be removed in the future versions.\nInstead import controllers directly with "import { alertController } from \'@ionic/vue\'"');
       return api;
     }
   });
