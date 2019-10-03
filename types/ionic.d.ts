@@ -1,10 +1,11 @@
 import { PluginFunction } from 'vue';
-import { IonicConfig, MenuControllerI, OverlayController } from '@ionic/core';
+import { IonicConfig, OverlayController } from '@ionic/core';
+import { menuController } from './controllers';
 export interface Controllers {
     actionSheetController: OverlayController;
     alertController: OverlayController;
     loadingController: OverlayController;
-    menuController: Partial<MenuControllerI>;
+    menuController: typeof menuController;
     modalController: OverlayController;
     popoverController: OverlayController;
     toastController: OverlayController;
