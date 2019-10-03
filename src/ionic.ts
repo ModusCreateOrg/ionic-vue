@@ -10,6 +10,7 @@ import {
   loadingController,
   menuController,
   toastController,
+  pickerController,
 } from './controllers';
 import { modalController } from './controllers/modal-controller';
 import { popoverController } from './controllers/popover-controller';
@@ -27,6 +28,7 @@ export interface Controllers {
   modalController: OverlayController;
   popoverController: OverlayController;
   toastController: OverlayController;
+  pickerController: OverlayController;
 }
 
 declare module 'vue/types/vue' {
@@ -81,6 +83,12 @@ function createApi(vueInstance: VueConstructor) {
         cache.toastController = toastController;
       }
       return cache.toastController;
+    },
+    get pickerController() {
+      if (!cache.pickerController) {
+        cache.pickerController = pickerController;
+      }
+      return cache.pickerController;
     }
   };
 }

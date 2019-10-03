@@ -8,6 +8,7 @@ export interface Controllers {
     modalController: OverlayController;
     popoverController: OverlayController;
     toastController: OverlayController;
+    pickerController: OverlayController;
 }
 declare module 'vue/types/vue' {
     interface Vue {
