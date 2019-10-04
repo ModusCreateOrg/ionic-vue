@@ -1,14 +1,15 @@
 import { PluginFunction } from 'vue';
-import { ActionSheetController, AlertController, LoadingController, MenuController, ModalController, PopoverController, ToastController } from './controllers';
-import { IonicConfig } from '@ionic/core';
+import { IonicConfig, OverlayController } from '@ionic/core';
+import { menuController } from './controllers';
 export interface Controllers {
-    actionSheetController: ActionSheetController;
-    alertController: AlertController;
-    loadingController: LoadingController;
-    menuController: MenuController;
-    modalController: ModalController;
-    popoverController: PopoverController;
-    toastController: ToastController;
+    actionSheetController: OverlayController;
+    alertController: OverlayController;
+    loadingController: OverlayController;
+    menuController: typeof menuController;
+    modalController: OverlayController;
+    popoverController: OverlayController;
+    toastController: OverlayController;
+    pickerController: OverlayController;
 }
 declare module 'vue/types/vue' {
     interface Vue {

@@ -1,7 +1,2 @@
-import { PickerOptions } from '@ionic/core';
-import { OverlayBaseController } from '../util';
-export declare const CTRL = "ion-picker-controller";
-export declare class PickerController extends OverlayBaseController<PickerOptions, HTMLIonPickerElement> {
-    constructor();
-}
+export { pickerController } from '@ionic/core';
 //# sourceMappingURL=picker-controller.d.ts.map
