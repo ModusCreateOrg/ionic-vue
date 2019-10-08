@@ -1,7 +1,9 @@
 import Vue, { CreateElement, RenderContext, VNode } from 'vue';
 import { Route } from 'vue-router';
 
+
 interface EventListeners {
+  // tslint:disable-next-line:ban-types
   [key: string]: Function | Function[];
 }
 
@@ -158,6 +160,7 @@ function parseTabBar(vnode: VNode, tab: string, listeners: EventListeners): VNod
           if (Array.isArray(child.data.on.click)) {
             child.data.on.click.push(clickHandler);
           } else {
+            // tslint:disable-next-line:ban-types
             child.data.on.click = [child.data.on.click as Function, clickHandler];
           }
         }
