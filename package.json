@@ -49,7 +49,7 @@
   "scripts": {
     "dev": "rollup -c ./build/rollup.config.js",
     "watch": "rollup -w -c ./build/rollup.config.js",
-    "prod": "NODE_ENV=production rollup -c ./build/rollup.config.js --configProd",
+    "prod": "npm run clean && NODE_ENV=production rollup -c ./build/rollup.config.js --configProd",
     "lint": "tslint --project .",
     "lint.fix": "tslint --project . --fix",
     "test": "jest --coverage --verbose",
