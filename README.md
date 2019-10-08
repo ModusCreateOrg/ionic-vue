@@ -41,7 +41,7 @@ Apart from minor improvements and further testing of various mixes of Ionic comp
 | MS Edge Fix | :heavy_check_mark: | :heavy_check_mark: | Fully implemented |
 | Router keep-alive | :heavy_check_mark: | [Pending](https://github.com/ionic-team/ionic/pull/18561) | - |
 | Functional Inputs | :heavy_check_mark: | [Pending](https://github.com/ionic-team/ionic/pull/19087) | - |
-| Import controllers directly | :soon: | :x: | Improve treeshaking and sync with react and angular implementations |
+| Import controllers directly | :heavy_check_mark: | [Pending](https://github.com/ionic-team/ionic/pull/19573) | Improve treeshaking and sync with react and angular implementations |
 | Unit tests  | :x: | :x: |  Outdated as were originally written in plain JS, need to be updated for TS |
 
 ## Installing / Getting started
@@ -92,13 +92,16 @@ IonicVueRouter requires `ion-vue-router` element in order to render Ionic transi
 
 ### IonicVue
 
-`IonicVue` abstracts DOM interaction of Ionic UI components inside a Vue application and can be used via `this.$ionic`.
+`IonicVue` abstracts DOM interaction of Ionic UI components inside a Vue application.
+:warning: Use of `this.$ionic` or `Vue.$ionic` is deprecated and will be removed in the near future. Please use the example below instead:
 
 ```js
+import { alertController } from '@ionic/vue';
+
 Vue.component('Foo', {
   methods: {
     notify() {
-      this.$ionic.alertController
+      alertController
         .create({
           header: 'Notification',
           subHeader: null,
