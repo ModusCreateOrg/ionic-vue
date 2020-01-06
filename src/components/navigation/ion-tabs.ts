@@ -134,9 +134,14 @@ function parseTabBar(vnode: VNode, tab: string, listeners: EventListeners): VNod
     for (const child of vnode.children) {
       if (child.tag && child.tag === 'ion-tab-button') {
         const clickHandler = (e: Event) => {
-          const path = (child.elm as HTMLIonTabButtonElement).tab || '/';
+          const path = (child.elm as HTMLIonTabButtonElement).tab;
           const route = hasDataAttr(child, 'to') ? child.data!.attrs!.to : { path };
           e.preventDefault();
+
+          // Do not trigger any events if there's nowhere to go to
+          if (!route) {
+            return;
+          }
 
           if (Array.isArray(IonTabsWillChange)) {
             IonTabsWillChange.map(item => item(route));
