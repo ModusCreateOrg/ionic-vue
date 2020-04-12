@@ -44,6 +44,9 @@ Apart from minor improvements and further testing of various mixes of Ionic comp
 | Import controllers directly | :heavy_check_mark: | [Pending](https://github.com/ionic-team/ionic/pull/19573) | Improve treeshaking and sync with react and angular implementations |
 | Unit tests  | :x: | :x: |  Outdated as were originally written in plain JS, need to be updated for TS |
 
+## Ionic versions 4 and 5
+:warning: Moving forward all versions of `ionic-vue` will be supporting Ionic 5 only, if you'd like to continue using Ionic 4 please use `ionic-vue` version `1.3.4`
+
 ## Installing / Getting started
 
 A quick introduction of the minimal setup you need to get a hello world up and running.
@@ -93,7 +96,6 @@ IonicVueRouter requires `ion-vue-router` element in order to render Ionic transi
 ### IonicVue
 
 `IonicVue` abstracts DOM interaction of Ionic UI components inside a Vue application.
-:warning: Use of `this.$ionic` or `Vue.$ionic` is deprecated and will be removed in the near future. Please use the example below instead:
 
 ```js
 import { alertController } from '@ionic/vue';
