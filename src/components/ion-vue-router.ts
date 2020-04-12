@@ -3,15 +3,16 @@ import { NavDirection } from '@ionic/core';
 
 type TransitionDone = () => void;
 
-interface Props {
-  name: string;
-  animated: boolean;
-}
-
 interface KeepAliveProps {
   include?: string | string[] | RegExp;
   exclude?: string | string[] | RegExp;
   max?: number;
+}
+
+interface Props {
+  name?: string;
+  animated?: boolean;
+  keepAlive?: KeepAliveProps;
 }
 
 // Component entering the view
@@ -27,18 +28,20 @@ export default {
     // Disable transitions
     animated: { default: true, type: Boolean },
     // keep-alive props
-    keepAlive: { type: [String, Object as () => KeepAliveProps] },
+    keepAlive: { type: [String, Object as () => KeepAliveProps] }
   },
 
   render(h: CreateElement, { parent, props, data, children }: RenderContext) {
     if (!parent.$router) {
-      throw new Error('IonTabs requires an instance of either VueRouter or IonicVueRouter');
+      throw new Error(
+        'IonTabs requires an instance of either VueRouter or IonicVueRouter'
+      );
     }
 
     const ionRouterOutletData: VNodeData = {
       ...data,
       ref: 'ionRouterOutlet',
-      on: { click: (event: Event) => catchIonicGoBack(parent, event) },
+      on: { click: (event: Event) => catchIonicGoBack(parent, event) }
     };
     const routerViewData: VNodeData = { props: { name: props.name } };
     const transitionData: VNodeData = {
@@ -53,12 +56,18 @@ export default {
         beforeLeave,
         afterLeave,
         enterCancelled,
-        leaveCancelled,
+        leaveCancelled
       }
     };
     const routerViewNode: VNode = h('router-view', routerViewData, children);
-    const keepAliveNode: VNode = h('keep-alive', { props: { ...props.keepAlive } }, [routerViewNode]);
-    const transitionNode: VNode = h('transition', transitionData, [props.keepAlive === undefined ? routerViewNode : keepAliveNode]);
+    const keepAliveNode: VNode = h(
+      'keep-alive',
+      { props: { ...props.keepAlive } },
+      [routerViewNode]
+    );
+    const transitionNode: VNode = h('transition', transitionData, [
+      props.keepAlive === undefined ? routerViewNode : keepAliveNode
+    ]);
 
     return h('ion-router-outlet', ionRouterOutletData, [transitionNode]);
   }
@@ -71,7 +80,9 @@ function catchIonicGoBack(parent: Vue, event: Event): void {
   if (!event.target) return;
 
   // We only care for the event coming from Ionic's back button
-  const backButton = (event.target as HTMLElement).closest('ion-back-button') as HTMLIonBackButtonElement;
+  const backButton = (event.target as HTMLElement).closest(
+    'ion-back-button'
+  ) as HTMLIonBackButtonElement;
   if (!backButton) return;
 
   const $router = parent.$router;
@@ -96,7 +107,12 @@ function catchIonicGoBack(parent: Vue, event: Event): void {
 }
 
 // Transition when we leave the route
-function leave(parent: Vue, props: Props, el: HTMLElement, done: TransitionDone) {
+function leave(
+  parent: Vue,
+  props: Props,
+  el: HTMLElement,
+  done: TransitionDone
+) {
   const promise = transition(parent, props, el);
 
   // Skip any transition if we don't get back a Promise
@@ -107,16 +123,19 @@ function leave(parent: Vue, props: Props, el: HTMLElement, done: TransitionDone)
 
   // Perform navigation once the transition was finished
   parent.$router.transition = new Promise(resolve => {
-    promise.then(() => {
-      resolve();
-      done();
-    }).catch(console.error);
+    promise
+      .then(() => {
+        resolve();
+        done();
+      })
+      .catch(console.error);
   });
 }
 
 // Trigger the ionic/core transitions
 function transition(parent: Vue, props: Props, leavingEl: HTMLElement) {
-  const ionRouterOutlet = parent.$refs.ionRouterOutlet as HTMLIonRouterOutletElement;
+  const ionRouterOutlet = parent.$refs
+    .ionRouterOutlet as HTMLIonRouterOutletElement;
 
   // The Ionic framework didn't load - skip animations
   if (typeof ionRouterOutlet.componentOnReady === 'undefined') {
@@ -132,15 +151,27 @@ function transition(parent: Vue, props: Props, leavingEl: HTMLElement) {
   // Add the proper Ionic classes, important for smooth transitions
   enteringEl.classList.add('ion-page', 'ion-page-invisible');
 
+  // Reset the cached styling applied by ionic/core's:
+  // .afterStyles({ 'display': 'none' })
+  if (typeof props.keepAlive !== 'undefined') {
+    enteringEl.style.display = '';
+  }
+
   // Commit to the transition as soon as the Ionic Router Outlet is ready
-  return ionRouterOutlet.componentOnReady().then((el: HTMLIonRouterOutletElement) => {
-    return el.commit(enteringEl, leavingEl, {
-      deepWait: true,
-      duration: !props.animated || parent.$router.direction === 'root' ? 0 : undefined,
-      direction: parent.$router.direction as NavDirection,
-      showGoBack: parent.$router.canGoBack(),
-    });
-  }).catch(console.error);
+  return ionRouterOutlet
+    .componentOnReady()
+    .then((el: HTMLIonRouterOutletElement) => {
+      return el.commit(enteringEl, leavingEl, {
+        deepWait: true,
+        duration:
+          !props.animated || parent.$router.direction === 'root'
+            ? 0
+            : undefined,
+        direction: parent.$router.direction as NavDirection,
+        showGoBack: parent.$router.canGoBack()
+      });
+    })
+    .catch(console.error);
 }
 
 // Set the component to be rendered before we render the new route
@@ -154,8 +185,18 @@ function enter(_el: HTMLElement, done: TransitionDone) {
 }
 
 // Vue transition stub functions
-function afterEnter(_el: HTMLElement) { /* */ }
-function afterLeave(_el: HTMLElement) { /* */ }
-function beforeLeave(_el: HTMLElement) { /* */ }
-function enterCancelled(_el: HTMLElement) { /* */ }
-function leaveCancelled(_el: HTMLElement) { /* */ }
+function afterEnter(_el: HTMLElement) {
+  /* */
+}
+function afterLeave(_el: HTMLElement) {
+  /* */
+}
+function beforeLeave(_el: HTMLElement) {
+  /* */
+}
+function enterCancelled(_el: HTMLElement) {
+  /* */
+}
+function leaveCancelled(_el: HTMLElement) {
+  /* */
+}
