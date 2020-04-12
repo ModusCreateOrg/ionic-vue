@@ -1,15 +1,12 @@
-import { PluginFunction, VueConstructor, default as VueImport } from 'vue';
-import {
-  IonicConfig,
-  OverlayController
-} from '@ionic/core';
+import VueImport, { PluginFunction, VueConstructor } from 'vue';
+import { IonicConfig, OverlayController } from '@ionic/core';
 import {
   actionSheetController,
   alertController,
   loadingController,
   menuController,
   pickerController,
-  toastController,
+  toastController
 } from './controllers';
 import { modalController } from './controllers/modal-controller';
 import { popoverController } from './controllers/popover-controller';
@@ -19,7 +16,7 @@ import IonTabs from './components/navigation/ion-tabs';
 import IonPage from './components/navigation/ion-page';
 import { createInputComponents } from './components/inputs';
 
-export interface Controllers {
+interface Controllers {
   actionSheetController: OverlayController;
   alertController: OverlayController;
   loadingController: OverlayController;
@@ -28,12 +25,6 @@ export interface Controllers {
   popoverController: OverlayController;
   toastController: OverlayController;
   pickerController: OverlayController;
-}
-
-declare module 'vue/types/vue' {
-  interface Vue {
-    $ionic: Controllers;
-  }
 }
 
 function createApi(vueInstance: VueConstructor) {
@@ -109,15 +100,6 @@ export const install: PluginFunction<IonicConfig> = (_Vue, config) => {
   Vue.component('IonPage', IonPage);
 
   createInputComponents();
-
   appInitialize(config);
-
-  const api = createApi(Vue);
-
-  Object.defineProperty(Vue.prototype, '$ionic', {
-    get() {
-      console.warn('[Ionic] The usage of the global $ionic Vue property is deprecated and will be removed in the future versions.\nInstead import controllers directly with "import { alertController } from \'@ionic/vue\'"');
-      return api;
-    }
-  });
+  createApi(Vue);
 };
