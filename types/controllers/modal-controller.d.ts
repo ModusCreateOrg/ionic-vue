@@ -1,8 +1,6 @@
-import { ModalOptions } from '@ionic/core';
-import { VueDelegate } from './vue-delegate';
-export declare const modalController: (delegate?: VueDelegate | undefined) => {
-    create(options: ModalOptions<import("@ionic/core").ComponentRef>): Promise<HTMLIonModalElement>;
-    dismiss(data?: any, role?: string | undefined, id?: string | undefined): Promise<boolean>;
-    getTop(): Promise<HTMLIonModalElement | undefined>;
-};
+import { ModalOptions, OverlayController } from '@ionic/core';
+export interface ModalController extends OverlayController {
+    create(options: ModalOptions): Promise<HTMLIonModalElement>;
+}
+export declare const modalController: () => ModalController;
 //# sourceMappingURL=modal-controller.d.ts.map

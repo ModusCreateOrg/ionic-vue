@@ -1,24 +1,36 @@
-import { VueConstructor } from 'vue';
-import { FrameworkDelegate, LIFECYCLE_DID_ENTER, LIFECYCLE_DID_LEAVE, LIFECYCLE_WILL_ENTER, LIFECYCLE_WILL_LEAVE, LIFECYCLE_WILL_UNLOAD } from '@ionic/core';
+import Vue, { VueConstructor } from 'vue';
+import {
+  FrameworkDelegate,
+  LIFECYCLE_DID_ENTER,
+  LIFECYCLE_DID_LEAVE,
+  LIFECYCLE_WILL_ENTER,
+  LIFECYCLE_WILL_LEAVE,
+  LIFECYCLE_WILL_UNLOAD
+} from '@ionic/core';
 import { EsModule, HTMLVueElement, WebpackFunction } from '../interfaces';
 
-
 // Handle creation of sync and async components
-function createVueComponent(vue: VueConstructor, component: WebpackFunction | object | VueConstructor): Promise<VueConstructor> {
-  return Promise.resolve(
-    typeof component === 'function' && (component as WebpackFunction).cid === undefined
-      ? (component as WebpackFunction)().then((cmp: any) => vue.extend(isESModule(cmp) ? cmp.default : cmp))
-      : vue.extend(component)
-  );
+async function createVueComponent(
+  component: WebpackFunction | object | VueConstructor
+): Promise<VueConstructor> {
+  if (
+    typeof component === 'function' &&
+    (component as WebpackFunction).cid === undefined
+  ) {
+    const cmp = await (component as WebpackFunction)();
+    return Vue.extend(isESModule(cmp) ? cmp.default : cmp);
+  }
+  return Vue.extend(component);
 }
 
 export class VueDelegate implements FrameworkDelegate {
-  constructor(
-    public vue: VueConstructor,
-  ) {}
-
   // Attach the passed Vue component to DOM
-  attachViewToDom(parentElement: HTMLElement, component: HTMLElement | WebpackFunction | object | VueConstructor, opts?: object, classes?: string[]): Promise<HTMLElement> {
+  async attachViewToDom(
+    parentElement: HTMLElement,
+    component: HTMLElement | WebpackFunction | object | VueConstructor,
+    opts?: object,
+    classes?: string[]
+  ): Promise<HTMLElement> {
     // Handle HTML elements
     if (isElement(component)) {
       // Add any classes to the element
@@ -30,22 +42,24 @@ export class VueDelegate implements FrameworkDelegate {
       return Promise.resolve(component as HTMLElement);
     }
 
-    // Get the Vue controller
-    return createVueComponent(this.vue, component).then((Component: VueConstructor) => {
-      const componentInstance = new Component(opts);
-      componentInstance.$mount();
+    // Get the Vue constructor
+    const constructor = await createVueComponent(component);
+    const componentInstance = new constructor(opts);
+    componentInstance.$mount();
 
-      // Add any classes to the Vue component's root element
-      addClasses(componentInstance.$el as HTMLElement, classes);
+    // Add any classes to the Vue component's root element
+    addClasses(componentInstance.$el as HTMLElement, classes);
 
-      // Append the Vue component to DOM
-      parentElement.appendChild(componentInstance.$el);
-      return componentInstance.$el as HTMLElement;
-    });
+    // Append the Vue component to DOM
+    parentElement.appendChild(componentInstance.$el);
+    return componentInstance.$el as HTMLElement;
   }
 
   // Remove the earlier created Vue component from DOM
-  removeViewFromDom(_parentElement: HTMLElement, childElement: HTMLVueElement): Promise<void> {
+  removeViewFromDom(
+    _parentElement: HTMLElement,
+    childElement: HTMLVueElement
+  ): Promise<void> {
     // Destroy the Vue component instance
     if (childElement.__vue__) {
       childElement.__vue__.$destroy();
@@ -74,7 +88,8 @@ export function bindLifecycleEvents(instance: any, element: HTMLElement) {
 }
 
 // Check Symbol support
-const hasSymbol = typeof Symbol === 'function' && typeof Symbol.toStringTag === 'symbol';
+const hasSymbol =
+  typeof Symbol === 'function' && typeof Symbol.toStringTag === 'symbol';
 
 // Check if object is an ES module
 function isESModule(obj: EsModule) {

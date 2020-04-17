@@ -36,7 +36,7 @@ export default {
 export { default as IonicVueRouter } from './router';
 
 export * from './controllers';
-export * from './components/inputs';
+export * from './components';
 
 // Icons that are used by internal components
 addIcons({

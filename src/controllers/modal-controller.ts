@@ -1,15 +1,21 @@
-import Vue from 'vue';
-import { ModalOptions, modalController as _modalController } from '@ionic/core';
+import {
+  ModalOptions,
+  OverlayController,
+  modalController as _modalController
+} from '@ionic/core';
 import { VueDelegate } from './vue-delegate';
 
-export const modalController = (delegate?: VueDelegate) => {
-  delegate = delegate || new VueDelegate(Vue);
+export interface ModalController extends OverlayController {
+  create(options: ModalOptions): Promise<HTMLIonModalElement>;
+}
+
+export const modalController = (): ModalController => {
   return {
     ..._modalController,
     create(options: ModalOptions) {
       return _modalController.create({
         ...options,
-        delegate,
+        delegate: new VueDelegate()
       });
     }
   };
