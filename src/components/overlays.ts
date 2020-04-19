@@ -1,20 +1,24 @@
-import { createOverlayComponent } from '../utils';
 import {
+  ActionSheetOptions,
+  ModalOptions,
+  PopoverOptions,
   actionSheetController,
   modalController,
   popoverController
-} from '../controllers';
+} from '@ionic/core';
+import { OverlayType, defineOverlay } from '../utils';
 
-export const IonModalVue = createOverlayComponent<HTMLIonModalElement>(
-  'IonModal',
+export const IonModal = defineOverlay<HTMLIonModalElement, ModalOptions>(
+  OverlayType.Modal,
   modalController
 );
 
-export const IonActionSheetVue = createOverlayComponent<
-  HTMLIonActionSheetElement
->('IonActionSheet', actionSheetController);
+export const IonActionSheet = defineOverlay<
+  HTMLIonActionSheetElement,
+  ActionSheetOptions
+>(OverlayType.ActionSheet, actionSheetController);
 
-export const IonPopoverVue = createOverlayComponent<HTMLIonPopoverElement>(
-  'IonPopover',
+export const IonPopover = defineOverlay<HTMLIonPopoverElement, PopoverOptions>(
+  OverlayType.Popover,
   popoverController
 );

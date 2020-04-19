@@ -1,7 +1,7 @@
 {
   "name": "@modus/ionic-vue",
-  "version": "1.3.6",
-  "description": "Ionic integration adapters for Vue",
+  "version": "3.0.0-alpha.1",
+  "description": "Vue 3 integration adapters for Ionic 5",
   "homepage": "https://moduscreate.com",
   "author": "Michael Tintiuc <michael.tintiuc@moduscreate.com>",
   "user": "michaeltintiuc",
@@ -13,10 +13,8 @@
   "unpkg": "dist/ionic-vue.js",
   "jsdelivr": "dist/ionic-vue.js",
   "files": [
-    "src/",
     "types/",
-    "dist/*.js",
-    "dist/*.ts"
+    "dist/"
   ],
   "bugs": {
     "url": "https://github.com/ModusCreateOrg/ionic-vue/issues"
@@ -44,20 +42,21 @@
     "cordova",
     "capacitor",
     "app",
-    "webapp"
+    "webapp",
+    "ionic5",
+    "vuejs3",
+    "vue3"
   ],
   "scripts": {
     "dev": "rollup -c ./build/rollup.config.js",
     "watch": "rollup -w -c ./build/rollup.config.js",
     "prod": "npm run clean && NODE_ENV=production rollup -c ./build/rollup.config.js --configProd",
-    "lint": "tslint --project .",
-    "lint.fix": "tslint --project . --fix",
+    "lint": "tslint --project . --fix",
     "test": "jest --coverage --verbose",
-    "install.peer": "npm i --no-save vue vue-template-compiler vue-router @ionic/core",
     "clean": "node ./scripts/clean.js"
   },
   "devDependencies": {
-    "@vue/test-utils": "^1.0.0-beta.24",
+    "@vue/test-utils": "^2.0.0-alpha.0",
     "babel-jest": "^25.3.0",
     "babel-preset-env": "^1.7.0",
     "jest": "^25.3.0",
@@ -67,16 +66,14 @@
     "rollup-plugin-buble": "^0.19.2",
     "rollup-plugin-terser": "^1.0.1",
     "rollup-plugin-typescript2": "^0.27.0",
-    "rollup-plugin-vue": "^4.3.0",
     "tslib": "^1.11.1",
     "tslint": "^6.1.1",
     "tslint-ionic-rules": "^0.0.21",
     "typescript": "^3.8.3"
   },
-  "peerDependencies": {
-    "vue": "^2.6.11",
-    "vue-template-compiler": "^2.6.11",
-    "vue-router": "^3.1.6",
+  "dependencies": {
+    "vue": "next",
+    "vue-router": "next",
     "@ionic/core": "^5.0.7"
   },
   "jestSonar": {

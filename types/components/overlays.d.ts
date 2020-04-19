@@ -1,4 +1,5 @@
-export declare const IonModalVue: import("vue").VueConstructor<import("../utils").Data<HTMLIonModalElement> & import("../utils").Methods & import("../utils").Props & import("vue").default>;
-export declare const IonActionSheetVue: import("vue").VueConstructor<import("../utils").Data<HTMLIonActionSheetElement> & import("../utils").Methods & import("../utils").Props & import("vue").default>;
-export declare const IonPopoverVue: import("vue").VueConstructor<import("../utils").Data<HTMLIonPopoverElement> & import("../utils").Methods & import("../utils").Props & import("vue").default>;
+import { ActionSheetOptions, ModalOptions, PopoverOptions } from '@ionic/core';
+export declare const IonModal: import("vue").FunctionalComponent<import("../utils").OverlayProps & Pick<ModalOptions<import("@ionic/core").ComponentRef>, "presentingElement" | "showBackdrop" | "backdropDismiss" | "cssClass" | "animated" | "swipeToClose" | "mode" | "keyboardClose" | "id" | "enterAnimation" | "leaveAnimation">, import("../utils").OverlayEvents[]>;
+export declare const IonActionSheet: import("vue").FunctionalComponent<import("../utils").OverlayProps & Pick<ActionSheetOptions, "backdropDismiss" | "cssClass" | "animated" | "mode" | "keyboardClose" | "id" | "enterAnimation" | "leaveAnimation" | "header" | "subHeader" | "buttons" | "translucent">, import("../utils").OverlayEvents[]>;
+export declare const IonPopover: import("vue").FunctionalComponent<import("../utils").OverlayProps & Pick<PopoverOptions<import("@ionic/core").ComponentRef>, "showBackdrop" | "backdropDismiss" | "cssClass" | "animated" | "mode" | "keyboardClose" | "id" | "enterAnimation" | "leaveAnimation" | "translucent" | "event">, import("../utils").OverlayEvents[]>;
 //# sourceMappingURL=overlays.d.ts.map

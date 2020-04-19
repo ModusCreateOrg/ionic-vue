@@ -1,4 +1,3 @@
-import { PluginFunction } from 'vue';
-import { IonicConfig } from '@ionic/core';
-export declare const install: PluginFunction<IonicConfig>;
+import { Plugin } from 'vue';
+export declare const install: Plugin;
 //# sourceMappingURL=ionic.d.ts.map

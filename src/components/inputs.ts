@@ -1,39 +1,25 @@
-import { createInputComponent } from '../utils';
+import { defineInput } from '../utils';
 
-export const IonCheckboxVue = createInputComponent(
-  'IonCheckboxVue',
+export const IonCheckbox = defineInput(
+  'IonCheckbox',
   'ion-checkbox',
-  'ionChange',
+  'onIonChange',
   'checked'
 );
-export const IonDatetimeVue = createInputComponent(
-  'IonDatetimeVue',
-  'ion-datetime'
-);
-export const IonInputVue = createInputComponent(
-  'IonInputVue',
-  'ion-input',
-  'ionInput'
-);
-export const IonRadioVue = createInputComponent(
-  'IonRadioVue',
-  'ion-radio',
-  'ionSelect'
-);
-export const IonRangeVue = createInputComponent('IonRangeVue', 'ion-range');
-export const IonSearchbarVue = createInputComponent(
-  'IonSearchbarVue',
+export const IonDatetime = defineInput('IonDatetime', 'ion-datetime');
+export const IonInput = defineInput('IonInput', 'ion-input', 'onIonInput');
+export const IonRadio = defineInput('IonRadio', 'ion-radio', 'onIonSelect');
+export const IonRange = defineInput('IonRange', 'ion-range');
+export const IonSearchbar = defineInput(
+  'IonSearchbar',
   'ion-searchbar',
-  'ionInput'
+  'onIonInput'
 );
-export const IonSelectVue = createInputComponent('IonSelectVue', 'ion-select');
-export const IonTextareaVue = createInputComponent(
-  'IonTextareaVue',
-  'ion-textarea'
-);
-export const IonToggleVue = createInputComponent(
-  'IonToggleVue',
+export const IonSelect = defineInput('IonSelect', 'ion-select');
+export const IonTextarea = defineInput('IonTextarea', 'ion-textarea');
+export const IonToggle = defineInput(
+  'IonToggle',
   'ion-toggle',
-  'ionChange',
+  'onIonChange',
   'checked'
 );

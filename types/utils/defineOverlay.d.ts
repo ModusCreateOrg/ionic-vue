@@ -7,6 +7,10 @@ export interface OverlayProps {
     isOpen?: boolean;
     modelValue?: boolean;
 }
+export interface OverlayController<T> {
+    create: (...args: any) => Promise<T>;
+}
+export declare type OverlayEventListeners = [string, Exclude<OverlayEvents, typeof OverlayEvents.onUpdate>][];
 export declare enum OverlayEvents {
     onWillPresent = "onWillPresent",
     onDidPresent = "onDidPresent",
@@ -19,7 +23,5 @@ export declare enum OverlayType {
     ActionSheet = "IonActionSheet",
     Popover = "IonPopover"
 }
-export declare function createOverlay<T extends OverlayElement, K>(name: OverlayType, controller: {
-    create: (opts: any) => Promise<T>;
-}): FunctionalComponent<OverlayProps & Pick<K, Exclude<keyof K, "component" | "componentProps" | "delegate">>, OverlayEvents[]>;
-//# sourceMappingURL=createOverlayComponent.d.ts.map
+export declare function defineOverlay<IonElement extends OverlayElement, IonProps>(name: OverlayType, controller: OverlayController<IonElement>): FunctionalComponent<OverlayProps & Pick<IonProps, Exclude<keyof IonProps, "component" | "componentProps" | "delegate">>, OverlayEvents[]>;
+//# sourceMappingURL=defineOverlay.d.ts.map

@@ -1,16 +1,4 @@
 import { addIcons } from 'ionicons';
-export {
-  createAnimation,
-  createGesture,
-  AlertButton,
-  AlertInput,
-  Gesture,
-  GestureConfig,
-  GestureDetail,
-  mdTransitionAnimation,
-  iosTransitionAnimation,
-  setupConfig
-} from '@ionic/core';
 import {
   arrowBackSharp,
   caretBackSharp,
@@ -26,17 +14,10 @@ import {
   searchOutline,
   searchSharp
 } from 'ionicons/icons';
-import { install } from './ionic';
 
-export default {
-  install,
-  version: '__VERSION__'
-};
-
-export { default as IonicVueRouter } from './router';
-
-export * from './controllers';
+export { IonicVue } from './ionic-vue';
 export * from './components';
+// export { default as IonicVueRouter } from './router';
 
 // Icons that are used by internal components
 addIcons({

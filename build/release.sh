@@ -8,7 +8,7 @@ read -p "Releasing $VERSION - are you sure? (y/n)" -n 1 -r
 echo    # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-  npm run lint.fix
+  npm run lint
   echo "Releasing $VERSION ..."
   VERSION=$VERSION npm run prod
 

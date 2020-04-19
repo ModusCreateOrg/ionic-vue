@@ -1,5 +1,5 @@
 import path from "path";
-import vue from "rollup-plugin-vue";
+// import vue from "rollup-plugin-vue";
 import { terser } from "rollup-plugin-terser";
 import typescript from "rollup-plugin-typescript2";
 import { version as packageVersion } from "../package.json";
@@ -41,14 +41,14 @@ function baseConfig() {
     ],
     external: [
       "vue",
-      "vue-router",
+      // "vue-router",
       "@ionic/core",
       "@ionic/core/loader",
       "ionicons",
       "ionicons/icons"
     ],
     plugins: [
-      vue(),
+      // vue(),
       typescript({
         useTsconfigDeclarationDir: true,
         objectHashIgnoreUnknownHack: false,
