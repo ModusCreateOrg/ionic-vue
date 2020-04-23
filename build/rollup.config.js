@@ -41,7 +41,7 @@ function baseConfig() {
     ],
     external: [
       "vue",
-      // "vue-router",
+      "vue-router",
       "@ionic/core",
       "@ionic/core/loader",
       "ionicons",
