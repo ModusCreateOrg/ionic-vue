@@ -17,7 +17,7 @@ import {
 
 export { IonicVue } from './ionic-vue';
 export * from './components';
-// export { default as IonicVueRouter } from './router';
+export * from './router';
 
 // Icons that are used by internal components
 addIcons({

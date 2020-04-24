@@ -5,16 +5,17 @@ import {
   h,
   ref
 } from 'vue';
-import { RouteLocationNormalized, View, useRouter } from 'vue-router';
-import { RouterOutletOptions } from '@ionic/core';
+import { RouteLocationNormalizedLoaded, View, useRouter } from 'vue-router';
+import { JSX } from '@ionic/core';
 
-export interface Props extends RouterOutletOptions {
+export interface Props extends JSX.IonRouterOutlet {
   name?: string;
-  route?: RouteLocationNormalized;
+  route?: RouteLocationNormalizedLoaded;
 }
 
-export const IonRouterView: FunctionalComponent<Props> = (props, { attrs }) => {
+export const IonRouterView: FunctionalComponent<Props> = props => {
   const router = useRouter();
+  const { name, route, ...outletProps } = props;
   const ionRouterOutlet = ref<HTMLIonRouterOutletElement | null>(null);
   const enteringEl = ref<HTMLElement | null>(null);
 
@@ -28,9 +29,8 @@ export const IonRouterView: FunctionalComponent<Props> = (props, { attrs }) => {
 
     return el?.commit(enteringEl.value, leavingEl, {
       deepWait: true,
-      duration: undefined,
-      direction: router.history.state.forward ? 'back' : 'forward'
-      // showGoBack: true,
+      direction: router.direction?.value,
+      showGoBack: router.showGoBack?.value
     });
   };
 
@@ -47,8 +47,8 @@ export const IonRouterView: FunctionalComponent<Props> = (props, { attrs }) => {
 
   return h(
     'ion-router-outlet',
-    { ...attrs, ref: ionRouterOutlet },
-    h(View, { name: props.name }, (...opts: any) => {
+    { ...outletProps, ref: ionRouterOutlet },
+    h(View, { name, route }, (...opts: any) => {
       const { Component, props: componentProps } = opts[0];
       return h(
         Transition,
@@ -63,4 +63,4 @@ export const IonRouterView: FunctionalComponent<Props> = (props, { attrs }) => {
   );
 };
 
-IonRouterView.props = ['name'];
+IonRouterView.props = ['name', 'route', 'animated', 'animation', 'mode'];
