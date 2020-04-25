@@ -29,8 +29,8 @@ export const IonRouterView: FunctionalComponent<Props> = props => {
 
     return el?.commit(enteringEl.value, leavingEl, {
       deepWait: true,
-      direction: router.direction?.value,
-      showGoBack: router.showGoBack?.value
+      direction: router.direction.value,
+      showGoBack: router.showBackButton.value
     });
   };
 
