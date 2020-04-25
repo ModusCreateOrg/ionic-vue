@@ -1,6 +1,6 @@
 {
   "name": "@modus/ionic-vue",
-  "version": "3.0.0-alpha.1",
+  "version": "3.0.0-alpha.2",
   "description": "Vue 3 integration adapters for Ionic 5",
   "homepage": "https://moduscreate.com",
   "author": "Michael Tintiuc <michael.tintiuc@moduscreate.com>",
