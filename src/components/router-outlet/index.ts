@@ -3,21 +3,34 @@ import {
   FunctionalComponent,
   Transition,
   h,
-  ref
+  nextTick,
+  ref,
+  shallowRef
 } from 'vue';
-import { RouteLocationNormalizedLoaded, View, useRouter } from 'vue-router';
+import {
+  RouteLocationNormalizedLoaded,
+  RouteRecordNormalized,
+  View,
+  useRouter
+} from 'vue-router';
 import { JSX } from '@ionic/core';
 
 export interface Props extends JSX.IonRouterOutlet {
   name?: string;
   route?: RouteLocationNormalizedLoaded;
+  swipeBack?: boolean;
 }
 
 export const IonRouterView: FunctionalComponent<Props> = props => {
   const router = useRouter();
   const { name, route, ...outletProps } = props;
-  const ionRouterOutlet = ref<HTMLIonRouterOutletElement | null>(null);
-  const enteringEl = ref<HTMLElement | null>(null);
+  const ionRouterOutlet = ref<HTMLIonRouterOutletElement>();
+  const enteringEl = ref<HTMLElement>();
+  const newView = shallowRef();
+
+  let persisted = false;
+  let progressAnimation = false;
+  let inTransition = false;
 
   const transition = async (leavingEl: HTMLElement) => {
     if (!enteringEl.value || enteringEl.value === leavingEl) {
@@ -25,42 +38,115 @@ export const IonRouterView: FunctionalComponent<Props> = props => {
     }
 
     enteringEl.value?.classList.add('ion-page', 'ion-page-invisible');
-    const el = await ionRouterOutlet.value?.componentOnReady();
+    const outlet = await ionRouterOutlet.value?.componentOnReady();
 
-    return el?.commit(enteringEl.value, leavingEl, {
+    return outlet?.commit(enteringEl.value, leavingEl, {
       deepWait: true,
       direction: router.direction.value,
-      showGoBack: router.showBackButton.value
+      showGoBack: router.showBackButton.value,
+      progressAnimation
     });
   };
 
   const transitionHooks: BaseTransitionProps<HTMLElement> = {
     onBeforeEnter(el) {
+      inTransition = true;
       enteringEl.value = el;
     },
 
-    async onLeave(el, done) {
+    async onLeave(el, done: any) {
       await transition(el);
-      done();
+
+      setTimeout(done, persisted ? 100 : 0);
+
+      inTransition = false;
+      progressAnimation = false;
+      persisted = false;
     }
   };
 
   return h(
     'ion-router-outlet',
-    { ...outletProps, ref: ionRouterOutlet },
+    {
+      ...outletProps,
+      ref: ionRouterOutlet,
+
+      // workaround for Vue 3 camelCase prop issue
+      onVnodeMounted(vnode) {
+        vnode?.el &&
+          (vnode.el.swipeHandler = {
+            canStart() {
+              return (
+                !inTransition &&
+                !!router.history.state.back &&
+                props.swipeBack !== false &&
+                ionRouterOutlet.value?.mode === 'ios'
+              );
+            },
+            onStart() {
+              progressAnimation = true;
+              inTransition = true;
+              router.direction.value = 'back';
+
+              const prevRoute = router.getRoutes().find(r => {
+                return r.path === (router.history.state.back as any).fullPath;
+              }) as RouteRecordNormalized;
+
+              newView.value = {
+                component: prevRoute?.components[props.name || 'default'],
+                props: prevRoute?.props
+              };
+            },
+            onEnd(shouldComplete: any) {
+              inTransition = false;
+
+              if (shouldComplete) {
+                nextTick(() => {
+                  persisted = false;
+                  router.history.go(-1);
+                });
+                return;
+              }
+
+              persisted = true;
+              newView.value = undefined;
+            }
+          });
+      }
+    },
     h(View, { name, route }, (...opts: any) => {
       const { Component, props: componentProps } = opts[0];
+
+      const child = newView.value
+        ? h(newView.value.component, newView.value.props)
+        : h(Component, componentProps);
+
+      if (newView.value?.component === Component) {
+        newView.value = undefined;
+      }
+
       return h(
         Transition,
         {
           css: false,
           mode: 'in-out',
+          persisted,
+          class: {
+            'can-go-back': !!router.history.state.back
+          },
           ...transitionHooks
         },
-        () => h(Component, componentProps)
+        () => child
       );
     })
   );
 };
 
-IonRouterView.props = ['name', 'route', 'animated', 'animation', 'mode'];
+IonRouterView.props = [
+  'name',
+  'route',
+  'animated',
+  'animation',
+  'mode',
+  'swipeBack'
+];

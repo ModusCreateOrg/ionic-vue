@@ -37,8 +37,8 @@ export function defineOverlay<IonElement extends OverlayElement, IonProps>(
   name: OverlayType,
   controller: OverlayController<IonElement>
 ) {
-  const overlay = ref<IonElement | null>(null);
-  const content = ref(null);
+  const overlay = ref<IonElement>();
+  const content = ref();
   const coreTag = name.charAt(0).toLowerCase() + name.slice(1);
   const eventListeners: OverlayEventListeners = Object.entries({
     [`${coreTag}WillPresent`]: OverlayEvents.onWillPresent,
@@ -66,7 +66,7 @@ export function defineOverlay<IonElement extends OverlayElement, IonProps>(
             await (overlay.value?.present() || present(attrs));
           } else {
             await overlay.value?.dismiss();
-            overlay.value = null;
+            overlay.value = undefined;
           }
         },
         async onVnodeMounted() {
@@ -74,8 +74,8 @@ export function defineOverlay<IonElement extends OverlayElement, IonProps>(
         },
         async onVnodeBeforeUnmount() {
           await overlay.value?.dismiss();
-          overlay.value = null;
-          content.value = null;
+          overlay.value = undefined;
+          content.value = undefined;
         }
       },
       [h('div', { ref: content }, slots.default ? slots.default() : undefined)]
@@ -120,7 +120,7 @@ export function defineOverlay<IonElement extends OverlayElement, IonProps>(
       }
     }
 
-    await overlay.value.present();
+    await overlay.value?.present();
   }
 
   return Overlay;

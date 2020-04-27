@@ -35,7 +35,7 @@ export const createRouter = (opts: RouterOptions): Router => {
   });
 
   router.beforeEach((to, from, next) => {
-    showBackButton.value = to.fullPath !== '/';
+    showBackButton.value = to.fullPath !== '/' || !!router.history.state.back;
 
     direction.value =
       directionOverride.value ||
@@ -45,6 +45,10 @@ export const createRouter = (opts: RouterOptions): Router => {
     directionOverride.value = undefined;
 
     next();
+  });
+
+  router.afterEach(to => {
+    showBackButton.value = to.fullPath !== '/' || !!router.history.state.back;
   });
 
   return router;

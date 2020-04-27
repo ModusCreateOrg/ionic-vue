@@ -1,6 +1,16 @@
 ### KNOWN ISSUES
 * Some Ionic events and attributes do not work due to their camelCase naming (upstream Vue 3 issue)
 * Routing related attributes on Ionic components are not yet supported
+* Scroll position is not restored when navigating back
+
+# Unreleased
+
+### Features
+* Swipe to go back for iOS mode
+* Update to vue@3.0.0-beta.4
+
+### Bug fixes
+* Improve back button display logic
 
 # [3.0.0-alpha.2](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.1...v3.0.0-alpha.2)
 
