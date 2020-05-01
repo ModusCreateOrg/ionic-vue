@@ -7,7 +7,9 @@
 
 ### Features
 * Swipe to go back for iOS mode
-* Update to vue@3.0.0-beta.4
+* Hardware back button support
+* Update to vue@3.0.0-beta.5
+* Update to vue-router@4.0.0-alpha.9
 
 ### Bug fixes
 * Improve back button display logic

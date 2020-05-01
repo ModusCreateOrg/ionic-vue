@@ -1,6 +1,6 @@
 {
   "name": "@modus/ionic-vue",
-  "version": "3.0.0-alpha.2",
+  "version": "3.0.0-alpha.3",
   "description": "Vue 3 integration adapters for Ionic 5",
   "homepage": "https://moduscreate.com",
   "author": "Michael Tintiuc <michael.tintiuc@moduscreate.com>",
@@ -56,10 +56,10 @@
     "clean": "node ./scripts/clean.js"
   },
   "devDependencies": {
-    "@vue/test-utils": "^2.0.0-alpha.2",
-    "babel-jest": "^25.4.0",
+    "@vue/test-utils": "^2.0.0-alpha.3",
+    "babel-jest": "^25.5.1",
     "babel-preset-env": "^1.7.0",
-    "jest": "^25.4.0",
+    "jest": "^25.5.3",
     "jest-sonar-reporter": "^2.0.0",
     "jest-vue-preprocessor": "^1.4.0",
     "rollup": "^0.62.0",
@@ -67,14 +67,14 @@
     "rollup-plugin-terser": "^1.0.1",
     "rollup-plugin-typescript2": "^0.27.0",
     "tslib": "^1.11.1",
-    "tslint": "^6.1.1",
+    "tslint": "^6.1.2",
     "tslint-ionic-rules": "^0.0.21",
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "@ionic/core": "^5.0.7",
-    "vue": "^3.0.0-beta.4",
-    "vue-router": "^4.0.0-alpha.7"
+    "@ionic/core": "^5.1.0",
+    "vue": "^3.0.0-beta.5",
+    "vue-router": "^4.0.0-alpha.9"
   },
   "jestSonar": {
     "reportPath": "reports",

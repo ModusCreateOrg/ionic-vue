@@ -2,13 +2,13 @@ import { Ref, ref } from 'vue';
 import {
   Router,
   RouterOptions,
-  createRouter as createVueRouter
+  createRouter as createVueRouter,
 } from 'vue-router';
-import { NavDirection } from '@ionic/core';
+import { BackButtonEvent, NavDirection } from '@ionic/core';
 
 enum Direction {
   forward = 'forward',
-  back = 'back'
+  back = 'back',
 }
 
 declare module 'vue-router' {
@@ -26,12 +26,11 @@ export const createRouter = (opts: RouterOptions): Router => {
   const router = {
     ...createVueRouter(opts),
     direction,
-    showBackButton
+    showBackButton,
   };
 
   router.history.listen((_to, _from, info) => {
-    directionOverride.value =
-      info.distance > 0 ? Direction.forward : Direction.back;
+    directionOverride.value = (info.direction as unknown) as Direction;
   });
 
   router.beforeEach((to, from, next) => {
@@ -50,6 +49,15 @@ export const createRouter = (opts: RouterOptions): Router => {
   router.afterEach(to => {
     showBackButton.value = to.fullPath !== '/' || !!router.history.state.back;
   });
+
+  if (document) {
+    document.addEventListener('ionBackButton', (e: Event) => {
+      (e as BackButtonEvent).detail.register(0, (next: () => void) => {
+        router.history.go(-1);
+        next();
+      });
+    });
+  }
 
   return router;
 };

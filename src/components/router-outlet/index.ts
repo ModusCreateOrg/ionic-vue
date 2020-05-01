@@ -5,13 +5,13 @@ import {
   h,
   nextTick,
   ref,
-  shallowRef
+  shallowRef,
 } from 'vue';
 import {
   RouteLocationNormalizedLoaded,
   RouteRecordNormalized,
-  View,
-  useRouter
+  RouterView,
+  useRouter,
 } from 'vue-router';
 import { JSX } from '@ionic/core';
 
@@ -44,7 +44,7 @@ export const IonRouterView: FunctionalComponent<Props> = props => {
       deepWait: true,
       direction: router.direction.value,
       showGoBack: router.showBackButton.value,
-      progressAnimation
+      progressAnimation,
     });
   };
 
@@ -62,7 +62,7 @@ export const IonRouterView: FunctionalComponent<Props> = props => {
       inTransition = false;
       progressAnimation = false;
       persisted = false;
-    }
+    },
   };
 
   return h(
@@ -94,7 +94,7 @@ export const IonRouterView: FunctionalComponent<Props> = props => {
 
               newView.value = {
                 component: prevRoute?.components[props.name || 'default'],
-                props: prevRoute?.props
+                props: prevRoute?.props,
               };
             },
             onEnd(shouldComplete: any) {
@@ -110,11 +110,11 @@ export const IonRouterView: FunctionalComponent<Props> = props => {
 
               persisted = true;
               newView.value = undefined;
-            }
+            },
           });
-      }
+      },
     },
-    h(View, { name, route }, (...opts: any) => {
+    h(RouterView, { name, route }, (...opts: any) => {
       const { Component, props: componentProps } = opts[0];
 
       const child = newView.value
@@ -132,9 +132,9 @@ export const IonRouterView: FunctionalComponent<Props> = props => {
           mode: 'in-out',
           persisted,
           class: {
-            'can-go-back': !!router.history.state.back
+            'can-go-back': !!router.history.state.back,
           },
-          ...transitionHooks
+          ...transitionHooks,
         },
         () => child
       );
@@ -148,5 +148,5 @@ IonRouterView.props = [
   'animated',
   'animation',
   'mode',
-  'swipeBack'
+  'swipeBack',
 ];
