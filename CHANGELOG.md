@@ -5,6 +5,10 @@
 
 # Unreleased
 
+
+
+# [3.0.0-alpha.3](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.2...v3.0.0-alpha.3)
+
 ### Features
 * Swipe to go back for iOS mode
 * Hardware back button support
