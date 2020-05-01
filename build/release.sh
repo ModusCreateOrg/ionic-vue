@@ -5,20 +5,20 @@ echo "Enter release version: "
 read VERSION
 
 read -p "Releasing $VERSION - are you sure? (y/n)" -n 1 -r
-echo    # (optional) move to a new line
+echo #move to new line
+
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-  npm run lint
   echo "Releasing $VERSION ..."
   VERSION=$VERSION npm run prod
 
   # commit
   git add -A
-  git commit --allow-empty -m "[build] $VERSION"
-  npm version $VERSION --message "[release] $VERSION"
+  npm version $VERSION prerelease --preid=alpha --no-git-tag-version
+  git commit -m "[build] $VERSION"
+  git tag v$VERSION
 
   # publish
-  git push origin refs/tags/v$VERSION
-  git push
+  git push --tags
   npm publish
 fi
