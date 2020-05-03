@@ -1,162 +1,177 @@
-# Ionic-Vue becomes @ionic/vue
-**Important: This project has been contributed to the Ionic core and can be used as [@ionic/vue](https://github.com/ionic-team/ionic/tree/master/vue).**
-
-Modus Create engineers will continue to support the community at the Ionic's official [Issue board](https://github.com/ionic-team/ionic/issues)
-
-However, this repository is still being actively maintained and kept in-sync with the official @ionic/vue. The main difference being the availability of pending upstream pull requests and flexibility of choosing dependency versions.
-
-Our goal is to allow developers to be on the bleeding-edge and freely experiment, thus we are delivering features and bug fixes as fast as possible.
-
-Bug fixes, features, documentation and any other changes are always contributed back to upstream @ionic/vue.
-
----
----
-
 # Ionic-Vue
 
 [![CircleCI](https://circleci.com/gh/ModusCreateOrg/ionic-vue.svg?style=shield)](https://circleci.com/gh/ModusCreateOrg/ionic-vue)
 [![codecov](https://codecov.io/gh/ModusCreateOrg/ionic-vue/branch/master/graph/badge.svg?token=mvAX8xwXDJ)](https://codecov.io/gh/ModusCreateOrg/ionic-vue)
 [![SonarQube](https://sonarcloud.io/api/project_badges/measure?project=ionic_vue&metric=security_rating)](https://sonarcloud.io/dashboard?id=ionic_vue)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
-[![MIT Licensed](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/your/your-project/blob/master/LICENSE)
+[![MIT Licensed](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/ModusCreateOrg/ionic-vue/blob/master/LICENSE)
 
-Ionic integration adapters for Vue.
+Ionic 5 integration adapters for Vue 3.
 
 <p align="center">
     <img src="https://res.cloudinary.com/modus-labs/image/upload/w_560/v1535019553/labs/logo-ionic-vue.svg" width="260" alt="@modus/ionic-vue">
 </p>
 
+## Status: Alpha
+
+This is a prerelease, most of the functionality is in there such as the router, animations, input and overlay components. Since we are building on top of prereleases of Vue and VueRouter there may be breaking changes and bugs. The prerelease is created for early adopters to test the library and provide feedback, bug reports and feature requests.
+
 ## Roadmap
 
-Overview: all of the controllers and major features such as transitions and router have been implemented and tested for several months now.
-Apart from minor improvements and further testing of various mixes of Ionic components and implementations this library is considered feature complete.
-
-| Feature     | Status  | @ionic/vue | Notes |
-|-------------|---------|------------|-------|
-| Router      | :heavy_check_mark: | :heavy_check_mark: | Fully implemented |
-| Router View | :heavy_check_mark: | :heavy_check_mark: | Fully implemented |
-| Tabs        | :heavy_check_mark: | :heavy_check_mark: | Fully implemented |
-| Controllers | :heavy_check_mark: | :heavy_check_mark: | Fully implemented |
-| TypeScript  | :heavy_check_mark: | :heavy_check_mark: | Fully implemented |
-| MS Edge Fix | :heavy_check_mark: | :heavy_check_mark: | Fully implemented |
-| Router keep-alive | :heavy_check_mark: | [Pending](https://github.com/ionic-team/ionic/pull/18561) | - |
-| Functional Inputs | :heavy_check_mark: | [Pending](https://github.com/ionic-team/ionic/pull/19087) | - |
-| Import controllers directly | :heavy_check_mark: | [Pending](https://github.com/ionic-team/ionic/pull/19573) | Improve treeshaking and sync with react and angular implementations |
-| Unit tests  | :x: | :x: |  Outdated as were originally written in plain JS, need to be updated for TS |
-
-## Ionic versions 4 and 5
-:warning: Moving forward all versions of `ionic-vue` will be supporting Ionic 5 only, if you'd like to continue using Ionic 4 please use `ionic-vue` version `1.3.4`
+Please consult the [projects page](https://github.com/ModusCreateOrg/ionic-vue/projects/1) for more details.
 
 ## Installing / Getting started
 
 A quick introduction of the minimal setup you need to get a hello world up and running.
 
-```shell
+```sh
 npm install @ionic/core @modus/ionic-vue
 ```
 
 Now you can use it during the initialization step of your Vue app.
+Note that `createRouter` is imported from `@modus/ionic-vue` and not `vue-router` this will allow you to get Ionic transitions between your routes out of the box.
 
 ```js
-import Vue from 'vue'
-import '@ionic/core/css/ionic.bundle.css'
-import Ionic, { IonicVueRouter } from '@modus/ionic-vue'
-import Home from './Home.vue'
+import { createApp } from "vue";
+import { createWebHistory } from "vue-router";
+import { IonicVue, createRouter } from "@modus/ionic-vue";
 
-Vue.use(Ionic)
-Vue.use(IonicVueRouter)
+// Ionic core styles
+import "@ionic/core/css/ionic.bundle.css";
 
-new Vue({
-  router: new IonicVueRouter({
-    routes: [
-      { path: '/', component: Home },
-      { path: '/page', component: () => import('./Page.vue') }
-    ],
-  }),
-}).$mount('ion-app')
+import App from "./App.vue";
+import Home from "./components/Home.vue";
+import Page from "./components/Page.vue";
+
+const history = createWebHistory();
+const router = createRouter({
+  history,
+  routes: [
+    { path: "/", component: Home },
+    { path: "/page", component: Page },
+  ],
+});
+
+createApp(App)
+  .use(IonicVue)
+  .use(router)
+  .mount("#app");
 ```
 
-Ionic requires a root element of `ion-app` in your HTML.
+All components should be explicitly imported now, this allows for smaller build sizes and improved tree-shaking.
+Import `IonApp` and `IonRouterView` from `@modus/ionic-vue`, this will be your app's entry point.
 
-IonicVueRouter requires `ion-vue-router` element in order to render Ionic transitions. Otherwise you can use the [official VueRouter](https://router.vuejs.org/)
+```vue
+<template>
+  <IonApp>
+    <IonRouterView />
+  </IonApp>
+</template>
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>...</head>
+<script>
+import { IonApp, IonRouterView } from "@modus/ionic-vue";
 
-  <body>
-    <ion-app>
-      <ion-vue-router />
-    </ion-app>
-  </body>
-</html>
-```
-
-### IonicVue
-
-`IonicVue` abstracts DOM interaction of Ionic UI components inside a Vue application.
-
-```js
-import { alertController } from '@ionic/vue';
-
-Vue.component('Foo', {
-  methods: {
-    notify() {
-      alertController
-        .create({
-          header: 'Notification',
-          subHeader: null,
-          message: 'Hello World',
-          buttons: ['Bye'],
-        })
-        .then(a => a.present())
-        .catch(console.error)
-    },
+export default {
+  name: "App",
+  components: {
+    IonApp,
+    IonRouterView
   },
-})
+};
+</script>
 ```
 
-IonicVue supports all of the Ionic controllers:
+Everything is a component now, here's an example of how you could trigger a modal
 
-- [Action Sheet](https://github.com/ionic-team/ionic/tree/master/core/src/components/action-sheet-controller)
-- [Alert](https://github.com/ionic-team/ionic/tree/master/core/src/components/alert-controller)
-- [Loading](https://github.com/ionic-team/ionic/tree/master/core/src/components/loading-controller)
-- [Menu](https://github.com/ionic-team/ionic/tree/master/core/src/components/menu-controller)
-- [Modal](https://github.com/ionic-team/ionic/tree/master/core/src/components/modal-controller)
-- [Picker](https://github.com/ionic-team/ionic/tree/master/core/src/components/picker-controller)
-- [Popover](https://github.com/ionic-team/ionic/tree/master/core/src/components/popover-controller)
-- [Toast](https://github.com/ionic-team/ionic/tree/master/core/src/components/toast-controller)
+```vue
+<template>
+  <div class="ion-page">
+    <IonHeader>
+      <IonToolbar>
+        <IonTitle>Home</IonTitle>
+        <IonButtons slot="start">
+          <IonBackButton />
+        </IonButtons>
+      </IonToolbar>
+    </IonHeader>
 
-### IonicVueRouter
+    <IonContent>
+      <p>{{ msg }}</p>
+      <IonButton @click="openModal">Open modal</IonButton>
+    </IonContent>
 
-`IonicVueRouter` binds Ionic transitions and routing functionalities with Vue Router.
+    <IonModal :isOpen="isOpen" @willDismiss="closeModal">
+      <h1>My modal content</h1>
+      <IonItem>
+        <IonLabel>My input</IonLabel>
+        <IonInput v-model="msg" :cleaInput="true" />
+      </IonItem>
+    </IonModal>
+  </div>
+</template>
 
+<script>
+import {
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonButtons,
+  IonBackButton,
+  IonContent,
+  IonButton,
+  IonModal,
+  IonItem,
+  IonLabel,
+  IonInput
+} from '@modus/ionic-vue';
+
+export default {
+  name: 'Home',
+  components: {
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonButtons,
+    IonBackButton,
+    IonContent,
+    IonButton,
+    IonModal,
+    IonItem,
+    IonLabel,
+    IonInput,
+  },
+  data() {
+    return {
+      isOpen: false,
+      msg: "",
+    }
+  },
+  methods: {
+    openModal() {
+      this.isOpen = true;
+    },
+    closeModal(e) {
+      console.log(e);
+      this.isOpen = false;
+    },
+  }
+}
+</script>
+```
+
+### IonicVue Router
+
+IonicVue Router binds Ionic transitions and routing functionalities to Vue Router.
 It is an extension of the official Vue Router thus it can be used as a drop-in replacement with all of the methods, hooks, etc. working as expected.
 
 ## Developing
 
-### Setting up Dev
-
-Simply clone the repo and install dependencies to get started with development.
+Clone the repo's `dev` branch and install dependencies to get started with development.
 
 ```shell
-git clone https://github.com/moduscreateorg/ionic-vue.git
+git clone https://github.com/moduscreateorg/ionic-vue.git -b dev
 cd ionic-vue/
 npm install
-```
-
-Testing will require peer dependencies to be installed. Peer dependencies are:
-
-- `vue`
-- `vue-template-compiler`
-- `vue-router`
-- `@ionic/core`
-
-You can install peer dependencies without modifying package.json.
-
-```sh
-npm run install.peer
 ```
 
 We recommend trying out your `ionic-vue` changes in an actual app. You can do that with `npm link`:
@@ -167,8 +182,6 @@ npm link
 cd ../sample-app/
 npm link @modus/ionic-vue
 ```
-
-[Beep](https://github.com/ModusCreateOrg/beep) is a fantastic sample application you can use to test `ionic-vue`.
 
 ### Building
 
@@ -190,14 +203,6 @@ For production build run:
 
 ```shell
 npm run prod
-```
-
-## Tests
-
-Make sure you have installed peer dependencies (explained above) before running tests.
-
-```shell
-npm test
 ```
 
 ## Static Analysis
