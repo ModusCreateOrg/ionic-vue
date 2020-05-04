@@ -1,16 +1,3 @@
-# Ionic-Vue becomes @ionic/vue
-**Important: This project has been contributed to the Ionic core and can be used as [@ionic/vue](https://github.com/ionic-team/ionic/tree/master/vue).**
-
-Modus Create engineers will continue to support the community at the Ionic's official [Issue board](https://github.com/ionic-team/ionic/issues)
-
-However, this repository is still being actively maintained and kept in-sync with the official @ionic/vue. The main difference being the availability of pending upstream pull requests and flexibility of choosing dependency versions.
-
-Our goal is to allow developers to be on the bleeding-edge and freely experiment, thus we are delivering features and bug fixes as fast as possible.
-
-Bug fixes, features, documentation and any other changes are always contributed back to upstream @ionic/vue.
-
----
----
 
 # Ionic-Vue
 
@@ -25,6 +12,16 @@ Ionic integration adapters for Vue.
 <p align="center">
     <img src="https://res.cloudinary.com/modus-labs/image/upload/w_560/v1535019553/labs/logo-ionic-vue.svg" width="260" alt="@modus/ionic-vue">
 </p>
+
+## `Ionic-Vue` vs `@ionic/vue`
+`Ionic-Vue` codebase has been contributed to the Ionic core and as [@ionic/vue](https://github.com/ionic-team/ionic/tree/master/vue). However, `@ionic/vue` provides limited support to Ionic v4.
+
+The amazing Ionic team is always looking to bring the most modern of browser capabilities to their framework. The official Vue support will land after Vue 3 has stabilized.
+
+Modus Create engineers continue to maintain this library to support the community that wants to create beautiful mobile apps with Vue and Ionic.
+
+Our goal is to allow developers to be up to date with the latest advances of Ionic and Vue. Thus we are delivering features and bug fixes as fast as possible.
+
 
 ## Roadmap
 
@@ -46,6 +43,9 @@ Apart from minor improvements and further testing of various mixes of Ionic comp
 
 ## Ionic versions 4 and 5
 :warning: Moving forward all versions of `ionic-vue` will be supporting Ionic 5 only, if you'd like to continue using Ionic 4 please use `ionic-vue` version `1.3.4`
+
+## Vue 3
+:construction: We are actively developing the next major version of this library. It will support Vue 3 and all of the new APIs like Composition, new transition features, etc. 
 
 ## Installing / Getting started
 
