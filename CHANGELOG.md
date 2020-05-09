@@ -1,10 +1,15 @@
 ### KNOWN ISSUES
 * Some Ionic events and attributes do not work due to their camelCase naming (upstream Vue 3 issue)
 * Routing related attributes on Ionic components are not yet supported
-* Scroll position is not restored when navigating back
 
 # Unreleased
 
+# [3.0.0-alpha.4](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.3...v3.0.0-alpha.4)
+
+### Features
+* Restore scroll on navigation
+* Update to vue@3.0.0-beta.10
+* Update to vue-router@4.0.0-alpha.10
 
 
 # [3.0.0-alpha.3](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.2...v3.0.0-alpha.3)

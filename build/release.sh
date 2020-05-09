@@ -20,5 +20,5 @@ then
 
   # publish
   git push --tags
-  npm publish
+  npm publish --tag next
 fi
