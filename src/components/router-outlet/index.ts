@@ -49,13 +49,28 @@ export const IonRouterView: FunctionalComponent<Props> = props => {
   };
 
   const transitionHooks: BaseTransitionProps<HTMLElement> = {
-    onBeforeEnter(el) {
+    async onEnter(el, done) {
       inTransition = true;
       enteringEl.value = el;
+
+      if (router.direction.value === 'back') {
+        await router.restoreScroll(
+          el,
+          progressAnimation
+            ? (router.history.state.back as any).fullPath
+            : router.currentRoute.value.fullPath
+        );
+      }
+
+      done();
     },
 
     async onLeave(el, done: any) {
       await transition(el);
+
+      if (!persisted) {
+        await router.saveScroll(el);
+      }
 
       setTimeout(done, persisted ? 100 : 0);
 

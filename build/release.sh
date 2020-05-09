@@ -13,8 +13,8 @@ then
   VERSION=$VERSION npm run prod
 
   # commit
+  npm version $VERSION --no-git-tag-version
   git add -A
-  npm version $VERSION prerelease --preid=alpha --no-git-tag-version
   git commit -m "[build] $VERSION"
   git tag v$VERSION
 
