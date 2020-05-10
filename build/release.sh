@@ -19,6 +19,7 @@ then
   git tag v$VERSION
 
   # publish
+  git push
   git push --tags
   npm publish --tag next
 fi
