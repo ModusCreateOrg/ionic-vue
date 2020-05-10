@@ -1,6 +1,6 @@
 {
   "name": "@modus/ionic-vue",
-  "version": "1.3.7",
+  "version": "1.3.8",
   "description": "Ionic integration adapters for Vue",
   "homepage": "https://moduscreate.com",
   "author": "Michael Tintiuc <michael.tintiuc@moduscreate.com>",
@@ -49,9 +49,8 @@
   "scripts": {
     "dev": "rollup -c ./build/rollup.config.js",
     "watch": "rollup -w -c ./build/rollup.config.js",
-    "prod": "npm run clean && NODE_ENV=production rollup -c ./build/rollup.config.js --configProd",
-    "lint": "tslint --project .",
-    "lint.fix": "tslint --project . --fix",
+    "prod": "npm run lint && npm run clean && NODE_ENV=production rollup -c ./build/rollup.config.js --configProd",
+    "lint": "tslint --project . --fix",
     "test": "jest --coverage --verbose",
     "install.peer": "npm i --no-save vue vue-template-compiler vue-router @ionic/core",
     "clean": "node ./scripts/clean.js"

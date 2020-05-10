@@ -10,12 +10,17 @@ export default class Router extends VueRouter {
   directionOverride: RouterDirection | null;
   viewCount: number;
   prevRouteStack: Route[];
+  cachedPrevRoute: Route;
   history: any;
+  scroll: Map<string, { top: number; left: number }>;
   static installed: boolean;
   static install: PluginFunction<never>;
 
   constructor(args: RouterArgs = {} as RouterArgs) {
     super(args);
+
+    // Set default scroll stack
+    this.scroll = new Map();
 
     // The direction user navigates in
     this.direction = args.direction || 'forward';
@@ -39,6 +44,10 @@ export default class Router extends VueRouter {
     document.addEventListener('ionBackButton', (e: Event) => {
       (e as BackButtonEvent).detail.register(0, () => this.back());
     });
+  }
+
+  get prevRoute(): Route | undefined {
+    return this.prevRouteStack[this.prevRouteStack.length - 1];
   }
 
   extendTransitionConfirmation() {
@@ -82,13 +91,13 @@ export default class Router extends VueRouter {
   }
 
   guessDirection(nextRoute: Route): RouterDirection {
-    if (this.prevRouteStack.length !== 0) {
-      const prevRoute: Route = this.prevRouteStack[this.prevRouteStack.length - 1];
+    this.cachedPrevRoute = this.history.current;
 
+    if (this.prevRoute) {
       // Last route is the same as the next one - go back
       // If we're going to / reset the stack otherwise pop a route
-      if (prevRoute.fullPath === nextRoute.fullPath) {
-        if (prevRoute.fullPath.length === 1) {
+      if (this.prevRoute.fullPath === nextRoute.fullPath) {
+        if (this.prevRoute.fullPath.length === 1) {
           this.prevRouteStack = [];
         } else {
           this.prevRouteStack.pop();
@@ -101,7 +110,26 @@ export default class Router extends VueRouter {
     if (this.history.current.fullPath !== nextRoute.fullPath) {
       this.prevRouteStack.push(this.history.current);
     }
+
     return 'forward';
+  }
+
+  async saveScroll(el: HTMLElement): Promise<void> {
+    const ionContent = el.querySelector('ion-content');
+    const scrollElement = ionContent && (await ionContent.getScrollElement());
+
+    if (scrollElement) {
+      this.scroll.set(this.cachedPrevRoute.fullPath, {
+        top: scrollElement?.scrollTop || 0,
+        left: scrollElement?.scrollLeft || 0,
+      });
+    }
+  }
+
+  async restoreScroll(el: HTMLElement, key: string): Promise<void> {
+    const ionContent = el.querySelector('ion-content');
+    const scrollElement = ionContent && (await ionContent.getScrollElement());
+    scrollElement?.scrollTo(this.scroll.get(key) || { top: 0, left: 0 });
   }
 }
 

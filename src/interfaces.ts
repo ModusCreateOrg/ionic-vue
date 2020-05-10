@@ -8,6 +8,8 @@ declare module 'vue-router/types/router' {
     direction: RouterDirection;
     directionOverride: RouterDirection | null;
     transition: Promise<void>;
+    saveScroll(el: HTMLElement): Promise<void>;
+    restoreScroll(el: HTMLElement, key: string): Promise<void>;
     canGoBack(): boolean;
   }
 }
@@ -42,8 +44,16 @@ export interface IonicWindow extends Window {
 }
 
 export interface FrameworkDelegate {
-  attachViewToDom(parentElement: HTMLElement, component: HTMLElement | WebpackFunction | object | Vue, opts?: object, classes?: string[]): Promise<HTMLElement>;
-  removeViewFromDom(parentElement: HTMLElement, childElement: HTMLVueElement): Promise<void>;
+  attachViewToDom(
+    parentElement: HTMLElement,
+    component: HTMLElement | WebpackFunction | object | Vue,
+    opts?: object,
+    classes?: string[]
+  ): Promise<HTMLElement>;
+  removeViewFromDom(
+    parentElement: HTMLElement,
+    childElement: HTMLVueElement
+  ): Promise<void>;
 }
 
 export interface IonBackButton extends HTMLStencilElement {
@@ -51,7 +61,11 @@ export interface IonBackButton extends HTMLStencilElement {
 }
 
 export interface IonRouterOutlet extends HTMLStencilElement {
-  commit(enterinEl: HTMLElement, leavingEl: HTMLElement | undefined, opts?: object | undefined): Promise<boolean>;
+  commit(
+    enterinEl: HTMLElement,
+    leavingEl: HTMLElement | undefined,
+    opts?: object | undefined
+  ): Promise<boolean>;
 }
 
 export interface ApiCache {

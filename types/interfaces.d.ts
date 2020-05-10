@@ -7,6 +7,8 @@ declare module 'vue-router/types/router' {
         direction: RouterDirection;
         directionOverride: RouterDirection | null;
         transition: Promise<void>;
+        saveScroll(el: HTMLElement): Promise<void>;
+        restoreScroll(el: HTMLElement, key: string): Promise<void>;
         canGoBack(): boolean;
     }
 }

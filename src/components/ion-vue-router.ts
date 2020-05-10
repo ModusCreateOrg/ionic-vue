@@ -50,8 +50,10 @@ export default {
         leave: (el: HTMLElement, done: TransitionDone) => {
           leave(parent, props as Props, el, done);
         },
+        enter: (el: HTMLElement, done: TransitionDone) => {
+          enter(parent, el, done);
+        },
         beforeEnter,
-        enter,
         afterEnter,
         beforeLeave,
         afterLeave,
@@ -107,28 +109,19 @@ function catchIonicGoBack(parent: Vue, event: Event): void {
 }
 
 // Transition when we leave the route
-function leave(
+async function leave(
   parent: Vue,
   props: Props,
   el: HTMLElement,
   done: TransitionDone
 ) {
-  const promise = transition(parent, props, el);
-
-  // Skip any transition if we don't get back a Promise
-  if (!promise) {
-    done();
-    return;
-  }
+  await parent.$router.saveScroll(el);
 
   // Perform navigation once the transition was finished
-  parent.$router.transition = new Promise(resolve => {
-    promise
-      .then(() => {
-        resolve();
-        done();
-      })
-      .catch(console.error);
+  parent.$router.transition = new Promise(async resolve => {
+    await transition(parent, props, el);
+    done();
+    resolve();
   });
 }
 
@@ -180,8 +173,14 @@ function beforeEnter(el: HTMLElement) {
 }
 
 // Enter the new route
-function enter(_el: HTMLElement, done: TransitionDone) {
-  done();
+function enter(parent: Vue, el: HTMLElement, done: TransitionDone) {
+  if (parent.$router.direction === 'back') {
+    parent.$router
+      .restoreScroll(el, parent.$router.currentRoute.fullPath)
+      .then(done);
+  } else {
+    done();
+  }
 }
 
 // Vue transition stub functions

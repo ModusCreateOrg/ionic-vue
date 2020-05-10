@@ -39,13 +39,14 @@ Apart from minor improvements and further testing of various mixes of Ionic comp
 | Router keep-alive | :heavy_check_mark: | [Pending](https://github.com/ionic-team/ionic/pull/18561) | - |
 | Functional Inputs | :heavy_check_mark: | [Pending](https://github.com/ionic-team/ionic/pull/19087) | - |
 | Import controllers directly | :heavy_check_mark: | [Pending](https://github.com/ionic-team/ionic/pull/19573) | Improve treeshaking and sync with react and angular implementations |
+| Restore scroll on navigation | :heavy_check_mark: | - | When going back through history restore the scroll position |
 | Unit tests  | :x: | :x: |  Outdated as were originally written in plain JS, need to be updated for TS |
 
 ## Ionic versions 4 and 5
 :warning: Moving forward all versions of `ionic-vue` will be supporting Ionic 5 only, if you'd like to continue using Ionic 4 please use `ionic-vue` version `1.3.4`
 
 ## Vue 3
-:construction: We are actively developing the next major version of this library. It will support Vue 3 and all of the new APIs like Composition, new transition features, etc. 
+:construction: We are actively developing the next major version of this library. It will support Vue 3 and all of the new APIs like Composition, new transition features, etc.
 
 ## Installing / Getting started
 
