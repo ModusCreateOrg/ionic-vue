@@ -25,6 +25,7 @@
     "pretty": true,
     "removeComments": false,
     "rootDir": "src",
+    "sourceMap": true,
     "strictPropertyInitialization": false,
     "target": "es5"
   },
