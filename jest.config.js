@@ -8,6 +8,9 @@ module.exports = {
     '.*\\.(vue)$': '<rootDir>/node_modules/jest-vue-preprocessor',
     '^.+\\.tsx?$': 'ts-jest'
   },
-  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$',
-  "testResultsProcessor": "jest-sonar-reporter"
+  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$'
+  //"testResultsProcessor": "jest-sonar-reporter"
 }
+
+
+
