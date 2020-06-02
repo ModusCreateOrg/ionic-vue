@@ -53,7 +53,8 @@
     "prod": "npm run lint && npm run clean && NODE_ENV=production rollup -c ./build/rollup.config.js --configProd",
     "lint": "tslint --project . --fix",
     "test": "jest --coverage --verbose",
-    "clean": "node ./scripts/clean.js"
+    "clean": "node ./scripts/clean.js",
+    "build": "webpack"
   },
   "devDependencies": {
     "@types/jest": "^25.2.3",
@@ -69,10 +70,13 @@
     "rollup-plugin-terser": "^1.0.1",
     "rollup-plugin-typescript2": "^0.27.0",
     "ts-jest": "^26.1.0",
+    "ts-loader": "^7.0.5",
     "tslib": "^1.11.2",
     "tslint": "^6.1.2",
     "tslint-ionic-rules": "^0.0.21",
-    "typescript": "^3.9.3"
+    "typescript": "^3.9.3",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
   },
   "dependencies": {
     "@ionic/core": "^5.1.0",

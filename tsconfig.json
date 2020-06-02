@@ -2,6 +2,7 @@
   "compilerOptions": {
     "alwaysStrict": true,
     "strict": true,
+    "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "allowUnreachableCode": false,
     "declaration": true,
@@ -22,7 +23,7 @@
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "outDir": "dist",
+    "outDir": "./dist/",
     "pretty": true,
     "removeComments": false,
     "rootDir": "src",
