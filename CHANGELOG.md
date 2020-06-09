@@ -4,6 +4,12 @@
 
 # Unreleased
 
+### Features
+* Added tabs support (no routing yet) - IonTabs, IonTabBar, IonTab, IonTabButton
+* Added IonIcon component
+* Update to vue@3.0.0-beta.14
+* Update to vue-router@4.0.0-alpha.12
+
 # [3.0.0-alpha.4](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.3...v3.0.0-alpha.4)
 
 ### Features
