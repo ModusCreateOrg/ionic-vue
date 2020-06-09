@@ -1,13 +1,20 @@
 import { Component, FunctionalComponent, VNode, h, ref } from 'vue';
 import { ShapeFlags } from '@vue/shared';
-import { tabs } from './tabs';
+import { tabNodes } from './tabs';
 import { JSX } from '@ionic/core';
 
 const setActiveTab = (value?: string) => {
-  tabs.value.map(tab => {
-    tab.el!.active = tab.props?.tab === value;
+  tabNodes.value.forEach((node, tab) => {
+    node.el!.active = tab === value;
   });
 }
+
+const componentProps: (keyof JSX.IonTabBar)[] = [
+  'color',
+  'mode',
+  'selectedTab',
+  'translucent',
+];
 
 export const IonTabBar: FunctionalComponent<JSX.IonTabBar> = (props, { slots }) => {
   const tabBarRef = ref<HTMLIonTabBarElement>();
@@ -30,4 +37,4 @@ export const IonTabBar: FunctionalComponent<JSX.IonTabBar> = (props, { slots }) 
 }
 
 IonTabBar.displayName = 'ion-tab-bar';
-IonTabBar.props = [ 'selectedTab' ];
+IonTabBar.props = componentProps;

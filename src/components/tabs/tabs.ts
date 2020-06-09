@@ -1,5 +1,4 @@
-import { Component, FunctionalComponent, VNode, h, ref } from 'vue';
-import { ShapeFlags } from '@vue/shared';
+import { FunctionalComponent, VNode, h, ref } from 'vue';
 
 // CSS for ion-tabs inner and outer elements
 const hostStyles = {
@@ -21,19 +20,12 @@ const innerStyles = {
   contain: 'layout size style',
 };
 
-export const tabs = ref<VNode[]>([]);
+export const tabNodes = ref<Map<string, VNode>>(new Map());
 
 export const IonTabs: FunctionalComponent = (props, { slots }) => {
-  const children = slots.default && slots.default().map((child: VNode) => {
-    if (child.shapeFlag & ShapeFlags.COMPONENT && (child.type as Component).displayName === 'ion-tab') {
-      tabs.value.push(child);
-    }
-    return child;
-  });
-
   return h('div', { ...props, style: hostStyles }, [
     slots.top && slots.top(),
-    h('div', { class: 'tabs-inner', style: innerStyles }, children),
+    h('div', { class: 'tabs-inner', style: innerStyles }, slots.default && slots.default()),
     slots.bottom && slots.bottom(),
   ]);
 }

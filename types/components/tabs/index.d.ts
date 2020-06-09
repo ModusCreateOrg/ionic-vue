@@ -1,8 +1,6 @@
-export * from './tabs';
+export { IonTabs } from './tabs';
 export * from './tab-bar';
-export declare const IonTab: import("vue").FunctionalComponent<{
-    [key: string]: unknown;
-}, Record<string, any>>;
+export * from './tab';
 export declare const IonTabButton: import("vue").FunctionalComponent<{
     [key: string]: unknown;
 }, Record<string, any>>;
