@@ -4,3 +4,4 @@ export * from './containers';
 export * from './router-outlet';
 export * from './back-button';
 export * from './tabs';
+export * from './icon';
