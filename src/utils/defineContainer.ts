@@ -5,7 +5,6 @@ type Data = {
 };
 
 export const defineContainer = (name: string) => {
-  console.log(h)
   const Container: FunctionalComponent<Data> = (props, { slots }) =>
     h(name, props, slots.default && slots.default());
 

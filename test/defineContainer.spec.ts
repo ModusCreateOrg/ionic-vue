@@ -5,9 +5,7 @@ import { createVNode } from 'vue';
 describe('test defineContainer function', () => {
     const testContainer = defineContainer('test')
     it('should be a FunctionalComponent', ()=>{
-        expect(typeof test).toBe('function'); //testing type of returned container to be functional component
-    })
-    it('should be a FunctionalComponent again', ()=>{
+        expect(typeof test).toBe('function'); 
         expect(createVNode(testContainer).shapeFlag).toBe(ShapeFlags.FUNCTIONAL_COMPONENT)
     })
     it('should have a display name equal to string passed in', ()=>{
