@@ -47,6 +47,9 @@ function baseConfig() {
       "ionicons",
       "ionicons/icons"
     ],
+    treeshake: {
+      moduleSideEffects: false
+    },
     plugins: [
       // vue(),
       typescript({

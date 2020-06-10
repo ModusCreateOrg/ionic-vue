@@ -16,6 +16,7 @@
     "types/",
     "dist/"
   ],
+  "sideEffects": false,
   "bugs": {
     "url": "https://github.com/ModusCreateOrg/ionic-vue/issues"
   },
