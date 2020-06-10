@@ -2,8 +2,7 @@ import { IonicVue  } from '../src/ionic-vue';
 import Ionic from '@ionic/core/loader';
 
 
-//does not work yet. 
-describe('test that install functions works', () => {
+describe('test that install function in ionic-vue.ts works', () => {
     let app = jest.fn();
     it('should test that applyPolyfills & defineCustomElements is called', async () => {
         expect(typeof IonicVue.install).toBe('function'); //tests if function exists
