@@ -53,8 +53,7 @@
     "prod": "npm run lint && npm run clean && NODE_ENV=production rollup -c ./build/rollup.config.js --configProd",
     "lint": "tslint --project . --fix",
     "test": "jest --coverage --verbose",
-    "clean": "node ./scripts/clean.js",
-    "build": "webpack"
+    "clean": "node ./scripts/clean.js"
   },
   "devDependencies": {
     "@types/jest": "^25.2.3",
@@ -75,12 +74,12 @@
     "tslib": "^1.11.2",
     "tslint": "^6.1.2",
     "tslint-ionic-rules": "^0.0.21",
-    "typescript": "^3.9.3",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.11"
+    "typescript": "^3.9.3"
   },
   "dependencies": {
     "@ionic/core": "^5.1.0",
+    "@types/sinon": "^9.0.4",
+    "sinon": "^9.0.2",
     "vue": "^3.0.0-beta.10",
     "vue-router": "^4.0.0-alpha.10"
   },

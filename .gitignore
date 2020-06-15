@@ -6,7 +6,7 @@ node_modules/
 coverage/
 reports/
 src/**/*.js
-types/**/*.map
+types/**/*
 
 # ignore log files
 *.log

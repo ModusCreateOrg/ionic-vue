@@ -2,7 +2,6 @@
   "compilerOptions": {
     "alwaysStrict": true,
     "strict": true,
-    "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "allowUnreachableCode": false,
     "declaration": true,

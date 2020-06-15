@@ -1,8 +1,5 @@
 module.exports = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node', 'vue'],
-  // moduleNameMapper: {
-  //   '^vue$': 'vue/dist/vue.common.js',
-  // },
   transform: {
     '^.+\\.ts?$': 'ts-jest'
   },
