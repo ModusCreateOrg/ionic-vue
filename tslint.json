@@ -1,8 +1,9 @@
 {
-    "extends": "tslint-ionic-rules",
+    "extends": "tslint-ionic-rules/",
     "rules": {
       "no-non-null-assertion": false,
-      "no-import-side-effect": [true, {"ignore-module": "(svg|\\.css)$"}]
+      "no-import-side-effect": [true, {"ignore-module": "(svg|\\.css)$"}],
+      "semicolon": [true, "always"]
     }
-  }
+}
   

@@ -22,7 +22,7 @@
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "outDir": "./dist/",
+    "outDir": "dist",
     "pretty": true,
     "removeComments": false,
     "rootDir": "src",
@@ -31,7 +31,7 @@
     "target": "es5"
   },
   "include": [
-    "src/**/*"
+    "src/**/*.ts"
   ],
   "exclude": [
     "node_modules"

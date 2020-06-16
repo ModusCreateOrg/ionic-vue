@@ -1,7 +1,5 @@
-import { IonicVue } from '../src/ionic-vue';
 import Ionic from '@ionic/core/loader';
-
-
+import { IonicVue } from '../src/ionic-vue';
 describe('test that install function in ionic-vue.ts works', () => {
     const app = jest.fn();
     it('should test that applyPolyfills & defineCustomElements is called', async () => {
@@ -11,8 +9,5 @@ describe('test that install function in ionic-vue.ts works', () => {
         await IonicVue.install!(app as any);
         expect(customElementsSpy).toHaveBeenCalled();
         expect(polyfillSpy).toHaveBeenCalled();
-    })
-})
-
-
-
+    });
+});

@@ -6,6 +6,3 @@ module.exports = {
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.ts?$',
   "testResultsProcessor": "jest-sonar-reporter"
 }
-
-
-
