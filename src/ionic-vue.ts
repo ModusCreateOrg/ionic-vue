@@ -1,20 +1,11 @@
 import { App, Plugin } from 'vue';
-import { IonicConfig } from '@ionic/core';
+import { IonicConfig, setupConfig } from '@ionic/core';
 import { applyPolyfills, defineCustomElements } from '@ionic/core/loader';
-
-interface IonicWindow extends Window {
-  Ionic: {
-    config?: IonicConfig;
-  };
-}
 
 export const IonicVue: Plugin = {
   async install(_app: App, config?: IonicConfig) {
-    const win: IonicWindow = window as any;
-    const Ionic = win?.Ionic || {};
-    Ionic.config = config || {};
-
+    config && setupConfig(config);
     await applyPolyfills();
-    defineCustomElements(win);
+    defineCustomElements(window);
   }
 };
