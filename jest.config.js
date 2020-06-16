@@ -4,5 +4,5 @@ module.exports = {
     '^.+\\.ts?$': 'ts-jest'
   },
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.ts?$',
-  "testResultsProcessor": "jest-sonar-reporter"
-}
+  'testResultsProcessor': 'jest-sonar-reporter'
+};
