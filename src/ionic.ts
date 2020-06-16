@@ -1,10 +1,10 @@
-import { appInitialize } from './app-initialize';
 import VueImport, { PluginFunction } from 'vue';
-import { IonicConfig } from '@ionic/core';
+import { IonicConfig, setupConfig } from '@ionic/core';
+import { applyPolyfills, defineCustomElements } from '@ionic/core/loader';
 
 let Vue: typeof VueImport;
 
-export const install: PluginFunction<IonicConfig> = (_Vue, config) => {
+export const install: PluginFunction<IonicConfig> = async (_Vue, config) => {
   if (Vue && _Vue === Vue) {
     if (process.env.NODE_ENV !== 'production') {
       console.error(
@@ -15,5 +15,8 @@ export const install: PluginFunction<IonicConfig> = (_Vue, config) => {
   }
   Vue = _Vue;
   Vue.config.ignoredElements.push(/^ion-/);
-  appInitialize(config);
+
+  config && setupConfig(config);
+  await applyPolyfills();
+  defineCustomElements(window);
 };

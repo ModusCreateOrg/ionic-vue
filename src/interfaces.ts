@@ -38,11 +38,6 @@ export interface IonicGlobal {
   asyncQueue?: boolean;
 }
 
-export interface IonicWindow extends Window {
-  Ionic: IonicGlobal;
-  __zone_symbol__requestAnimationFrame?: (ts: FrameRequestCallback) => number;
-}
-
 export interface FrameworkDelegate {
   attachViewToDom(
     parentElement: HTMLElement,
