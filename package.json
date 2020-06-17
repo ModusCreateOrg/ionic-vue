@@ -57,6 +57,8 @@
     "clean": "node ./scripts/clean.js"
   },
   "devDependencies": {
+    "@types/jest": "^25.2.3",
+    "@types/node": "^14.0.5",
     "@vue/test-utils": "^2.0.0-alpha.6",
     "babel-jest": "^25.5.1",
     "babel-preset-env": "^1.7.0",
@@ -67,10 +69,12 @@
     "rollup-plugin-buble": "^0.19.2",
     "rollup-plugin-terser": "^1.0.1",
     "rollup-plugin-typescript2": "^0.27.0",
+    "ts-jest": "^26.1.0",
+    "ts-loader": "^7.0.5",
     "tslib": "^1.11.2",
     "tslint": "^6.1.2",
     "tslint-ionic-rules": "^0.0.21",
-    "typescript": "^3.8.3"
+    "typescript": "^3.9.3"
   },
   "dependencies": {
     "@ionic/core": "^5.1.0",
