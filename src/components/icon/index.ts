@@ -19,7 +19,7 @@ export const IonIcon: FunctionalComponent<Props> = (props) => {
   const { md, ios } = props;
   const icon = (isPlatform(window, 'ios') ? ios ?? md : md ?? ios) ?? props.icon;
   return h('ion-icon', { ...props, icon });
-}
+};
 
 IonIcon.displayName = 'ion-icon';
 IonIcon.props = ['ariaLabel', 'color', 'flipRtl', 'icon', 'ios', 'lazy', 'md', 'mode', 'name', 'size', 'src'];

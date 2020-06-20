@@ -17,12 +17,12 @@ export const setActiveTab = (value?: string) => {
     // already unref-ed thus casting
     tab.ref && ((tab.ref as unknown as HTMLIonTabElement).active = tabName === value);
   });
-}
+};
 
 export const IonTabBar: FunctionalComponent<JSX.IonTabBar> = (props, { slots }) => {
   const selectedTab = tabBarRef.value?.selectedTab || props.selectedTab || (tabNodes?.value.size && tabNodes.value.entries().next().value[0]);
   return h(name, { ...props, selectedTab, ref: tabBarRef }, slots.default && slots.default());
-}
+};
 
 IonTabBar.displayName = name;
 IonTabBar.props = componentProps;

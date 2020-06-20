@@ -33,6 +33,6 @@ export const IonTabs: FunctionalComponent = (props, { slots }) => {
     h('div', { class: 'tabs-inner', style: innerStyles }, slots.default && slots.default()),
     slots.bottom && slots.bottom(),
   ]);
-}
+};
 
 IonTabs.displayName = 'ion-tabs';

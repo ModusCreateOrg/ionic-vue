@@ -8,17 +8,17 @@ import {
 } from '@ionic/core';
 import { OverlayType, defineOverlay } from '../utils';
 
-export const IonModal = defineOverlay<HTMLIonModalElement, ModalOptions>(
+export const IonModal = /*@__PURE__*/defineOverlay<HTMLIonModalElement, ModalOptions>(
   OverlayType.Modal,
   modalController
 );
 
-export const IonActionSheet = defineOverlay<
+export const IonActionSheet = /*@__PURE__*/defineOverlay<
   HTMLIonActionSheetElement,
   ActionSheetOptions
 >(OverlayType.ActionSheet, actionSheetController);
 
-export const IonPopover = defineOverlay<HTMLIonPopoverElement, PopoverOptions>(
+export const IonPopover = /*@__PURE__*/defineOverlay<HTMLIonPopoverElement, PopoverOptions>(
   OverlayType.Popover,
   popoverController
 );

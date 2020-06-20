@@ -39,13 +39,13 @@ export const IonTab: FunctionalComponent<JSX.IonTab> = (props, { slots }) => {
     if (tabBarRef.value?.selectedTab === props.tab) {
       tabNode && route && (tabNode.location = route.fullPath);
     }
-  }
+  };
   const onVnodeBeforeUnmount = () => {
     tabBarRef.value && (tabBarRef.value.selectedTab = undefined);
-  }
+  };
 
   return h(name, { ...props, active, onVnodeUpdated, onVnodeBeforeUnmount, ref: refs[props.tab] }, slots.default && slots.default());
-}
+};
 
 IonTab.displayName = name;
 IonTab.props = componentProps;

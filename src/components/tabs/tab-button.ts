@@ -33,7 +33,7 @@ export const IonTabButton: FunctionalComponent<JSX.IonTabButton> = (props, { slo
   };
 
   return h(name, { ...props, onClick }, slots.default && slots.default());
-}
+};
 
 IonTabButton.displayName = name;
 IonTabButton.props = componentProps;
