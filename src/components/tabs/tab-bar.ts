@@ -13,14 +13,14 @@ const componentProps: (keyof JSX.IonTabBar)[] = [
 export const tabBarRef = ref<HTMLIonTabBarElement>();
 
 export const setActiveTab = (value?: string) => {
-  tabNodes.value.forEach((node, tab) => {
-    node.el!.active = tab === value;
+  tabNodes.value.forEach((tab, tabName) => {
+    // already unref-ed thus casting
+    tab.ref && ((tab.ref as unknown as HTMLIonTabElement).active = tabName === value);
   });
 }
 
 export const IonTabBar: FunctionalComponent<JSX.IonTabBar> = (props, { slots }) => {
-  const selectedTab = props.selectedTab || (tabNodes?.value.size && tabNodes.value.entries().next().value[0]);
-  setActiveTab(selectedTab);
+  const selectedTab = tabBarRef.value?.selectedTab || props.selectedTab || (tabNodes?.value.size && tabNodes.value.entries().next().value[0]);
   return h(name, { ...props, selectedTab, ref: tabBarRef }, slots.default && slots.default());
 }
 

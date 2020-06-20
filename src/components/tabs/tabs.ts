@@ -1,4 +1,4 @@
-import { FunctionalComponent, VNode, h, ref } from 'vue';
+import { FunctionalComponent, Ref, h, ref } from 'vue';
 
 // CSS for ion-tabs inner and outer elements
 const hostStyles = {
@@ -20,7 +20,12 @@ const innerStyles = {
   contain: 'layout size style',
 };
 
-export const tabNodes = ref<Map<string, VNode>>(new Map());
+export interface Tab {
+  ref: Ref<HTMLIonTabElement | undefined>;
+  location?: string;
+}
+
+export const tabNodes = ref<Map<string, Tab>>(new Map());
 
 export const IonTabs: FunctionalComponent = (props, { slots }) => {
   return h('div', { ...props, style: hostStyles }, [

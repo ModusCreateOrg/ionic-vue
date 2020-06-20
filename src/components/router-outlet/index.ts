@@ -134,7 +134,7 @@ export const IonRouterView: FunctionalComponent<Props> = props => {
 
       const child = newView.value
         ? h(newView.value.component, newView.value.props)
-        : h(Component, componentProps);
+        : Component ? h(Component, componentProps) : null;
 
       if (newView.value?.component === Component) {
         newView.value = undefined;
