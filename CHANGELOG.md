@@ -4,6 +4,12 @@
 
 # Unreleased
 
+# [3.0.0-alpha.7](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.6...v3.0.0-alpha.7)
+
+### Features
+* Added routing to tabs
+* Added the rest of the missing Ionic components
+
 # [3.0.0-alpha.5](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.4...v3.0.0-alpha.5)
 
 ### Features
