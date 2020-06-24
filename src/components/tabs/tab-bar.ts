@@ -20,7 +20,7 @@ export const setActiveTab = (value?: string) => {
 };
 
 export const IonTabBar: FunctionalComponent<JSX.IonTabBar> = (props, { slots }) => {
-  const selectedTab = tabBarRef.value?.selectedTab || props.selectedTab || (tabNodes?.value.size && tabNodes.value.entries().next().value[0]);
+  const selectedTab = tabBarRef.value?.selectedTab || props.selectedTab || (tabNodes?.value.size && tabNodes.value.entries().next().value[0]) || undefined;
   return h(name, { ...props, selectedTab, ref: tabBarRef }, slots.default && slots.default());
 };
 

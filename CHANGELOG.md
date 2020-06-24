@@ -4,6 +4,9 @@
 
 # Unreleased
 
+### Bug fixes
+* Fix default active tab selection
+
 # [3.0.0-alpha.7](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.6...v3.0.0-alpha.7)
 
 ### Features
