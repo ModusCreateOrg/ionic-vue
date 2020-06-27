@@ -1,6 +1,8 @@
 import {
   BaseTransitionProps,
   FunctionalComponent,
+  KeepAlive,
+  KeepAliveProps,
   Transition,
   h,
   nextTick,
@@ -19,6 +21,7 @@ export interface Props extends JSX.IonRouterOutlet {
   name?: string;
   route?: RouteLocationNormalizedLoaded;
   swipeBack?: boolean;
+  keepAlive?: KeepAliveProps;
 }
 
 export const IonRouterView: FunctionalComponent<Props> = props => {
@@ -37,13 +40,15 @@ export const IonRouterView: FunctionalComponent<Props> = props => {
       return;
     }
 
-    enteringEl.value?.classList.add('ion-page', 'ion-page-invisible');
+    enteringEl.value.classList.add('ion-page', 'ion-page-invisible');
+    enteringEl.value.style.display = '';
     const outlet = await ionRouterOutlet.value?.componentOnReady();
 
     return outlet?.commit(enteringEl.value, leavingEl, {
       deepWait: true,
       direction: router.direction.value,
       showGoBack: router.showBackButton.value,
+      duration: persisted ? 0 : undefined,
       progressAnimation,
     });
   };
@@ -67,12 +72,12 @@ export const IonRouterView: FunctionalComponent<Props> = props => {
 
     async onLeave(el, done: any) {
       await transition(el);
-
       if (!persisted) {
         await router.saveScroll(el);
+        done();
+      } else {
+        setTimeout(done, 100);
       }
-
-      setTimeout(done, persisted ? 100 : 0);
 
       inTransition = false;
       progressAnimation = false;
@@ -131,7 +136,6 @@ export const IonRouterView: FunctionalComponent<Props> = props => {
     },
     h(RouterView, { name, route }, (...opts: any) => {
       const { Component, props: componentProps } = opts[0];
-
       const child = newView.value
         ? h(newView.value.component, newView.value.props)
         : Component ? h(Component, componentProps) : null;
@@ -140,18 +144,27 @@ export const IonRouterView: FunctionalComponent<Props> = props => {
         newView.value = undefined;
       }
 
+      if (child?.props) {
+        child.props.class = {
+          'can-go-back': !!router.history.state.back,
+        };
+      }
+
+      if (persisted && child) {
+        nextTick(() => {
+          (enteringEl.value as any)._leaveCb && (enteringEl.value as any)._leaveCb();
+        });
+      }
+
       return h(
         Transition,
         {
           css: false,
           mode: 'in-out',
           persisted,
-          class: {
-            'can-go-back': !!router.history.state.back,
-          },
           ...transitionHooks,
         },
-        () => child
+        () => props.keepAlive !== undefined ? h(KeepAlive, props.keepAlive || null, [child]) : child
       );
     })
   );
@@ -164,4 +177,5 @@ IonRouterView.props = [
   'animation',
   'mode',
   'swipeBack',
+  'keepAlive',
 ];

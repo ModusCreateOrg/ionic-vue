@@ -4,6 +4,11 @@
 
 # Unreleased
 
+# [3.0.0-alpha.8](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.7...v3.0.0-alpha.8)
+
+### Features
+* Added Keep Alive support to IonRouterView
+
 ### Bug fixes
 * Fix default active tab selection
 
