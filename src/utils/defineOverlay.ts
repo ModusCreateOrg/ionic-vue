@@ -35,7 +35,8 @@ export enum OverlayType {
 
 export function defineOverlay<IonElement extends OverlayElement, IonProps>(
   name: OverlayType,
-  controller: OverlayController<IonElement>
+  controller: OverlayController<IonElement>,
+  componentProps: string[]
 ) {
   const overlay = ref<IonElement>();
   const content = ref();
@@ -84,7 +85,7 @@ export function defineOverlay<IonElement extends OverlayElement, IonProps>(
 
   Overlay.displayName = name;
   Overlay.inheritAttrs = false;
-  Overlay.props = ['isOpen', 'modelValue'];
+  Overlay.props = ['isOpen', 'modelValue', ...componentProps];
   Overlay.emits = [
     OverlayEvents.onUpdate,
     OverlayEvents.onWillPresent,

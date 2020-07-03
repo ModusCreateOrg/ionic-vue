@@ -2,6 +2,7 @@ import path from "path";
 // import vue from "rollup-plugin-vue";
 import { terser } from "rollup-plugin-terser";
 import typescript from "rollup-plugin-typescript2";
+import keysTransformer from 'ts-transformer-keys/transformer';
 import { version as packageVersion } from "../package.json";
 
 const resolve = _path => path.resolve(__dirname, "../", _path);
@@ -55,7 +56,11 @@ function baseConfig() {
       typescript({
         useTsconfigDeclarationDir: true,
         objectHashIgnoreUnknownHack: false,
-        clean: true
+        clean: true,
+        transformers: [service => ({
+          before: [ keysTransformer(service.getProgram()) ],
+          after: []
+        })]
       })
     ]
   };

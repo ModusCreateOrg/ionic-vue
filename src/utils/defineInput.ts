@@ -1,8 +1,7 @@
 import { FunctionalComponent, h } from 'vue';
 
-export interface InputProps {
+export interface InputProps extends Object {
   modelValue: string | boolean;
-  [key: string]: unknown;
 }
 
 export enum InputEvents {
@@ -12,21 +11,23 @@ export enum InputEvents {
 // @TODO
 // remove replace() when Vue supports camelCase events that Ionic uses
 // camelCase attributes don't work either
-export function defineInput(
+export function defineInput<Props>(
   name: string,
   ionTag: string,
+  componentProps: string[],
   updateEvent = 'onIonChange',
   modelProp = 'value'
 ) {
-  const Input: FunctionalComponent<InputProps, InputEvents[]> = (
+  const Input: FunctionalComponent<Props & InputProps, InputEvents[]> = (
     props,
-    { attrs, slots, emit }
+    { slots, emit }
   ) => {
+    const { modelValue, ...restOfProps } = props;
     return h(
       ionTag,
       {
-        ...attrs,
-        [modelProp]: props.modelValue,
+        ...restOfProps,
+        [modelProp]: modelValue,
         [updateEvent.replace('Ion', '')]: (e: Event) =>
           emit(InputEvents.onUpdate, (e?.target as any)[modelProp])
       },
@@ -35,7 +36,7 @@ export function defineInput(
   };
 
   Input.displayName = name;
-  Input.props = [modelProp, 'modelValue'];
+  Input.props = [modelProp, 'modelValue', ...componentProps];
   Input.emits = [InputEvents.onUpdate];
 
   return Input;

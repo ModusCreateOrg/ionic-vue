@@ -4,6 +4,9 @@
 
 # Unreleased
 
+### Features
+* Improve component props typings and definitions
+
 ### Bug fixes
 * Allow IonBackButton to be used without router
 

@@ -8,7 +8,7 @@ const name = 'ion-tab';
 const componentProps: (keyof JSX.IonTab)[] = [ 'tab' ];
 const refs: { [key: string]: Ref<HTMLIonTabElement | undefined> } = {};
 
-export const IonTab: FunctionalComponent<JSX.IonTab> = (props, { slots }) => {
+export const IonTab: FunctionalComponent<Omit<JSX.IonTab, 'component'>> = (props, { slots }) => {
   let tabNode = tabNodes.value.get(props.tab);
   let active = tabBarRef.value?.selectedTab === props.tab;
   const instance = getCurrentInstance()!;
