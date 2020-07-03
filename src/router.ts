@@ -13,6 +13,7 @@ enum Direction {
 
 declare module 'vue-router' {
   interface Router {
+    history: RouterHistory;
     direction: Ref<NavDirection>;
     showBackButton: Ref<boolean>;
     saveScroll: (el: HTMLElement) => Promise<void>;
