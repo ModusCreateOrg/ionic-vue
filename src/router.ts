@@ -29,6 +29,7 @@ export const createRouter = (opts: RouterOptions): Router => {
 
   const router = {
     ...createVueRouter(opts),
+    history: opts.history,
     direction,
     showBackButton,
   };
@@ -59,8 +60,8 @@ export const createRouter = (opts: RouterOptions): Router => {
     const scrollElement = ionContent && (await ionContent.getScrollElement());
     const prevRoute = router.history.state.back as any;
 
-    if (scrollElement && prevRoute?.fullPath) {
-      scroll.set(prevRoute.fullPath, {
+    if (scrollElement && prevRoute) {
+      scroll.set(prevRoute, {
         top: scrollElement?.scrollTop || 0,
         left: scrollElement?.scrollLeft || 0,
       });

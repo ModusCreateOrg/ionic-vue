@@ -62,15 +62,15 @@ export const IonRouterView: FunctionalComponent<Props> = props => {
         await router.restoreScroll(
           el,
           progressAnimation
-            ? (router.history.state.back as any).fullPath
-            : router.currentRoute.value.fullPath
+            ? router.history.state.back as any
+            : router.currentRoute.value
         );
       }
 
       done();
     },
 
-    async onLeave(el, done: any) {
+    async onLeave(el, done) {
       await transition(el);
       if (!persisted) {
         await router.saveScroll(el);
@@ -109,21 +109,21 @@ export const IonRouterView: FunctionalComponent<Props> = props => {
               router.direction.value = 'back';
 
               const prevRoute = router.getRoutes().find(r => {
-                return r.path === (router.history.state.back as any).fullPath;
+                return r.path === router.history.state.back as any;
               }) as RouteRecordNormalized;
 
-              newView.value = {
+              newView.value = prevRoute && {
                 component: prevRoute?.components[props.name || 'default'],
                 props: prevRoute?.props,
               };
             },
-            onEnd(shouldComplete: any) {
+            onEnd(shouldComplete: boolean) {
               inTransition = false;
 
               if (shouldComplete) {
                 nextTick(() => {
                   persisted = false;
-                  router.history.go(-1);
+                  router.go(-1);
                 });
                 return;
               }
@@ -140,7 +140,7 @@ export const IonRouterView: FunctionalComponent<Props> = props => {
         ? h(newView.value.component, newView.value.props)
         : Component ? h(Component, componentProps) : null;
 
-      if (newView.value?.component === Component) {
+      if (newView.value?.component === Component.type) {
         newView.value = undefined;
       }
 
@@ -152,7 +152,8 @@ export const IonRouterView: FunctionalComponent<Props> = props => {
 
       if (persisted && child) {
         nextTick(() => {
-          (enteringEl.value as any)._leaveCb && (enteringEl.value as any)._leaveCb();
+          const leaveCb = (enteringEl.value as any)._leaveCb;
+          leaveCb && leaveCb();
         });
       }
 
