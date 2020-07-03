@@ -4,6 +4,9 @@
 
 # Unreleased
 
+### Bug fixes
+* Allow IonBackButton to be used without router
+
 # [3.0.0-alpha.8](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.7...v3.0.0-alpha.8)
 
 ### Features

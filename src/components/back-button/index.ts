@@ -12,8 +12,8 @@ export const IonBackButton: FunctionalComponent<JSX.IonBackButton> = (
     ...attrs,
     onClick() {
       props.defaultHref
-        ? router.replace(props.defaultHref)
-        : router.history.go(-1);
+        ? router?.replace(props.defaultHref)
+        : router?.history.go(-1);
     }
   });
 };

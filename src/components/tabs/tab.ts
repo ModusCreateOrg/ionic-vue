@@ -12,7 +12,7 @@ export const IonTab: FunctionalComponent<JSX.IonTab> = (props, { slots }) => {
   let tabNode = tabNodes.value.get(props.tab);
   let active = tabBarRef.value?.selectedTab === props.tab;
   const instance = getCurrentInstance()!;
-  const route = useRoute && useRoute();
+  const route = useRoute();
 
   if (tabBarRef.value?.selectedTab === undefined) {
     tabBarRef.value && (tabBarRef.value.selectedTab = props.tab);
