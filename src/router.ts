@@ -128,7 +128,7 @@ export default class Router extends VueRouter {
 
   async restoreScroll(el: HTMLElement, key: string): Promise<void> {
     const ionContent = el.querySelector('ion-content');
-    const scrollElement = ionContent && (await ionContent.getScrollElement());
+    const scrollElement = ionContent && (await ionContent.getScrollElement()) || undefined;
     scrollElement?.scrollTo(this.scroll.get(key) || { top: 0, left: 0 });
   }
 }
