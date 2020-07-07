@@ -70,7 +70,7 @@ export const createRouter = (opts: RouterOptions): Router => {
 
   router.restoreScroll = async (el, key) => {
     const ionContent = el.querySelector('ion-content');
-    const scrollElement = ionContent && (await ionContent.getScrollElement());
+    const scrollElement = ionContent && (await ionContent.getScrollElement()) || undefined;
     scrollElement?.scrollTo(
       scroll.get(key) || {
         top: 0,

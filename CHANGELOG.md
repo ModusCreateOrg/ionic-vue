@@ -4,11 +4,14 @@
 
 # Unreleased
 
+# [3.0.0-alpha.9](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.8...v3.0.0-alpha.9)
+
 ### Features
 * Improve component props typings and definitions
 
 ### Bug fixes
 * Allow IonBackButton to be used without router
+* Fix IonContent scoll element evaluating to false
 
 # [3.0.0-alpha.8](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.7...v3.0.0-alpha.8)
 
