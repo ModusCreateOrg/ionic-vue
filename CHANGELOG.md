@@ -1,8 +1,10 @@
 ### KNOWN ISSUES
 * Some Ionic events and attributes do not work due to their camelCase naming (upstream Vue 3 issue)
-* Routing related attributes on Ionic components are not yet supported
 
 # Unreleased
+
+### Features
+* Added onIonTabsDidChange and onIonTabsWillChange events to IonTabs component
 
 # [3.0.0-alpha.9](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.8...v3.0.0-alpha.9)
 
