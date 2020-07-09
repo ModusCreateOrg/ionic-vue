@@ -1,7 +1,7 @@
 import { FunctionalComponent, Ref, getCurrentInstance, h, onActivated, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { JSX } from '@ionic/core';
-import { tabNodes } from './tabs';
+import { tabNodesRef } from './tabs';
 import { tabBarRef } from './tab-bar';
 
 const name = 'ion-tab';
@@ -9,7 +9,7 @@ const componentProps: (keyof JSX.IonTab)[] = [ 'tab' ];
 const refs: { [key: string]: Ref<HTMLIonTabElement | undefined> } = {};
 
 export const IonTab: FunctionalComponent<Omit<JSX.IonTab, 'component'>> = (props, { slots }) => {
-  let tabNode = tabNodes.value.get(props.tab);
+  let tabNode = tabNodesRef.value.get(props.tab);
   let active = tabBarRef.value?.selectedTab === props.tab;
   const instance = getCurrentInstance()!;
   const route = useRoute();
@@ -21,9 +21,9 @@ export const IonTab: FunctionalComponent<Omit<JSX.IonTab, 'component'>> = (props
 
   if (!tabNode) {
     refs[props.tab] = ref<HTMLIonTabElement>();
-    tabNodes.value.set(props.tab, { ref: refs[props.tab] });
+    tabNodesRef.value.set(props.tab, { ref: refs[props.tab] });
   }
-  tabNode = tabNodes.value.get(props.tab)!;
+  tabNode = tabNodesRef.value.get(props.tab)!;
 
   // Only add Lifecycle.ACTIVATE hooks once
   // @ts-ignore
