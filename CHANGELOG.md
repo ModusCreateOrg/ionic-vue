@@ -2,6 +2,8 @@
 
 # Unreleased
 
+# [3.0.0-alpha.10](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.9...v3.0.0-alpha.10)
+
 ### Features
 * Added onIonTabsDidChange and onIonTabsWillChange events to IonTabs component
 
