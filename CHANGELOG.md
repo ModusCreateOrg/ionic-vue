@@ -1,10 +1,13 @@
 ### KNOWN ISSUES
-* Some Ionic events and attributes do not work due to their camelCase naming (upstream Vue 3 issue)
 
 # Unreleased
 
 ### Features
 * Added onIonTabsDidChange and onIonTabsWillChange events to IonTabs component
+
+### Bug fixes
+* Fix ionic input events not firing (i.e. IonSelect's @ionChange)
+* Fix ionic input value not being set when used without v-model (i.e. <IonInput value="foo" />)
 
 # [3.0.0-alpha.9](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.8...v3.0.0-alpha.9)
 
