@@ -1,8 +1,6 @@
 import {
   BaseTransitionProps,
   FunctionalComponent,
-  KeepAlive,
-  KeepAliveProps,
   Transition,
   h,
   nextTick,
@@ -21,10 +19,9 @@ export interface Props extends JSX.IonRouterOutlet {
   name?: string;
   route?: RouteLocationNormalizedLoaded;
   swipeBack?: boolean;
-  keepAlive?: KeepAliveProps;
 }
 
-export const IonRouterView: FunctionalComponent<Props> = props => {
+export const IonRouterView: FunctionalComponent<Props> = (props, { slots }) => {
   const router = useRouter();
   const { name, route, ...outletProps } = props;
   const ionRouterOutlet = ref<HTMLIonRouterOutletElement>();
@@ -85,6 +82,41 @@ export const IonRouterView: FunctionalComponent<Props> = props => {
     },
   };
 
+  const routerView = h(RouterView, { name, route }, (...opts: any) => {
+    const { Component, props: componentProps } = opts[0];
+    const child = newView.value
+      ? h(newView.value.component, newView.value.props)
+      : Component ? h(Component, componentProps) : null;
+
+    if (newView.value?.component === Component.type) {
+      newView.value = undefined;
+    }
+
+    if (child?.props) {
+      child.props.class = {
+        'can-go-back': !!router.history.state.back,
+      };
+    }
+
+    if (persisted && child) {
+      nextTick(() => {
+        const leaveCb = (enteringEl.value as any)._leaveCb;
+        leaveCb && leaveCb();
+      });
+    }
+
+    return h(
+      Transition,
+      {
+        css: false,
+        mode: 'in-out',
+        persisted,
+        ...transitionHooks,
+      },
+      () => child
+    );
+  });
+
   return h(
     'ion-router-outlet',
     {
@@ -134,40 +166,7 @@ export const IonRouterView: FunctionalComponent<Props> = props => {
           });
       },
     },
-    h(RouterView, { name, route }, (...opts: any) => {
-      const { Component, props: componentProps } = opts[0];
-      const child = newView.value
-        ? h(newView.value.component, newView.value.props)
-        : Component ? h(Component, componentProps) : null;
-
-      if (newView.value?.component === Component.type) {
-        newView.value = undefined;
-      }
-
-      if (child?.props) {
-        child.props.class = {
-          'can-go-back': !!router.history.state.back,
-        };
-      }
-
-      if (persisted && child) {
-        nextTick(() => {
-          const leaveCb = (enteringEl.value as any)._leaveCb;
-          leaveCb && leaveCb();
-        });
-      }
-
-      return h(
-        Transition,
-        {
-          css: false,
-          mode: 'in-out',
-          persisted,
-          ...transitionHooks,
-        },
-        () => props.keepAlive !== undefined ? h(KeepAlive, props.keepAlive || null, [child]) : child
-      );
-    })
+    slots.default ? slots.default({ Component: routerView }) : routerView
   );
 };
 
@@ -178,5 +177,4 @@ IonRouterView.props = [
   'animation',
   'mode',
   'swipeBack',
-  'keepAlive',
 ];
