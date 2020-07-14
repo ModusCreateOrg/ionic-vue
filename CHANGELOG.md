@@ -1,9 +1,11 @@
-# [Unreleased](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.10...dev)
+# [Unreleased](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.11...dev)
+
+---
+
+# [3.0.0-alpha.11](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.10...v3.0.0-alpha.11)
 
 ### Features
 * IonRouterView - remove keepAlive prop and use v-slot prop instead
-
----
 
 # [3.0.0-alpha.10](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.9...v3.0.0-alpha.10)
 
