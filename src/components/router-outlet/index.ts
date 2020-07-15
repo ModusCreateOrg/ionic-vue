@@ -2,6 +2,7 @@ import {
   BaseTransitionProps,
   FunctionalComponent,
   Transition,
+  VNode,
   h,
   nextTick,
   ref,
@@ -26,7 +27,7 @@ export const IonRouterView: FunctionalComponent<Props> = (props, { slots }) => {
   const { name, route, ...outletProps } = props;
   const ionRouterOutlet = ref<HTMLIonRouterOutletElement>();
   const enteringEl = ref<HTMLElement>();
-  const newView = shallowRef();
+  const newView = shallowRef<VNode>();
 
   let persisted = false;
   let progressAnimation = false;
@@ -83,12 +84,10 @@ export const IonRouterView: FunctionalComponent<Props> = (props, { slots }) => {
   };
 
   const routerView = h(RouterView, { name, route }, (...opts: any) => {
-    const { Component, props: componentProps } = opts[0];
-    const child = newView.value
-      ? h(newView.value.component, newView.value.props)
-      : Component ? h(Component, componentProps) : null;
+    const { Component, route: matchedRoute } = opts[0];
+    const child = newView.value ?? Component;
 
-    if (newView.value?.component === Component.type) {
+    if (newView.value?.type === Component.type) {
       newView.value = undefined;
     }
 
@@ -105,16 +104,16 @@ export const IonRouterView: FunctionalComponent<Props> = (props, { slots }) => {
       });
     }
 
-    return h(
-      Transition,
-      {
-        css: false,
-        mode: 'in-out',
-        persisted,
-        ...transitionHooks,
-      },
-      () => child
-    );
+    const transitionProps = {
+      css: false,
+      mode: 'in-out',
+      persisted,
+      ...transitionHooks,
+    };
+
+    return slots.default
+      ? slots.default({ Component: child, route: matchedRoute, transitionProps })
+      : h(Transition, transitionProps, () => Component);
   });
 
   return h(
@@ -144,10 +143,12 @@ export const IonRouterView: FunctionalComponent<Props> = (props, { slots }) => {
                 return r.path === router.history.state.back as any;
               }) as RouteRecordNormalized;
 
-              newView.value = prevRoute && {
-                component: prevRoute?.components[props.name || 'default'],
-                props: prevRoute?.props,
-              };
+              if (prevRoute) {
+                newView.value = h(
+                  prevRoute.components[props.name || 'default'],
+                  prevRoute.props
+                );
+              }
             },
             onEnd(shouldComplete: boolean) {
               inTransition = false;
@@ -166,7 +167,7 @@ export const IonRouterView: FunctionalComponent<Props> = (props, { slots }) => {
           });
       },
     },
-    slots.default ? slots.default({ Component: routerView }) : routerView
+    routerView
   );
 };
 

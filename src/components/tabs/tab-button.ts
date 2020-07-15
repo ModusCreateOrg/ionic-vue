@@ -21,7 +21,6 @@ export const IonTabButton: FunctionalComponent<JSX.IonTabButton> = (props, { slo
   const router = useRouter();
 
   const onClick = async () => {
-    console.log('clicl', tabsRef.value?.onIonTabsWillChange);
     if (tabsRef.value && tabsRef.value.onIonTabsWillChange && props.tab) {
       tabsRef.value.onIonTabsWillChange(new CustomEvent('ionTabWillChange', { detail: { tab: props.tab } }));
     }

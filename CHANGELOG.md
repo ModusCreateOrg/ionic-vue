@@ -1,5 +1,8 @@
 # [Unreleased](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.11...dev)
 
+### Features
+* Export transition props when rendering children in RouterView
+
 ---
 
 # [3.0.0-alpha.11](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.10...v3.0.0-alpha.11)
