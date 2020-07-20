@@ -15,6 +15,7 @@ import {
   useRouter,
 } from 'vue-router';
 import { JSX } from '@ionic/core';
+import { animationOverride } from '../../router';
 
 export interface Props extends JSX.IonRouterOutlet {
   name?: string;
@@ -47,6 +48,7 @@ export const IonRouterView: FunctionalComponent<Props> = (props, { slots }) => {
       direction: router.direction.value,
       showGoBack: router.showBackButton.value,
       duration: persisted ? 0 : undefined,
+      animationBuilder: animationOverride.value,
       progressAnimation,
     });
   };

@@ -1,8 +1,9 @@
 import { FunctionalComponent, h } from 'vue';
+import { useRouter } from 'vue-router';
 import { JSX } from '@ionic/core';
 import { tabNodesRef, tabsRef } from './tabs';
 import { setActiveTab, tabBarRef } from './tab-bar';
-import { useRouter } from 'vue-router';
+import { Navigable } from '../../interfaces';
 
 const name = 'ion-tab-button';
 const componentProps: (keyof JSX.IonTabButton)[] = [
@@ -17,10 +18,16 @@ const componentProps: (keyof JSX.IonTabButton)[] = [
   'target',
 ];
 
-export const IonTabButton: FunctionalComponent<JSX.IonTabButton> = (props, { slots }) => {
+export const IonTabButton: FunctionalComponent<JSX.IonTabButton & Navigable> = (props, { slots }) => {
   const router = useRouter();
 
-  const onClick = async () => {
+  const onClick = async (e: MouseEvent) => {
+    props.onClick && props.onClick(e);
+
+    if (e.defaultPrevented) {
+      return;
+    }
+
     if (tabsRef.value && tabsRef.value.onIonTabsWillChange && props.tab) {
       tabsRef.value.onIonTabsWillChange(new CustomEvent('ionTabWillChange', { detail: { tab: props.tab } }));
     }
@@ -37,6 +44,8 @@ export const IonTabButton: FunctionalComponent<JSX.IonTabButton> = (props, { slo
     if (tabsRef.value && tabsRef.value.onIonTabsDidChange && props.tab) {
       tabsRef.value.onIonTabsDidChange(new CustomEvent('ionTabDidChange', { detail: { tab: props.tab } }));
     }
+
+    e.preventDefault();
   };
 
   return h(name, { ...props, onClick }, slots.default && slots.default());

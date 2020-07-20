@@ -1,6 +1,17 @@
-# [Unreleased](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.12...dev)
+# [Unreleased](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.13...dev)
 
 ---
+
+# [3.0.0-alpha.13](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.12...v3.0.0-alpha.13)
+
+### Features
+* Ionic components href attribute behaves like RouterLink's to attribute
+* Support routerAnimation and routerDirection props for Ionic components
+
+### Bug fixes
+* Scroll is no longer reset if swipe back is cancelled
+* Fix props no longer being applied correctly to overlay components
+* Fix onClick overriding on certain Ionic components
 
 # [3.0.0-alpha.12](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.11...v3.0.0-alpha.12)
 

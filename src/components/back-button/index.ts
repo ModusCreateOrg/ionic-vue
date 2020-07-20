@@ -1,12 +1,19 @@
 import { FunctionalComponent, h } from 'vue';
 import { useRouter } from 'vue-router';
 import { JSX } from '@ionic/core';
+import { NavigableBack } from '../../interfaces';
 
-export const IonBackButton: FunctionalComponent<JSX.IonBackButton> = props => {
+export const IonBackButton: FunctionalComponent<JSX.IonBackButton & NavigableBack> = props => {
   const router = useRouter();
   return h('ion-back-button', {
     props,
-    onClick() {
+    onClick(e: MouseEvent) {
+      props.onClick && props.onClick(e);
+
+      if (e.defaultPrevented) {
+        return;
+      }
+
       props.defaultHref
         ? router?.replace(props.defaultHref)
         : router?.history.go(-1);
@@ -21,5 +28,6 @@ IonBackButton.props = [
   'icon',
   'mode',
   'text',
-  'type'
+  'type',
+  'onClick',
 ];

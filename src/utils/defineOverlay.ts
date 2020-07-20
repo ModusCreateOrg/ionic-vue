@@ -38,6 +38,8 @@ export function defineOverlay<IonElement extends OverlayElement, IonProps>(
   controller: OverlayController<IonElement>,
   componentProps: string[]
 ) {
+  type Props = OverlayProps & Omit<IonProps, 'component' | 'componentProps' | 'delegate'>;
+
   const overlay = ref<IonElement>();
   const content = ref();
   const coreTag = name.charAt(0).toLowerCase() + name.slice(1);
@@ -49,7 +51,7 @@ export function defineOverlay<IonElement extends OverlayElement, IonProps>(
   });
 
   const Overlay: FunctionalComponent<
-    OverlayProps & Omit<IonProps, 'component' | 'componentProps' | 'delegate'>,
+    Props,
     OverlayEvents[]
   > = (props, { attrs, slots, emit }) => {
     const isOpen = props.isOpen === undefined ? props.modelValue : props.isOpen;
@@ -64,14 +66,14 @@ export function defineOverlay<IonElement extends OverlayElement, IonProps>(
         style: { display: 'none' },
         async onVnodeUpdated() {
           if (isOpen) {
-            await (overlay.value?.present() || present(attrs));
+            await (overlay.value?.present() || present(props, attrs));
           } else {
             await overlay.value?.dismiss();
             overlay.value = undefined;
           }
         },
         async onVnodeMounted() {
-          isOpen && (await present(attrs));
+          isOpen && (await present(props, attrs));
         },
         async onVnodeBeforeUnmount() {
           await overlay.value?.dismiss();
@@ -94,15 +96,14 @@ export function defineOverlay<IonElement extends OverlayElement, IonProps>(
     OverlayEvents.onDidDismiss
   ];
 
-  async function present({
+  async function present(props: Props, {
     onWillPresent,
     onDidPresent,
     onWillDismiss,
     onDidDismiss,
-    ...attrs
   }: Partial<Record<OverlayEvents, (...args: any) => void>>) {
     overlay.value = await controller.create({
-      ...attrs,
+      ...props,
       component: content.value
     });
 

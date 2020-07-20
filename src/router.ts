@@ -4,9 +4,9 @@ import {
   RouterOptions,
   createRouter as createVueRouter,
 } from 'vue-router';
-import { BackButtonEvent, NavDirection } from '@ionic/core';
+import { AnimationBuilder, BackButtonEvent, NavDirection } from '@ionic/core';
 
-enum Direction {
+export enum Direction {
   forward = 'forward',
   back = 'back',
 }
@@ -21,9 +21,11 @@ declare module 'vue-router' {
   }
 }
 
+export const directionOverride = ref<Direction>();
+export const animationOverride = ref<AnimationBuilder>();
+
 export const createRouter = (opts: RouterOptions): Router => {
   const direction = ref<Direction>(Direction.forward);
-  const directionOverride = ref<Direction>();
   const showBackButton = ref<boolean>(false);
   const scroll = new Map<string, { top: number; left: number }>();
 
@@ -40,7 +42,6 @@ export const createRouter = (opts: RouterOptions): Router => {
 
   router.beforeEach((to, from, next) => {
     showBackButton.value = to.fullPath !== '/' || !!router.history.state.back;
-    console.log(to.fullPath, from.fullPath);
 
     direction.value =
       directionOverride.value ||
@@ -54,6 +55,7 @@ export const createRouter = (opts: RouterOptions): Router => {
 
   router.afterEach(to => {
     showBackButton.value = to.fullPath !== '/' || !!router.history.state.back;
+    animationOverride.value = undefined;
   });
 
   router.saveScroll = async (el, key) => {

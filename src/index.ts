@@ -17,7 +17,7 @@ import {
 
 export { IonicVue } from './ionic-vue';
 export * from './components';
-export * from './router';
+export { createRouter } from './router';
 
 // Icons that are used by internal components
 addIcons({

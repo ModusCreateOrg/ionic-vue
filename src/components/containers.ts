@@ -1,12 +1,12 @@
 import { keys } from 'ts-transformer-keys';
 import { JSX } from '@ionic/core';
-import { defineContainer } from '../utils';
+import { defineContainer, defineNavigableContainer } from '../utils';
 
 export const IonApp = /*@__PURE__*/defineContainer<JSX.IonApp>('ion-app', keys<JSX.IonApp>());
 export const IonAvatar = /*@__PURE__*/defineContainer<JSX.IonAvatar>('ion-avatar', keys<JSX.IonAvatar>());
 export const IonBackdrop = /*@__PURE__*/defineContainer<JSX.IonBackdrop>('ion-backdrop', keys<JSX.IonBackdrop>());
 export const IonBadge = /*@__PURE__*/defineContainer<JSX.IonBadge>('ion-badge', keys<JSX.IonBadge>());
-export const IonButton = /*@__PURE__*/defineContainer<JSX.IonButton>('ion-button', keys<JSX.IonButton>());
+export const IonButton = /*@__PURE__*/defineNavigableContainer<JSX.IonButton>('ion-button', keys<JSX.IonButton>());
 export const IonButtons = /*@__PURE__*/defineContainer<JSX.IonButtons>('ion-buttons', keys<JSX.IonButtons>());
 export const IonCard = /*@__PURE__*/defineContainer<JSX.IonCard>('ion-card', keys<JSX.IonCard>());
 export const IonCardContent = /*@__PURE__*/defineContainer<JSX.IonCardContent>('ion-card-content', keys<JSX.IonCardContent>());
@@ -17,7 +17,7 @@ export const IonChip = /*@__PURE__*/defineContainer<JSX.IonChip>('ion-chip', key
 export const IonCol = /*@__PURE__*/defineContainer<JSX.IonCol>('ion-col', keys<JSX.IonCol>());
 export const IonContent = /*@__PURE__*/defineContainer<JSX.IonContent>('ion-content', keys<JSX.IonContent>());
 export const IonFab = /*@__PURE__*/defineContainer<JSX.IonFab>('ion-fab', keys<JSX.IonFab>());
-export const IonFabButton = /*@__PURE__*/defineContainer<JSX.IonFabButton>('ion-fab-button', keys<JSX.IonFabButton>());
+export const IonFabButton = /*@__PURE__*/defineNavigableContainer<JSX.IonFabButton>('ion-fab-button', keys<JSX.IonFabButton>());
 export const IonFabList = /*@__PURE__*/defineContainer<JSX.IonFabList>('ion-fab-list', keys<JSX.IonFabList>());
 export const IonFooter = /*@__PURE__*/defineContainer<JSX.IonFooter>('ion-footer', keys<JSX.IonFooter>());
 export const IonGrid = /*@__PURE__*/defineContainer<JSX.IonGrid>('ion-grid', keys<JSX.IonGrid>());
@@ -25,10 +25,10 @@ export const IonHeader = /*@__PURE__*/defineContainer<JSX.IonHeader>('ion-header
 export const IonImg = /*@__PURE__*/defineContainer<JSX.IonImg>('ion-img', keys<JSX.IonImg>());
 export const IonInfiniteScroll = /*@__PURE__*/defineContainer<JSX.IonInfiniteScroll>('ion-infinite-scroll', keys<JSX.IonInfiniteScroll>());
 export const IonInfiniteScrollContent = /*@__PURE__*/defineContainer<JSX.IonInfiniteScrollContent>('ion-infinite-scroll-content', keys<JSX.IonInfiniteScrollContent>());
-export const IonItem = /*@__PURE__*/defineContainer<JSX.IonItem>('ion-item', keys<JSX.IonItem>());
+export const IonItem = /*@__PURE__*/defineNavigableContainer<JSX.IonItem>('ion-item', keys<JSX.IonItem>());
 export const IonItemDivider = /*@__PURE__*/defineContainer<JSX.IonItemDivider>('ion-item-divider', keys<JSX.IonItemDivider>());
 export const IonItemGroup = /*@__PURE__*/defineContainer<JSX.IonItemGroup>('ion-item-group', keys<JSX.IonItemGroup>());
-export const IonItemOption = /*@__PURE__*/defineContainer<JSX.IonItemOption>('ion-item-option', keys<JSX.IonItemOption>());
+export const IonItemOption = /*@__PURE__*/defineNavigableContainer<JSX.IonItemOption>('ion-item-option', keys<JSX.IonItemOption>());
 export const IonItemOptions = /*@__PURE__*/defineContainer<JSX.IonItemOptions>('ion-item-options', keys<JSX.IonItemOptions>());
 export const IonItemSliding = /*@__PURE__*/defineContainer<JSX.IonItemSliding>('ion-item-sliding', keys<JSX.IonItemSliding>());
 export const IonLabel = /*@__PURE__*/defineContainer<JSX.IonLabel>('ion-label', keys<JSX.IonLabel>());
