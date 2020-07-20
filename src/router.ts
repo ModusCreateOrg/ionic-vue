@@ -16,7 +16,7 @@ declare module 'vue-router' {
     history: RouterHistory;
     direction: Ref<NavDirection>;
     showBackButton: Ref<boolean>;
-    saveScroll: (el: HTMLElement) => Promise<void>;
+    saveScroll: (el: HTMLElement, key: string) => Promise<void>;
     restoreScroll: (el: HTMLElement, key: string) => Promise<void>;
   }
 }
@@ -40,6 +40,7 @@ export const createRouter = (opts: RouterOptions): Router => {
 
   router.beforeEach((to, from, next) => {
     showBackButton.value = to.fullPath !== '/' || !!router.history.state.back;
+    console.log(to.fullPath, from.fullPath);
 
     direction.value =
       directionOverride.value ||
@@ -55,13 +56,12 @@ export const createRouter = (opts: RouterOptions): Router => {
     showBackButton.value = to.fullPath !== '/' || !!router.history.state.back;
   });
 
-  router.saveScroll = async el => {
+  router.saveScroll = async (el, key) => {
     const ionContent = el.querySelector('ion-content');
     const scrollElement = ionContent && (await ionContent.getScrollElement());
-    const prevRoute = router.history.state.back as any;
 
-    if (scrollElement && prevRoute) {
-      scroll.set(prevRoute, {
+    if (scrollElement && key) {
+      scroll.set(key, {
         top: scrollElement?.scrollTop || 0,
         left: scrollElement?.scrollLeft || 0,
       });

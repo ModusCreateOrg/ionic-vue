@@ -61,7 +61,7 @@ export const IonRouterView: FunctionalComponent<Props> = (props, { slots }) => {
           el,
           progressAnimation
             ? router.history.state.back as any
-            : router.currentRoute.value
+            : router.currentRoute.value.fullPath
         );
       }
 
@@ -69,16 +69,19 @@ export const IonRouterView: FunctionalComponent<Props> = (props, { slots }) => {
     },
 
     async onLeave(el, done) {
-      await transition(el);
       if (!persisted) {
-        await router.saveScroll(el);
-        done();
-      } else {
-        setTimeout(done, 100);
+        await router.saveScroll(
+          el,
+          progressAnimation
+            ? router.currentRoute.value.fullPath
+            : router.history.state.back as any
+        );
       }
 
+      await transition(el);
+      persisted ? setTimeout(done, 100) : done();
+
       inTransition = false;
-      progressAnimation = false;
       persisted = false;
     },
   };
@@ -152,6 +155,7 @@ export const IonRouterView: FunctionalComponent<Props> = (props, { slots }) => {
             },
             onEnd(shouldComplete: boolean) {
               inTransition = false;
+              progressAnimation = false;
 
               if (shouldComplete) {
                 nextTick(() => {
