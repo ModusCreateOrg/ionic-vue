@@ -1,4 +1,5 @@
 import { FunctionalComponent, VNode, h } from 'vue';
+import { splitPropsAndEvents } from './splitPropsAndEvents';
 
 export interface InputProps extends Object {
   modelValue: string | boolean;
@@ -14,13 +15,13 @@ export enum InputEvents {
 export function defineInput<Props>(
   name: string,
   ionTag: string,
-  componentProps: string[],
+  componentPropsAndEvents: string[],
   updateEvent = 'onIonChange',
   modelProp = 'value'
 ) {
-  const Input: FunctionalComponent<Props & InputProps, InputEvents[]> = (
+  const Input: FunctionalComponent<Props & InputProps, (InputEvents | string)[]> = (
     props,
-    { slots, emit }
+    { attrs, slots, emit }
   ) => {
     const { modelValue, ...restOfProps } = props;
 
@@ -30,9 +31,9 @@ export function defineInput<Props>(
         vnode.el.addEventListener(updateEvent.replace('onIon', 'ion'), (e: Event) => {
           emit(InputEvents.onUpdate, (e?.target as any)[modelProp]);
         });
-        for (const [key, prop] of Object.entries(props)) {
+        for (const [key, event] of Object.entries(attrs)) {
           if (key.startsWith('onIon')) {
-            vnode.el.addEventListener(key.replace('onIon', 'ion'), prop);
+            vnode.el.addEventListener(key.replace('onIon', 'ion'), event);
           }
         }
       }
@@ -48,9 +49,10 @@ export function defineInput<Props>(
     );
   };
 
+  const data = splitPropsAndEvents(componentPropsAndEvents);
   Input.displayName = name;
-  Input.props = [modelProp, 'modelValue', ...componentProps];
-  Input.emits = [InputEvents.onUpdate];
+  Input.props = [modelProp, 'modelValue', ...data.props];
+  Input.emits = [InputEvents.onUpdate, ...data.events];
 
   return Input;
 }

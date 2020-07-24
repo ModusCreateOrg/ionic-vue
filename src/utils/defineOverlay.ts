@@ -55,10 +55,12 @@ export function defineOverlay<IonElement extends OverlayElement, IonProps>(
     OverlayEvents[]
   > = (props, { attrs, slots, emit }) => {
     const isOpen = props.isOpen === undefined ? props.modelValue : props.isOpen;
+    const onDidDismiss = attrs.onDidDismiss as (e: Event) => void;
 
-    if (!attrs.onDidDismiss) {
-      attrs.onDidDismiss = () => emit(OverlayEvents.onUpdate, false);
-    }
+    attrs.onDidDismiss = (e: Event) => {
+      onDidDismiss && onDidDismiss(e);
+      emit(OverlayEvents.onUpdate, false);
+    };
 
     return h(
       'div',
@@ -81,7 +83,7 @@ export function defineOverlay<IonElement extends OverlayElement, IonProps>(
           content.value = undefined;
         }
       },
-      [h('div', { ref: content }, slots.default ? slots.default() : undefined)]
+      [h('div', { ref: content }, slots.default && slots.default())]
     );
   };
 
