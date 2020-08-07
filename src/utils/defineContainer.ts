@@ -16,7 +16,6 @@ export const defineContainer = <Props extends object>(name: string, componentPro
 
 export const defineNavigableContainer = <Props extends object>(name: string, componentPropsAndEvents: string[]) => {
   const Container: FunctionalComponent<Props & NavigableRouter> = (props, { attrs, slots }) => {
-    console.log(name, { ...props }, attrs);
     const router = useRouter();
 
     if (router && props.href !== undefined) {

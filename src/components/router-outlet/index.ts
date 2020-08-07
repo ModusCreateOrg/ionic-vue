@@ -92,7 +92,7 @@ export const IonRouterView: FunctionalComponent<Props> = (props, { slots }) => {
     const { Component, route: matchedRoute } = opts[0];
     const child = newView.value ?? Component;
 
-    if (newView.value?.type === Component.type) {
+    if (newView.value?.type === Component?.type) {
       newView.value = undefined;
     }
 
@@ -118,7 +118,7 @@ export const IonRouterView: FunctionalComponent<Props> = (props, { slots }) => {
 
     return slots.default
       ? slots.default({ Component: child, route: matchedRoute, transitionProps })
-      : h(Transition, transitionProps, () => Component);
+      : h(Transition, transitionProps, () => child);
   });
 
   return h(
