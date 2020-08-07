@@ -1,6 +1,11 @@
-# [Unreleased](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.13...dev)
+# [Unreleased](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.14...dev)
 
 ---
+
+# [3.0.0-alpha.14](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.13...v3.0.0-alpha.14)
+
+### Bug fixes
+* Fix rendering of route components when using swipe-back gesture
 
 # [3.0.0-alpha.13](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.12...v3.0.0-alpha.13)
 
