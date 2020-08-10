@@ -46,7 +46,7 @@ Apart from minor improvements and further testing of various mixes of Ionic comp
 :warning: Moving forward all versions of `ionic-vue` will be supporting Ionic 5 only, if you'd like to continue using Ionic 4 please use `ionic-vue` version `1.3.4`
 
 ## Vue 3
-:construction: We are actively developing the next major version of this library. It will support Vue 3 and all of the new APIs like Composition, new transition features, etc.
+:construction: We are actively developing the next major version of this library. It supports Vue 3 and all of the new APIs like Composition, new transition features, etc. You can [track the progress in the dev branch](https://github.com/ModusCreateOrg/ionic-vue/tree/dev).
 
 ## Installing / Getting started
 
