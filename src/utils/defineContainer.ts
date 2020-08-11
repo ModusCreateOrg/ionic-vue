@@ -26,10 +26,13 @@ export const defineNavigableContainer = <Props extends object>(name: string, com
       attrs.onClick = (e: MouseEvent) => {
         oldClick && oldClick(e);
         directionOverride.value = props.routerDirection;
-        if (!e.defaultPrevented) {
-          link.navigate(e);
-          e.preventDefault();
+
+        if (e.defaultPrevented || (props.target && /\b_blank\b/i.test(props.target))) {
+          return;
         }
+
+        link.navigate(e);
+        e.preventDefault();
       };
     }
 

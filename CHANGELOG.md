@@ -1,5 +1,12 @@
 # [Unreleased](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.14...dev)
 
+### Features
+* Added IonPage and IonRouterLink Ionic components
+* Switched to eslint
+
+### Bug fixes
+* Fix handling of target attribute
+
 ---
 
 # [3.0.0-alpha.14](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.13...v3.0.0-alpha.14)

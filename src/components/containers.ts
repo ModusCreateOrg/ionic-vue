@@ -46,6 +46,7 @@ export const IonRefresherContent = /*@__PURE__*/defineContainer<JSX.IonRefresher
 export const IonReorder = /*@__PURE__*/ defineContainer<JSX.IonReorder>('ion-reorder', keys<JSX.IonReorder>());
 export const IonReorderGroup = /*@__PURE__*/defineContainer<JSX.IonReorderGroup>('ion-reorder-group', keys<JSX.IonReorderGroup>());
 export const IonRippleEffect = /*@__PURE__*/defineContainer<JSX.IonRippleEffect>('ion-ripple-effect', keys<JSX.IonRippleEffect>());
+export const IonRouterLink = /*@__PURE__*/defineNavigableContainer<JSX.IonRouterLink>('ion-router-link', keys<JSX.IonRouterLink>());
 export const IonRow = /*@__PURE__*/defineContainer<JSX.IonRow>('ion-row', keys<JSX.IonRow>());
 export const IonSegment = /*@__PURE__*/defineContainer<JSX.IonSegment>('ion-segment', keys<JSX.IonSegment>());
 export const IonSegmentButton = /*@__PURE__*/defineContainer<JSX.IonSegmentButton>('ion-segment-button', keys<JSX.IonSegmentButton>());
