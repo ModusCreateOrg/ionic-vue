@@ -4,6 +4,7 @@ import { Direction } from './router';
 
 export interface Navigable {
   href?: RouteLocationRaw;
+  target?: string;
   onClick?: (e: MouseEvent) => void;
 }
 
