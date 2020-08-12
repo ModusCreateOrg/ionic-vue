@@ -34,7 +34,7 @@ export default {
   render(h: CreateElement, { parent, props, data, children }: RenderContext) {
     if (!parent.$router) {
       throw new Error(
-        'IonTabs requires an instance of either VueRouter or IonicVueRouter'
+        'IonVueRouter requires an instance of either VueRouter or IonicVueRouter'
       );
     }
 

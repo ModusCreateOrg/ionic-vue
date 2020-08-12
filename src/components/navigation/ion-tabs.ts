@@ -10,8 +10,8 @@ interface EventListeners {
 const tabBars = [] as VNode[];
 const cachedTabs = [] as VNode[];
 
-export default {
-  name: 'IonTabs',
+export const IonTabsVue = {
+  name: 'IonTabsVue',
   functional: true,
   render(h: CreateElement, { parent, data, slots, listeners }: RenderContext) {
     const renderQueue = [] as VNode[];
@@ -20,7 +20,7 @@ export default {
     let selectedTab = '';
 
     if (!parent.$router) {
-      throw new Error('IonTabs requires an instance of either VueRouter or IonicVueRouter');
+      throw new Error('IonTabsVue requires an instance of either VueRouter or IonicVueRouter');
     }
 
     // Loop through all of the children in the default slot

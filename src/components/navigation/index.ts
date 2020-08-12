@@ -1,2 +1,2 @@
-export * as IonPage from './ion-page';
-export * as IonTabs from './ion-tabs';
+export * from './ion-page';
+export * from './ion-tabs';
