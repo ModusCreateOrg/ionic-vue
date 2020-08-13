@@ -6,6 +6,8 @@
 
 ### Bug fixes
 * Fix handling of target attribute
+* Fix IonTabs refs
+* Fix switching between tabs with routes and plain tabs causing a redirect
 
 ---
 

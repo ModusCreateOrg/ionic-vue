@@ -21,13 +21,9 @@ const innerStyles = {
   contain: 'layout size style',
 };
 
-export interface Tab {
-  ref: Ref<HTMLIonTabElement | undefined>;
-  location?: string;
-}
-
-export const tabNodesRef = ref<Map<string, Tab>>(new Map());
 export const tabsRef = ref<HTMLIonTabsElement & JSX.IonTabs>();
+export const tabRefs: { [key: string]: Ref<HTMLIonTabElement | undefined> } = {};
+export const tabLocations: { [key: string]: string | undefined } = {};
 
 export const IonTabs: FunctionalComponent<JSX.IonTabs> = (props, { slots }) => {
   const { onIonTabsWillChange, onIonTabsDidChange, ...restProps } = props;

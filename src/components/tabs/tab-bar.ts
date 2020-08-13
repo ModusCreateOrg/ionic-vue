@@ -1,5 +1,5 @@
 import { FunctionalComponent, h, ref } from 'vue';
-import { tabNodesRef } from './tabs';
+import { tabRefs } from './tabs';
 import { JSX } from '@ionic/core';
 
 const name = 'ion-tab-bar';
@@ -13,14 +13,15 @@ const componentProps: (keyof JSX.IonTabBar)[] = [
 export const tabBarRef = ref<HTMLIonTabBarElement>();
 
 export const setActiveTab = (value?: string) => {
-  tabNodesRef.value.forEach((tab, tabName) => {
-    // already unref-ed thus casting
-    tab.ref && ((tab.ref as unknown as HTMLIonTabElement).active = tabName === value);
+  Object.keys(tabRefs).forEach((tabName) => {
+    const tab = tabRefs[tabName]?.value;
+    tab && (tab.active = tabName === value);
   });
 };
 
 export const IonTabBar: FunctionalComponent<JSX.IonTabBar> = (props, { slots }) => {
-  const selectedTab = tabBarRef.value?.selectedTab || props.selectedTab || (tabNodesRef?.value.size && tabNodesRef.value.entries().next().value[0]) || undefined;
+  const tabs = Object.keys(tabRefs);
+  const selectedTab = tabBarRef.value?.selectedTab || props.selectedTab || (tabs.length && tabs[0]) || undefined;
   return h(name, { ...props, selectedTab, ref: tabBarRef }, slots.default && slots.default());
 };
 

@@ -1,7 +1,7 @@
 import { FunctionalComponent, h } from 'vue';
 import { useRouter } from 'vue-router';
 import { JSX } from '@ionic/core';
-import { tabNodesRef, tabsRef } from './tabs';
+import { tabLocations, tabsRef } from './tabs';
 import { setActiveTab, tabBarRef } from './tab-bar';
 import { Navigable } from '../../interfaces';
 
@@ -32,11 +32,14 @@ export const IonTabButton: FunctionalComponent<JSX.IonTabButton & Navigable> = (
       tabsRef.value.onIonTabsWillChange(new CustomEvent('ionTabWillChange', { detail: { tab: props.tab } }));
     }
 
+    const wasActiveTab = tabBarRef.value?.selectedTab === props.tab;
     tabBarRef.value && (tabBarRef.value.selectedTab = props?.tab);
 
     if (props.tab && props.href && router) {
-      const location = tabNodesRef.value.get(props.tab)?.location || props.href;
-      location && router.push(router.currentRoute.value.fullPath === location ? props.href : location);
+      const location = tabLocations[props.tab] || props.href;
+      const goToRoot = wasActiveTab && router.currentRoute.value.fullPath === location;
+      setActiveTab(tabBarRef.value?.selectedTab);
+      location && router.push(goToRoot ? props.href : location);
     } else {
       setActiveTab(tabBarRef.value?.selectedTab);
     }

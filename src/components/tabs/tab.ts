@@ -1,15 +1,14 @@
-import { FunctionalComponent, Ref, getCurrentInstance, h, onActivated, ref } from 'vue';
+import { FunctionalComponent, getCurrentInstance, h, onActivated, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { JSX } from '@ionic/core';
-import { tabNodesRef } from './tabs';
 import { tabBarRef } from './tab-bar';
+import { tabLocations, tabRefs } from './tabs';
 
 const name = 'ion-tab';
 const componentProps: (keyof JSX.IonTab)[] = [ 'tab' ];
-const refs: { [key: string]: Ref<HTMLIonTabElement | undefined> } = {};
 
 export const IonTab: FunctionalComponent<Omit<JSX.IonTab, 'component'>> = (props, { slots }) => {
-  let tabNode = tabNodesRef.value.get(props.tab);
+  let tabNode = tabRefs[props.tab];
   let active = tabBarRef.value?.selectedTab === props.tab;
   const instance = getCurrentInstance()!;
   const route = useRoute();
@@ -20,16 +19,15 @@ export const IonTab: FunctionalComponent<Omit<JSX.IonTab, 'component'>> = (props
   }
 
   if (!tabNode) {
-    refs[props.tab] = ref<HTMLIonTabElement>();
-    tabNodesRef.value.set(props.tab, { ref: refs[props.tab] });
+    tabRefs[props.tab] = ref<HTMLIonTabElement>();
   }
-  tabNode = tabNodesRef.value.get(props.tab)!;
+  tabNode = tabRefs[props.tab];
 
   // Only add Lifecycle.ACTIVATE hooks once
   // @ts-ignore
   if (!instance?.a || instance?.a.length === 0) {
     onActivated(() => {
-      const tabRef = refs[props.tab].value;
+      const tabRef = tabRefs[props.tab].value;
       tabBarRef.value && (tabBarRef.value.selectedTab = props.tab);
       tabRef && (tabRef.active = true);
     }, instance);
@@ -37,14 +35,14 @@ export const IonTab: FunctionalComponent<Omit<JSX.IonTab, 'component'>> = (props
 
   const onVnodeUpdated = () => {
     if (tabBarRef.value?.selectedTab === props.tab) {
-      tabNode && route && (tabNode.location = route.fullPath);
+      route && (tabLocations[props.tab] = route.fullPath);
     }
   };
   const onVnodeBeforeUnmount = () => {
     tabBarRef.value && (tabBarRef.value.selectedTab = undefined);
   };
 
-  return h(name, { ...props, active, onVnodeUpdated, onVnodeBeforeUnmount, ref: refs[props.tab] }, slots.default && slots.default());
+  return h(name, { ...props, active, onVnodeUpdated, onVnodeBeforeUnmount, ref: tabRefs[props.tab] }, slots.default && slots.default());
 };
 
 IonTab.displayName = name;
