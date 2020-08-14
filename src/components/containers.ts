@@ -40,7 +40,6 @@ export const IonMenuToggle = /*@__PURE__*/defineContainer<JSX.IonMenuToggle>('io
 export const IonNote = /*@__PURE__*/defineContainer<JSX.IonNote>('ion-note', keys<JSX.IonNote>());
 export const IonPickerColumn = /*@__PURE__*/defineContainer<JSX.IonPickerColumn>('ion-picker-column', keys<JSX.IonPickerColumn>());
 export const IonProgressBar = /*@__PURE__*/defineContainer<JSX.IonProgressBar>('ion-progress-bar', keys<JSX.IonProgressBar>());
-export const IonRadioGroup = /*@__PURE__*/defineContainer<JSX.IonRadioGroup>('ion-radio-group', keys<JSX.IonRadioGroup>());
 export const IonRefresher = /*@__PURE__*/defineContainer<JSX.IonRefresher>('ion-refresher', keys<JSX.IonRefresher>());
 export const IonRefresherContent = /*@__PURE__*/defineContainer<JSX.IonRefresherContent>('ion-refresher-content', keys<JSX.IonRefresherContent>());
 export const IonReorder = /*@__PURE__*/ defineContainer<JSX.IonReorder>('ion-reorder', keys<JSX.IonReorder>());
