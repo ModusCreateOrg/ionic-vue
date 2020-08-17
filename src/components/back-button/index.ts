@@ -6,7 +6,7 @@ import { NavigableBack } from '../../interfaces';
 export const IonBackButton: FunctionalComponent<JSX.IonBackButton & NavigableBack> = props => {
   const router = useRouter();
   return h('ion-back-button', {
-    props,
+    ...props,
     onClick(e: MouseEvent) {
       props.onClick && props.onClick(e);
 
