@@ -177,6 +177,7 @@ export const IonRouterView: FunctionalComponent<Props> = defineComponent((props,
   );
 });
 
+IonRouterView.displayName = 'ion-router-view';
 IonRouterView.props = [
   'name',
   'route',

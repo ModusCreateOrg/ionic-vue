@@ -3,9 +3,10 @@ import { useRouter } from 'vue-router';
 import { JSX } from '@ionic/core';
 import { NavigableBack } from '../../interfaces';
 
+const name = 'ion-back-button';
 export const IonBackButton: FunctionalComponent<JSX.IonBackButton & NavigableBack> = defineComponent(props => {
   const router = useRouter();
-  return () => h('ion-back-button', {
+  return () => h(name, {
     ...props,
     onClick(e: MouseEvent) {
       props.onClick && props.onClick(e);
@@ -21,6 +22,7 @@ export const IonBackButton: FunctionalComponent<JSX.IonBackButton & NavigableBac
   });
 });
 
+IonBackButton.displayName = name;
 IonBackButton.props = [
   'defaultHref',
   'color',

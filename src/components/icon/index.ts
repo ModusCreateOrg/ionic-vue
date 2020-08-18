@@ -15,10 +15,11 @@ interface Props {
   src?: string;
 }
 
+const name = 'ion-icon';
 export const IonIcon: FunctionalComponent<Props> = defineComponent(props => {
   const icon = (isPlatform(window, 'ios') ? props.ios ?? props.md : props.md ?? props.ios) ?? props.icon;
-  return () => h('ion-icon', { ...props, icon });
+  return () => h(name, { ...props, icon });
 });
 
-IonIcon.displayName = 'ion-icon';
+IonIcon.displayName = name;
 IonIcon.props = ['ariaLabel', 'color', 'flipRtl', 'icon', 'ios', 'lazy', 'md', 'mode', 'name', 'size', 'src'];
