@@ -1,4 +1,4 @@
-import { FunctionalComponent, Ref, VNode, h, ref } from 'vue';
+import { FunctionalComponent, Ref, VNode, defineComponent, h, ref } from 'vue';
 import { JSX } from '@ionic/core';
 
 // CSS for ion-tabs inner and outer elements
@@ -25,7 +25,7 @@ export const tabsRef = ref<HTMLIonTabsElement & JSX.IonTabs>();
 export const tabRefs: { [key: string]: Ref<HTMLIonTabElement | undefined> } = {};
 export const tabLocations: { [key: string]: string | undefined } = {};
 
-export const IonTabs: FunctionalComponent<JSX.IonTabs> = (props, { slots }) => {
+export const IonTabs: FunctionalComponent<JSX.IonTabs> = defineComponent((props, { slots }) => {
   const { onIonTabsWillChange, onIonTabsDidChange, ...restProps } = props;
 
   // @TODO remove when Vue3 allows for camelCase props and events
@@ -36,12 +36,12 @@ export const IonTabs: FunctionalComponent<JSX.IonTabs> = (props, { slots }) => {
     }
   };
 
-  return h('div', { ...restProps, onVnodeMounted, style: hostStyles, ref: tabsRef }, [
+  return () => h('div', { ...restProps, onVnodeMounted, style: hostStyles, ref: tabsRef }, [
     slots.top && slots.top(),
-    h('div', { class: 'tabs-inner', style: innerStyles }, slots.default && slots.default()),
+    h('div', { class: 'tabs-inner', style: innerStyles }, slots),
     slots.bottom && slots.bottom(),
   ]);
-};
+});
 
 IonTabs.displayName = 'ion-tabs';
 IonTabs.emits = ['onIonTabsWillChange', 'onIonTabsDidChange'];

@@ -3,10 +3,11 @@ import {
   FunctionalComponent,
   Transition,
   VNode,
+  defineComponent,
   h,
   nextTick,
   ref,
-  shallowRef,
+  shallowRef
 } from 'vue';
 import {
   RouteLocationNormalizedLoaded,
@@ -23,9 +24,8 @@ export interface Props extends JSX.IonRouterOutlet {
   swipeBack?: boolean;
 }
 
-export const IonRouterView: FunctionalComponent<Props> = (props, { slots }) => {
+export const IonRouterView: FunctionalComponent<Props> = defineComponent((props, { slots }) => {
   const router = useRouter();
-  const { name, route, ...outletProps } = props;
   const ionRouterOutlet = ref<HTMLIonRouterOutletElement>();
   const enteringEl = ref<HTMLElement>();
   const newView = shallowRef<VNode>();
@@ -88,7 +88,7 @@ export const IonRouterView: FunctionalComponent<Props> = (props, { slots }) => {
     },
   };
 
-  const routerView = h(RouterView, { name, route }, (...opts: any) => {
+  const routerView = h(RouterView, { name: props.name, route: props.route }, (...opts: any) => {
     const { Component, route: matchedRoute } = opts[0];
     const child = newView.value ?? Component;
 
@@ -121,61 +121,61 @@ export const IonRouterView: FunctionalComponent<Props> = (props, { slots }) => {
       : h(Transition, transitionProps, () => child);
   });
 
-  return h(
+  return () => h(
     'ion-router-outlet',
     {
-      ...outletProps,
+      ...props,
       ref: ionRouterOutlet,
 
       // workaround for Vue 3 camelCase prop issue
       onVnodeMounted(vnode) {
         vnode?.el &&
           (vnode.el.swipeHandler = {
-            canStart() {
-              return (
-                !inTransition &&
+          canStart() {
+            return (
+              !inTransition &&
                 !!router.history.state.back &&
                 props.swipeBack !== false &&
                 ionRouterOutlet.value?.mode === 'ios'
+            );
+          },
+          onStart() {
+            progressAnimation = true;
+            inTransition = true;
+            router.direction.value = 'back';
+
+            const prevRoute = router.getRoutes().find(r => {
+              return r.path === router.history.state.back as any;
+            }) as RouteRecordNormalized;
+
+            if (prevRoute) {
+              newView.value = h(
+                prevRoute.components[props.name || 'default'],
+                prevRoute.props
               );
-            },
-            onStart() {
-              progressAnimation = true;
-              inTransition = true;
-              router.direction.value = 'back';
+            }
+          },
+          onEnd(shouldComplete: boolean) {
+            inTransition = false;
+            progressAnimation = false;
 
-              const prevRoute = router.getRoutes().find(r => {
-                return r.path === router.history.state.back as any;
-              }) as RouteRecordNormalized;
+            if (shouldComplete) {
+              nextTick(() => {
+                persisted = false;
+                router.go(-1);
+              });
+              return;
+            }
 
-              if (prevRoute) {
-                newView.value = h(
-                  prevRoute.components[props.name || 'default'],
-                  prevRoute.props
-                );
-              }
-            },
-            onEnd(shouldComplete: boolean) {
-              inTransition = false;
-              progressAnimation = false;
-
-              if (shouldComplete) {
-                nextTick(() => {
-                  persisted = false;
-                  router.go(-1);
-                });
-                return;
-              }
-
-              persisted = true;
-              newView.value = undefined;
-            },
-          });
+            persisted = true;
+            newView.value = undefined;
+          },
+        });
       },
     },
     routerView
   );
-};
+});
 
 IonRouterView.props = [
   'name',

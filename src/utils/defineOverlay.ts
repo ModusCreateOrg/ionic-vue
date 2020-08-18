@@ -1,4 +1,4 @@
-import { FunctionalComponent, h, ref } from 'vue';
+import { FunctionalComponent, defineComponent, h, ref } from 'vue';
 
 export interface OverlayElement extends HTMLElement {
   present: () => Promise<void>;
@@ -52,40 +52,34 @@ export function defineOverlay<IonElement extends OverlayElement, IonProps>(
 
   const Overlay: FunctionalComponent<
     Props,
-    OverlayEvents[]
-  > = (props, { attrs, slots, emit }) => {
-    const isOpen = props.isOpen === undefined ? props.modelValue : props.isOpen;
-    const onDidDismiss = attrs.onDidDismiss as (e: Event) => void;
-
-    attrs.onDidDismiss = (e: Event) => {
-      onDidDismiss && onDidDismiss(e);
-      emit(OverlayEvents.onUpdate, false);
-    };
-
-    return h(
-      'div',
-      {
-        style: { display: 'none' },
-        async onVnodeUpdated() {
-          if (isOpen) {
-            await (overlay.value?.present() || present(props, attrs));
-          } else {
+    OverlayEvents[] | {}
+    > = defineComponent((props, { attrs, slots, emit }) => {
+      return () => h(
+        'div',
+        {
+          style: { display: 'none' },
+          async onVnodeUpdated() {
+            const isOpen = props.isOpen ?? props.modelValue;
+            if (isOpen) {
+              await (overlay.value?.present() || present(props, attrs, emit));
+            } else {
+              await overlay.value?.dismiss();
+              overlay.value = undefined;
+            }
+          },
+          async onVnodeMounted() {
+            const isOpen = props.isOpen ?? props.modelValue;
+            isOpen && (await present(props, attrs, emit));
+          },
+          async onVnodeBeforeUnmount() {
             await overlay.value?.dismiss();
             overlay.value = undefined;
+            content.value = undefined;
           }
         },
-        async onVnodeMounted() {
-          isOpen && (await present(props, attrs));
-        },
-        async onVnodeBeforeUnmount() {
-          await overlay.value?.dismiss();
-          overlay.value = undefined;
-          content.value = undefined;
-        }
-      },
-      [h('div', { ref: content }, slots.default && slots.default())]
-    );
-  };
+        [h('div', { ref: content }, slots)]
+      );
+    });
 
   Overlay.displayName = name;
   Overlay.inheritAttrs = false;
@@ -98,12 +92,16 @@ export function defineOverlay<IonElement extends OverlayElement, IonProps>(
     OverlayEvents.onDidDismiss
   ];
 
-  async function present(props: Props, {
-    onWillPresent,
-    onDidPresent,
-    onWillDismiss,
-    onDidDismiss,
-  }: Partial<Record<OverlayEvents, (...args: any) => void>>) {
+  async function present(
+    props: Readonly<Props>,
+    {
+      onWillPresent,
+      onDidPresent,
+      onWillDismiss,
+      onDidDismiss,
+    }: Partial<Record<OverlayEvents, (...args: any) => void>>,
+    emit: (event: OverlayEvents, ...args: any[]) => void
+  ) {
     overlay.value = await controller.create({
       ...props,
       component: content.value
@@ -120,6 +118,15 @@ export function defineOverlay<IonElement extends OverlayElement, IonProps>(
       if (handlers) {
         overlay.value?.addEventListener(eventName, (e: Event) => {
           Array.isArray(handlers) ? handlers.map(f => f(e)) : handlers(e);
+        });
+      }
+      if (listener === OverlayEvents.onDidPresent) {
+        overlay.value?.addEventListener(eventName, () => {
+          emit(OverlayEvents.onUpdate, true);
+        });
+      } else if (listener === OverlayEvents.onDidDismiss) {
+        overlay.value?.addEventListener(eventName, () => {
+          emit(OverlayEvents.onUpdate, false);
         });
       }
     }

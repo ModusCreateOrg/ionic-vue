@@ -1,4 +1,4 @@
-import { FunctionalComponent, h } from 'vue';
+import { FunctionalComponent, defineComponent, h } from 'vue';
 import { useLink, useRouter } from 'vue-router';
 import { NavigableRouter } from '../interfaces';
 import { directionOverride } from '../router';
@@ -15,19 +15,21 @@ export const defineContainer = <Props extends object>(name: string, componentPro
 };
 
 export const defineNavigableContainer = <Props extends object>(name: string, componentPropsAndEvents: string[]) => {
-  const Container: FunctionalComponent<Props & NavigableRouter> = (props, { attrs, slots }) => {
+  const Container: FunctionalComponent<Props & NavigableRouter> = defineComponent((props, { attrs, slots }) => {
     const router = useRouter();
+    let { href } = props;
+    let onClick: (e: MouseEvent) => void;
 
-    if (router && props.href !== undefined) {
-      const link = useLink({ to: props.href, replace: props.replace });
+    if (router && href !== undefined) {
+      const link = useLink({ to: href, replace: props.replace });
       const oldClick = attrs.onClick as any;
 
-      props.href = link.href.value;
-      attrs.onClick = (e: MouseEvent) => {
+      href = link.href.value;
+      onClick = (e: MouseEvent) => {
         oldClick && oldClick(e);
         directionOverride.value = props.routerDirection;
 
-        if (e.defaultPrevented || (props.target && /\b_blank\b/i.test(props.target))) {
+        if (e.defaultPrevented || (props.target && /\b_blank\b/i.test(props.target as string))) {
           return;
         }
 
@@ -36,8 +38,8 @@ export const defineNavigableContainer = <Props extends object>(name: string, com
       };
     }
 
-    return h(name, props, slots.default && slots.default());
-  };
+    return () => h(name, { ...props, href, onClick }, slots);
+  });
 
   const data = splitPropsAndEvents(componentPropsAndEvents);
   Container.displayName = name;
