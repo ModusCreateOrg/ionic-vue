@@ -39,7 +39,11 @@ export const IonRouterView: FunctionalComponent<Props> = defineComponent((props,
       return;
     }
 
-    enteringEl.value.classList.add('ion-page', 'ion-page-invisible');
+    // ion-page class makes ion-split-pane invisible
+    if (enteringEl.value.nodeName !== 'ION-SPLIT-PANE') {
+      enteringEl.value.classList.add('ion-page', 'ion-page-invisible');
+    }
+
     enteringEl.value.style.display = '';
     const outlet = await ionRouterOutlet.value?.componentOnReady();
 
