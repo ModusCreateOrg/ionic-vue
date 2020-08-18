@@ -1,4 +1,16 @@
-# [Unreleased](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.14...dev)
+# [Unreleased](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.15...dev)
+
+### Features
+* Improve tooling and IDE support by wrapping components with defineComponent
+
+### Bug fixes
+* Fix IonBackButton props
+* Fix IonSplitPane within IonRouterView being hidden after navigation
+* Add missing component displayName props
+
+---
+
+# [3.0.0-alpha.15](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.14...v3.0.0-alpha.15)
 
 ### Features
 * Added IonPage and IonRouterLink Ionic components
@@ -9,8 +21,6 @@
 * Fix IonTabs refs
 * Fix switching between tabs with routes and plain tabs causing a redirect
 * Fix IonRadioGroup v-model
-
----
 
 # [3.0.0-alpha.14](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.13...v3.0.0-alpha.14)
 
