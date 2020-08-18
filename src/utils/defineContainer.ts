@@ -5,8 +5,9 @@ import { directionOverride } from '../router';
 import { splitPropsAndEvents } from './splitPropsAndEvents';
 
 export const defineContainer = <Props extends object>(name: string, componentProps: string[]) => {
-  const Container: FunctionalComponent<Props> = (props, { slots }) =>
-    h(name, props, slots.default && slots.default());
+  const Container: FunctionalComponent<Props> = defineComponent((props, { slots }) => {
+    return () => h(name, props, slots);
+  });
 
   Container.displayName = name;
   Container.props = componentProps;
