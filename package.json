@@ -14,7 +14,8 @@
   "jsdelivr": "dist/ionic-vue.js",
   "files": [
     "types/",
-    "dist/"
+    "dist/",
+    "vetur/"
   ],
   "sideEffects": false,
   "bugs": {
@@ -49,12 +50,13 @@
     "vue3"
   ],
   "scripts": {
-    "dev": "rollup -c ./build/rollup.config.js",
+    "dev": "rollup -c ./build/rollup.config.js && npm run vetur",
     "watch": "rollup -w -c ./build/rollup.config.js",
-    "prod": "npm run lint && npm run clean && NODE_ENV=production rollup -c ./build/rollup.config.js --configProd",
+    "prod": "npm run lint && npm run clean && NODE_ENV=production rollup -c ./build/rollup.config.js --configProd npm run vetur",
     "lint": "eslint --ext .ts src/** --fix",
     "test": "jest --coverage --verbose",
-    "clean": "node ./scripts/clean.js"
+    "clean": "node ./scripts/clean.js",
+    "vetur": "node ./scripts/vetur.js"
   },
   "devDependencies": {
     "@types/jest": "^25.2.3",
@@ -67,10 +69,10 @@
     "jest": "^25.5.4",
     "jest-sonar-reporter": "^2.0.0",
     "jest-vue-preprocessor": "^1.4.0",
-    "rollup": "^0.62.0",
-    "rollup-plugin-buble": "^0.19.2",
-    "rollup-plugin-terser": "^1.0.1",
-    "rollup-plugin-typescript2": "^0.27.1",
+    "rollup": "^2.26.4",
+    "rollup-plugin-terser": "^7.0.0",
+    "rollup-plugin-typescript2": "^0.27.2",
+    "@rollup/plugin-node-resolve": "^9.0.0",
     "ts-jest": "^26.1.4",
     "ts-loader": "^7.0.5",
     "ts-transformer-keys": "^0.4.2",
@@ -88,5 +90,9 @@
     "reportPath": "reports",
     "reportFile": "test-report.xml",
     "indent": 4
+  },
+  "vetur": {
+    "tags": "vetur/tags.json",
+    "attributes": "vetur/attributes.json"
   }
 }
