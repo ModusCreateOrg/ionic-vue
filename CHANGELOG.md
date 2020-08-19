@@ -2,10 +2,12 @@
 
 ### Features
 * Improve tooling and IDE support by wrapping components with defineComponent
+* Vetur support
 
 ### Bug fixes
 * Fix IonBackButton props
 * Fix IonSplitPane within IonRouterView being hidden after navigation
+* Fix removal of ionic classes with dynamic Vue class property values
 * Add missing component displayName props
 
 ---
