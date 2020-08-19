@@ -1,9 +1,6 @@
 {
   "ion-page": {
-    "description": "`IonPage` is a specialized component that is meant to be the parent container for an Ionic Page, which typically consists of `IonHeader` and `IonContent` components.",
-    "attributes": [
-      "willPresent"
-    ]
+    "description": "`IonPage` is a specialized component that is meant to be the parent container for an Ionic Page, which typically consists of `IonHeader` and `IonContent` components."
   },
   "ion-action-sheet": {
     "attributes": [

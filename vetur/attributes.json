@@ -1,8 +1,4 @@
 {
-  "willPresent": {
-    "description": "asdasdasd",
-    "type": "event"
-  },
   "replace": {
     "type": "boolean",
     "description": "Setting replace prop will call `router.replace()` instead of `router.push()` when clicked, so the navigation will replace the current history entry."
