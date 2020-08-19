@@ -1,5 +1,6 @@
-import { FunctionalComponent, defineComponent, h } from 'vue';
+import { FunctionalComponent, defineComponent, h, ref } from 'vue';
 import { isPlatform } from '@ionic/core';
+import { getComponentClasses, getElementClasses } from '../../utils';
 
 interface Props {
   ariaLabel?: string;
@@ -15,11 +16,18 @@ interface Props {
   src?: string;
 }
 
-const name = 'ion-icon';
-export const IonIcon: FunctionalComponent<Props> = defineComponent(props => {
+export const IonIcon: FunctionalComponent<Props> = defineComponent((props, { attrs }) => {
   const icon = (isPlatform(window, 'ios') ? props.ios ?? props.md : props.md ?? props.ios) ?? props.icon;
-  return () => h(name, { ...props, icon });
+  const iconRef = ref<HTMLElement>();
+  const classes = getComponentClasses(attrs.class);
+
+  return () => h('ion-icon', {
+    ...props,
+    icon,
+    ref: iconRef,
+    class: getElementClasses(iconRef, classes),
+  });
 });
 
-IonIcon.displayName = name;
+IonIcon.displayName = 'IonIcon';
 IonIcon.props = ['ariaLabel', 'color', 'flipRtl', 'icon', 'ios', 'lazy', 'md', 'mode', 'name', 'size', 'src'];

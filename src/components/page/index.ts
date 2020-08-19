@@ -1,8 +1,11 @@
-import { FunctionalComponent, defineComponent, h } from 'vue';
+import { FunctionalComponent, defineComponent, h, ref } from 'vue';
+import { getComponentClasses, getElementClasses } from '../../utils';
 
-const name = 'ion-page';
-export const IonPage: FunctionalComponent = defineComponent((props, { slots }) => {
-  return () => h(name, { ...props, class: 'ion-page' }, slots);
+export const IonPage: FunctionalComponent = defineComponent((props, { attrs, slots }) => {
+  const pageRef = ref<HTMLElement>();
+  const classes = getComponentClasses(attrs.class);
+  return () =>
+    h('ion-page', { ...props, ref: pageRef, class: getElementClasses(pageRef, classes, ['ion-page']) }, slots);
 });
 
-IonPage.displayName = name;
+IonPage.displayName = 'IonPage';

@@ -1,35 +1,37 @@
-import { FunctionalComponent, defineComponent, h } from 'vue';
+import { keys } from 'ts-transformer-keys';
+import { FunctionalComponent, defineComponent, h, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { JSX } from '@ionic/core';
-import { NavigableBack } from '../../interfaces';
+import { animationOverride } from '../../router';
+import { getComponentClasses, getElementClasses, splitPropsAndEvents } from '../../utils';
 
-const name = 'ion-back-button';
-export const IonBackButton: FunctionalComponent<JSX.IonBackButton & NavigableBack> = defineComponent(props => {
+export const IonBackButton: FunctionalComponent<JSX.IonBackButton> = defineComponent((props, { attrs }) => {
   const router = useRouter();
-  return () => h(name, {
-    ...props,
-    onClick(e: MouseEvent) {
-      props.onClick && props.onClick(e);
+  const buttonRef = ref<HTMLElement>();
+  const classes = getComponentClasses(attrs.class);
 
-      if (e.defaultPrevented) {
+  return () => h('ion-back-button', {
+    ...props,
+    ref: buttonRef,
+    class: getElementClasses(buttonRef, classes),
+    onClick(e: MouseEvent) {
+      attrs.onClick && (attrs.onClick as any)(e);
+
+      if (e.defaultPrevented || !router) {
         return;
       }
 
+      animationOverride.value = props.routerAnimation;
+
       props.defaultHref
-        ? router?.replace(props.defaultHref)
-        : router?.history.go(-1);
+        ? router.replace(props.defaultHref)
+        : router.history.go(-1);
     }
   });
 });
 
-IonBackButton.displayName = name;
-IonBackButton.props = [
-  'defaultHref',
-  'color',
-  'disabled',
-  'icon',
-  'mode',
-  'text',
-  'type',
-  'onClick',
-];
+const data = splitPropsAndEvents(keys<JSX.IonBackButton>());
+
+IonBackButton.displayName = 'IonBackButton';
+IonBackButton.props = data.props;
+IonBackButton.emits = ['onClick', ...data.events];

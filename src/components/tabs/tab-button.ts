@@ -5,7 +5,6 @@ import { tabLocations, tabsRef } from './tabs';
 import { setActiveTab, tabBarRef } from './tab-bar';
 import { Navigable } from '../../interfaces';
 
-const name = 'ion-tab-button';
 const componentProps: (keyof JSX.IonTabButton)[] = [
   'disabled',
   'download',
@@ -51,8 +50,8 @@ export const IonTabButton: FunctionalComponent<JSX.IonTabButton & Navigable> = d
     e.preventDefault();
   };
 
-  return () => h(name, { ...props, onClick }, slots);
+  return () => h('ion-tab-button', { ...props, onClick }, slots);
 });
 
-IonTabButton.displayName = name;
+IonTabButton.displayName = 'IonTabButton';
 IonTabButton.props = componentProps;

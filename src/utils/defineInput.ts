@@ -1,5 +1,5 @@
-import { FunctionalComponent, VNode, defineComponent, h } from 'vue';
-import { splitPropsAndEvents } from './splitPropsAndEvents';
+import { FunctionalComponent, VNode, defineComponent, h, ref } from 'vue';
+import { getElementClasses, splitPropsAndEvents } from './common';
 
 export interface InputProps extends Object {
   modelValue: string | boolean;
@@ -11,10 +11,9 @@ export enum InputEvents {
 
 // @TODO
 // remove replace() when Vue supports camelCase events that Ionic uses
-// camelCase attributes don't work either
 export function defineInput<Props>(
   name: string,
-  ionTag: string,
+  displayName: string,
   componentPropsAndEvents: string[],
   updateEvent = 'onIonChange',
   modelProp = 'value'
@@ -23,12 +22,13 @@ export function defineInput<Props>(
     props,
     { attrs, slots, emit }
   ) => {
+    const inputRef = ref<HTMLElement>();
+    const classes: string[] = (attrs.class as string)?.split(' ') || [];
+
     // @TODO hack to support CamelCase Ionic events
     const onVnodeBeforeMount = (vnode: VNode) => {
-      console.log('mount', name);
       if (vnode.el) {
         vnode.el.addEventListener(updateEvent.replace('onIon', 'ion'), (e: Event) => {
-          console.log(name, (e?.target as any)[modelProp]);
           emit(InputEvents.onUpdate, (e?.target as any)[modelProp]);
         });
         for (const [key, event] of Object.entries(attrs)) {
@@ -39,10 +39,11 @@ export function defineInput<Props>(
       }
     };
     return () => h(
-      ionTag,
+      name,
       {
         ...props,
         onVnodeBeforeMount,
+        class: getElementClasses(inputRef, classes),
         [modelProp]: props.hasOwnProperty('modelValue') ? props.modelValue : (props as any)[modelProp],
       },
       slots
@@ -50,7 +51,7 @@ export function defineInput<Props>(
   });
 
   const data = splitPropsAndEvents(componentPropsAndEvents);
-  Input.displayName = name;
+  Input.displayName = displayName;
   Input.props = [modelProp, 'modelValue', ...data.props];
   Input.emits = [InputEvents.onUpdate, ...data.events];
 

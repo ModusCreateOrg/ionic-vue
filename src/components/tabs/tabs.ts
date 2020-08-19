@@ -43,5 +43,5 @@ export const IonTabs: FunctionalComponent<JSX.IonTabs> = defineComponent((props,
   ]);
 });
 
-IonTabs.displayName = 'ion-tabs';
+IonTabs.displayName = 'IonTabs';
 IonTabs.emits = ['onIonTabsWillChange', 'onIonTabsDidChange'];

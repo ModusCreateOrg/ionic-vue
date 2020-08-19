@@ -13,7 +13,3 @@ export interface NavigableRouter extends Navigable {
   routerDirection?: Direction;
   routerAnimation?: AnimationBuilder;
 }
-
-export interface NavigableBack extends Omit<Navigable, 'href'> {
-  defaultHref?: RouteLocationRaw;
-}

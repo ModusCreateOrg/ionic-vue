@@ -4,7 +4,6 @@ import { JSX } from '@ionic/core';
 import { tabBarRef } from './tab-bar';
 import { tabLocations, tabRefs } from './tabs';
 
-const name = 'ion-tab';
 const componentProps: (keyof JSX.IonTab)[] = [ 'tab' ];
 
 export const IonTab: FunctionalComponent<Omit<JSX.IonTab, 'component'>> = defineComponent((props, { slots }) => {
@@ -42,8 +41,8 @@ export const IonTab: FunctionalComponent<Omit<JSX.IonTab, 'component'>> = define
     tabBarRef.value && (tabBarRef.value.selectedTab = undefined);
   };
 
-  return () => h(name, { ...props, active, onVnodeUpdated, onVnodeBeforeUnmount, ref: tabRefs[props.tab] }, slots);
+  return () => h('ion-tab', { ...props, active, onVnodeUpdated, onVnodeBeforeUnmount, ref: tabRefs[props.tab] }, slots);
 });
 
-IonTab.displayName = name;
+IonTab.displayName = 'IonTab';
 IonTab.props = componentProps;

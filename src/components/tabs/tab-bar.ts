@@ -1,8 +1,7 @@
 import { FunctionalComponent, defineComponent, h, ref } from 'vue';
-import { tabRefs } from './tabs';
 import { JSX } from '@ionic/core';
+import { tabRefs } from './tabs';
 
-const name = 'ion-tab-bar';
 const componentProps: (keyof JSX.IonTabBar)[] = [
   'color',
   'mode',
@@ -22,8 +21,8 @@ export const setActiveTab = (value?: string) => {
 export const IonTabBar: FunctionalComponent<JSX.IonTabBar> = defineComponent((props, { slots }) => {
   const tabs = Object.keys(tabRefs);
   const selectedTab = tabBarRef.value?.selectedTab || props.selectedTab || (tabs.length && tabs[0]) || undefined;
-  return () => h(name, { ...props, selectedTab, ref: tabBarRef }, slots);
+  return () => h('ion-tab-bar', { ...props, selectedTab, ref: tabBarRef }, slots);
 });
 
-IonTabBar.displayName = name;
+IonTabBar.displayName = 'IonTabBar';
 IonTabBar.props = componentProps;
