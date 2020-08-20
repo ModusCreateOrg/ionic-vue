@@ -1,27 +1,17 @@
 import { FunctionalComponent, defineComponent, h } from 'vue';
 import { useRouter } from 'vue-router';
 import { JSX } from '@ionic/core';
+import { keys } from 'ts-transformer-keys';
 import { tabLocations, tabsRef } from './tabs';
 import { setActiveTab, tabBarRef } from './tab-bar';
 import { Navigable } from '../../interfaces';
+import { splitPropsAndEvents } from '../../utils';
 
-const componentProps: (keyof JSX.IonTabButton)[] = [
-  'disabled',
-  'download',
-  'href',
-  'layout',
-  'mode',
-  'rel',
-  'selected',
-  'tab',
-  'target',
-];
-
-export const IonTabButton: FunctionalComponent<JSX.IonTabButton & Navigable> = defineComponent((props, { slots }) => {
+export const IonTabButton: FunctionalComponent<JSX.IonTabButton & Navigable> = defineComponent((props, { attrs, slots }) => {
   const router = useRouter();
 
   const onClick = async (e: MouseEvent) => {
-    props.onClick && props.onClick(e);
+    attrs.onClick && (attrs.onClick as any)(e);
 
     if (e.defaultPrevented) {
       return;
@@ -53,5 +43,8 @@ export const IonTabButton: FunctionalComponent<JSX.IonTabButton & Navigable> = d
   return () => h('ion-tab-button', { ...props, onClick }, slots);
 });
 
+
+const data = splitPropsAndEvents(keys<JSX.IonTabButton>());
 IonTabButton.displayName = 'IonTabButton';
-IonTabButton.props = componentProps;
+IonTabButton.props = data.props;
+IonTabButton.emits = ['onClick', ...data.events];
