@@ -1,4 +1,11 @@
-# [Unreleased](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.15...dev)
+# [Unreleased](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.16...dev)
+
+### Bug fixes
+* Fix swipe-back route props parsing
+
+---
+
+# [3.0.0-alpha.16](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.15...v3.0.0-alpha.14)
 
 ### Features
 * Improve tooling and IDE support by wrapping components with defineComponent
@@ -9,9 +16,6 @@
 * Fix IonSplitPane within IonRouterView being hidden after navigation
 * Fix removal of ionic classes with dynamic Vue class property values
 * Add missing component displayName props
-* Fix swipe-back route props parsing
-
----
 
 # [3.0.0-alpha.15](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.14...v3.0.0-alpha.15)
 
