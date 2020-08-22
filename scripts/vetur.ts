@@ -4,7 +4,7 @@ import docs from '@ionic/docs';
 import { paramCase } from 'change-case';
 import { IonRouterView } from '../src/components';
 
-const ingnoredProps = ['component', 'componentProps', 'delegate'];
+const ignoredProps = ['component', 'componentProps', 'delegate'];
 const ignoredTags = ['ion-nav', 'ion-nav-link', 'ion-router', 'ion-route', 'ion-route-redirect'];
 const navigableTags = ['href', 'default-href'];
 const tags: { [key: string]: any } = {
@@ -46,7 +46,7 @@ docs.components.filter(c => !ignoredTags.includes(c.tag)).forEach(c => {
     tags[tagName] = {
       description,
       attributes: c.props
-        .filter(p => !ingnoredProps.includes(p.name))
+        .filter(p => !ignoredProps.includes(p.name))
         .map(p => p.attr || paramCase(p.name)),
     };
   }

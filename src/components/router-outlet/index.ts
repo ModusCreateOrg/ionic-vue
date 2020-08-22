@@ -15,7 +15,9 @@ import {
   useRouter,
 } from 'vue-router';
 import { JSX } from '@ionic/core';
+import { keys } from 'ts-transformer-keys';
 import { animationOverride } from '../../router';
+import { splitPropsAndEvents } from '../../utils';
 
 export interface Props extends JSX.IonRouterOutlet {
   name?: string;
@@ -186,12 +188,7 @@ export const IonRouterView: FunctionalComponent<Props> = defineComponent((props,
   );
 });
 
+const data = splitPropsAndEvents(keys<JSX.IonRouterOutlet>());
 IonRouterView.displayName = 'IonRouterView';
-IonRouterView.props = [
-  'name',
-  'route',
-  'animated',
-  'animation',
-  'mode',
-  'swipeBack',
-];
+IonRouterView.props = [ ...data.props, 'name', 'route' ];
+IonRouterView.emits = data.events;

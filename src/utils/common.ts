@@ -12,6 +12,7 @@ export const getElementClasses = (ref: Ref<HTMLElement | undefined>, componentCl
 export const splitPropsAndEvents = (propsAndEvents: string[]) => {
   const props: string[] = [];
   const events: string[] = [];
+  const ignoredProps = ['component', 'componentProps', 'delegate'];
   propsAndEvents.map(i => (i.startsWith('on') ? events : props).push(i));
-  return { props, events };
+  return { props: props.filter(p => !ignoredProps.includes(p)), events };
 };

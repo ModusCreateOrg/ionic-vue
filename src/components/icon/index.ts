@@ -1,6 +1,7 @@
 import { FunctionalComponent, defineComponent, h, ref } from 'vue';
-import { isPlatform } from '@ionic/core';
-import { getComponentClasses, getElementClasses } from '../../utils';
+import { JSX, isPlatform } from '@ionic/core';
+import { keys } from 'ts-transformer-keys';
+import { getComponentClasses, getElementClasses, splitPropsAndEvents } from '../../utils';
 
 interface Props {
   ariaLabel?: string;
@@ -29,5 +30,7 @@ export const IonIcon: FunctionalComponent<Props> = defineComponent((props, { att
   });
 });
 
+const data = splitPropsAndEvents(keys<JSX.IonIcon>());
 IonIcon.displayName = 'IonIcon';
-IonIcon.props = ['ariaLabel', 'color', 'flipRtl', 'icon', 'ios', 'lazy', 'md', 'mode', 'name', 'size', 'src'];
+IonIcon.props = data.props;
+IonIcon.emits = data.events;

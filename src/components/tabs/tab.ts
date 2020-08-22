@@ -1,10 +1,10 @@
 import { FunctionalComponent, defineComponent, getCurrentInstance, h, onActivated, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { JSX } from '@ionic/core';
+import { keys } from 'ts-transformer-keys';
 import { tabBarRef } from './tab-bar';
 import { tabLocations, tabRefs } from './tabs';
-
-const componentProps: (keyof JSX.IonTab)[] = [ 'tab' ];
+import { splitPropsAndEvents } from '../../utils';
 
 export const IonTab: FunctionalComponent<Omit<JSX.IonTab, 'component'>> = defineComponent((props, { slots }) => {
   let tabNode = tabRefs[props.tab];
@@ -44,5 +44,7 @@ export const IonTab: FunctionalComponent<Omit<JSX.IonTab, 'component'>> = define
   return () => h('ion-tab', { ...props, active, onVnodeUpdated, onVnodeBeforeUnmount, ref: tabRefs[props.tab] }, slots);
 });
 
+const data = splitPropsAndEvents(keys<JSX.IonTab>());
 IonTab.displayName = 'IonTab';
-IonTab.props = componentProps;
+IonTab.props = data.props;
+IonTab.emits = data.events;

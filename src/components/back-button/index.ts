@@ -31,7 +31,6 @@ export const IonBackButton: FunctionalComponent<JSX.IonBackButton> = defineCompo
 });
 
 const data = splitPropsAndEvents(keys<JSX.IonBackButton>());
-
 IonBackButton.displayName = 'IonBackButton';
 IonBackButton.props = data.props;
 IonBackButton.emits = ['onClick', ...data.events];
