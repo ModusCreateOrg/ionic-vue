@@ -71,6 +71,10 @@ docs.components.filter(c => !ignoredTags.includes(c.tag)).forEach(c => {
   });
 });
 
+if (!fs.existsSync(path.resolve(__dirname, '../dist'))) {
+  fs.mkdirSync(path.resolve(__dirname, '../dist'));
+}
+
 writeOutput(tags, 'tags');
 writeOutput(attrs, 'attributes');
 
