@@ -2,6 +2,11 @@
   "compilerOptions": {
     "alwaysStrict": true,
     "strict": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "plugins": [
+      {
+        "transform": "ts-transformer-keys/transformer"
+      }
+    ]
   }
 }

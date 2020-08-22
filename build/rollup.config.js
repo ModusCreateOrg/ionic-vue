@@ -30,7 +30,7 @@ function outputConfig(suffix, format, opts = {}) {
 function baseConfig() {
   return {
     input: resolve('./src/index.ts'),
-    output: [outputConfig('.esm', 'esm')],
+    output: [outputConfig('', 'esm')],
     external: [
       'vue',
       'vue-router',
