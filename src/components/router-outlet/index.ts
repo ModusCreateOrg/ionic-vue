@@ -143,7 +143,6 @@ export const IonRouterView: FunctionalComponent<Props> = defineComponent((props,
             );
           },
           onStart() {
-            console.log('asdadasd');
             progressAnimation = true;
             inTransition = true;
             router.direction.value = 'back';
