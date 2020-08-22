@@ -9,6 +9,7 @@
 * Fix IonSplitPane within IonRouterView being hidden after navigation
 * Fix removal of ionic classes with dynamic Vue class property values
 * Add missing component displayName props
+* Fix swipe-back route props parsing
 
 ---
 

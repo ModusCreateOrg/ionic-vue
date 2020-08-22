@@ -11,7 +11,6 @@ import {
 } from 'vue';
 import {
   RouteLocationNormalizedLoaded,
-  RouteRecordNormalized,
   RouterView,
   useRouter,
 } from 'vue-router';
@@ -144,18 +143,25 @@ export const IonRouterView: FunctionalComponent<Props> = defineComponent((props,
             );
           },
           onStart() {
+            console.log('asdadasd');
             progressAnimation = true;
             inTransition = true;
             router.direction.value = 'back';
 
-            const prevRoute = router.getRoutes().find(r => {
-              return r.path === router.history.state.back as any;
-            }) as RouteRecordNormalized;
-
-            if (prevRoute) {
+            const matchedRoutes = router.resolve(router.history.state.back as string);
+            if (matchedRoutes.matched.length) {
+              const matchedRoute = matchedRoutes.matched[0];
+              const routePropsOption = matchedRoute.props[props.name || 'default'];
+              const routeProps = routePropsOption
+                ? routePropsOption === true
+                ? matchedRoutes.params
+                : typeof routePropsOption === 'function'
+                  ? routePropsOption(matchedRoutes)
+                  : routePropsOption
+                    : null;
               newView.value = h(
-                prevRoute.components[props.name || 'default'],
-                prevRoute.props
+                matchedRoute.components[props.name || 'default'],
+                routeProps
               );
             }
           },
