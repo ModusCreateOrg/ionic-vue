@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import docs from '@ionic/docs';
 import { paramCase } from 'change-case';
-import { IonRouterView } from '../src/components';
+import { IonRouterView } from '../src/components/router-outlet';
 
 const ignoredProps = ['component', 'componentProps', 'delegate'];
 const ignoredTags = [
