@@ -120,14 +120,14 @@ Vue.component('Foo', {
 
 IonicVue supports all of the Ionic controllers:
 
-- [Action Sheet](https://github.com/ionic-team/ionic/tree/master/core/src/components/action-sheet-controller)
-- [Alert](https://github.com/ionic-team/ionic/tree/master/core/src/components/alert-controller)
-- [Loading](https://github.com/ionic-team/ionic/tree/master/core/src/components/loading-controller)
-- [Menu](https://github.com/ionic-team/ionic/tree/master/core/src/components/menu-controller)
-- [Modal](https://github.com/ionic-team/ionic/tree/master/core/src/components/modal-controller)
-- [Picker](https://github.com/ionic-team/ionic/tree/master/core/src/components/picker-controller)
-- [Popover](https://github.com/ionic-team/ionic/tree/master/core/src/components/popover-controller)
-- [Toast](https://github.com/ionic-team/ionic/tree/master/core/src/components/toast-controller)
+- [Action Sheet](https://github.com/ionic-team/ionic/tree/master/core/src/components/action-sheet)
+- [Alert](https://github.com/ionic-team/ionic/tree/master/core/src/components/alert)
+- [Loading](https://github.com/ionic-team/ionic/tree/master/core/src/components/loading)
+- [Menu](https://github.com/ionic-team/ionic/tree/master/core/src/components/menu)
+- [Modal](https://github.com/ionic-team/ionic/tree/master/core/src/components/modal)
+- [Picker](https://github.com/ionic-team/ionic/tree/master/core/src/components/picker)
+- [Popover](https://github.com/ionic-team/ionic/tree/master/core/src/components/popover)
+- [Toast](https://github.com/ionic-team/ionic/tree/master/core/src/components/toast)
 
 ### IonicVueRouter
 
