@@ -1,7 +1,6 @@
 import { FunctionalComponent, defineComponent, h, ref } from 'vue';
 import { useLink, useRouter } from 'vue-router';
 import { NavigableRouter } from '../interfaces';
-import { animationOverride, directionOverride } from '../router';
 import { getElementClasses, splitPropsAndEvents } from './common';
 
 export const defineContainer = <Props extends object>(name: string, displayName: string, componentProps: string[]) => {
@@ -37,8 +36,8 @@ export const defineNavigableContainer = <Props extends object>(name: string, dis
           return;
         }
 
-        directionOverride.value = props.routerDirection;
-        animationOverride.value = props.routerAnimation;
+        router.directionOverride = props.routerDirection;
+        router.animationOverride = props.routerAnimation;
 
         link.navigate(e);
         e.preventDefault();

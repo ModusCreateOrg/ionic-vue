@@ -16,8 +16,10 @@ import {
 } from 'vue-router';
 import { JSX } from '@ionic/core';
 import { keys } from 'ts-transformer-keys';
-import { animationOverride } from '../../router';
 import { splitPropsAndEvents } from '../../utils';
+
+// tslint:disable-next-line: no-import-side-effect
+import '../../router';
 
 export interface Props extends JSX.IonRouterOutlet {
   name?: string;
@@ -50,10 +52,10 @@ export const IonRouterView: FunctionalComponent<Props> = defineComponent((props,
 
     return outlet?.commit(enteringEl.value, leavingEl, {
       deepWait: true,
-      direction: router.direction.value,
-      showGoBack: router.showBackButton.value,
+      direction: router.direction,
+      showGoBack: router.showBackButton,
       duration: persisted ? 0 : undefined,
-      animationBuilder: animationOverride.value,
+      animationBuilder: router.animationOverride,
       progressAnimation,
     });
   };
@@ -63,7 +65,7 @@ export const IonRouterView: FunctionalComponent<Props> = defineComponent((props,
       inTransition = true;
       enteringEl.value = el;
 
-      if (router.direction.value === 'back') {
+      if (router.direction === 'back') {
         await router.restoreScroll(
           el,
           progressAnimation
@@ -147,7 +149,7 @@ export const IonRouterView: FunctionalComponent<Props> = defineComponent((props,
           onStart() {
             progressAnimation = true;
             inTransition = true;
-            router.direction.value = 'back';
+            router.directionOverride = 'back';
 
             const matchedRoutes = router.resolve(router.history.state.back as string);
             if (matchedRoutes.matched.length) {

@@ -1,6 +1,5 @@
 import { RouteLocationRaw } from 'vue-router';
-import { AnimationBuilder } from '@ionic/core';
-import { Direction } from './router';
+import { AnimationBuilder, NavDirection } from '@ionic/core';
 
 export interface Navigable {
   href?: RouteLocationRaw;
@@ -9,6 +8,6 @@ export interface Navigable {
 
 export interface NavigableRouter extends Navigable {
   replace?: boolean;
-  routerDirection?: Direction;
+  routerDirection?: NavDirection;
   routerAnimation?: AnimationBuilder;
 }

@@ -2,7 +2,6 @@ import { keys } from 'ts-transformer-keys';
 import { FunctionalComponent, defineComponent, h, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { JSX } from '@ionic/core';
-import { animationOverride } from '../../router';
 import { getComponentClasses, getElementClasses, splitPropsAndEvents } from '../../utils';
 
 export const IonBackButton: FunctionalComponent<JSX.IonBackButton> = defineComponent((props, { attrs }) => {
@@ -21,7 +20,7 @@ export const IonBackButton: FunctionalComponent<JSX.IonBackButton> = defineCompo
         return;
       }
 
-      animationOverride.value = props.routerAnimation;
+      router.animationOverride = props.routerAnimation;
 
       props.defaultHref
         ? router.replace(props.defaultHref)
