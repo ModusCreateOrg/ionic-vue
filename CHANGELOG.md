@@ -1,5 +1,19 @@
 # [Unreleased](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.16...dev)
 
+### Breaking changes
+* In order to allow for Ionic to initialize it's custom elements it is now required to await for a `isReady` function before mounting the application. Similarly how it is done with VueRouter.
+```
+const app = createApp(App)
+    .use(IonicVue, globalIonicConfig)
+    .use(router);
+
+IonicVue.isReady().then(() => {
+    router.isReady().then(() => {
+        app.mount("#app");
+    });
+});
+```
+
 ### Bug fixes
 * Fix swipe-back route props parsing
 * Fix Ionic initialisation
