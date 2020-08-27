@@ -3,6 +3,7 @@
 ### Breaking changes
 * In order to allow for Ionic to initialize it's custom elements it is now required to await for a `isReady` function before mounting the application. Similarly how it is done with VueRouter.
 ```
+// v3.0.0-alpha.17 unwards
 const app = createApp(App)
     .use(IonicVue, globalIonicConfig)
     .use(router);
