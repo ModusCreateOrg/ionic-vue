@@ -111,7 +111,7 @@ Everything is a component now, here's an example of how you could trigger a moda
       <h1>My modal content</h1>
       <ion-item>
         <ion-label>My input</ion-label>
-        <ion-input v-model="msg" :cleaInput="true" />
+        <ion-input v-model="msg" :clearInput="true" />
       </ion-item>
     </ion-modal>
   </div>
