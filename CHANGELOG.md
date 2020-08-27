@@ -2,6 +2,7 @@
 
 ### Bug fixes
 * Fix swipe-back route props parsing
+* Fix Ionic initialisation
 
 ---
 

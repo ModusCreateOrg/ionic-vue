@@ -52,10 +52,17 @@ const router = createRouter({
   ],
 });
 
-createApp(App)
-  .use(IonicVue)
-  .use(router)
-  .mount("#app");
+const globalIonicConfig = { mode: 'ios' };
+
+const app = createApp(App)
+  .use(IonicVue, globalIonicConfig)
+  .use(router);
+
+  IonicVue.isReady().then(() => {
+    router.isReady().then(() => {
+      app.mount("#app");
+    });
+  });
 ```
 
 All components should be explicitly imported now, this allows for smaller build sizes and improved tree-shaking.
@@ -63,9 +70,9 @@ Import `IonApp` and `IonRouterView` from `@modus/ionic-vue`, this will be your a
 
 ```vue
 <template>
-  <IonApp>
-    <IonRouterView />
-  </IonApp>
+  <ion-app>
+    <ion-router-view />
+  </ion-app>
 </template>
 
 <script>
@@ -86,27 +93,27 @@ Everything is a component now, here's an example of how you could trigger a moda
 ```vue
 <template>
   <div class="ion-page">
-    <IonHeader>
-      <IonToolbar>
-        <IonTitle>Home</IonTitle>
-        <IonButtons slot="start">
-          <IonBackButton />
-        </IonButtons>
-      </IonToolbar>
-    </IonHeader>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Home</ion-title>
+        <ion-buttons slot="start">
+          <ion-back-button />
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
 
-    <IonContent>
+    <ion-content>
       <p>{{ msg }}</p>
-      <IonButton @click="openModal">Open modal</IonButton>
-    </IonContent>
+      <ion-button @click="openModal">Open modal</ion-button>
+    </ion-content>
 
-    <IonModal :isOpen="isOpen" @willDismiss="closeModal">
+    <ion-modal :isOpen="isOpen" @willDismiss="closeModal">
       <h1>My modal content</h1>
-      <IonItem>
-        <IonLabel>My input</IonLabel>
-        <IonInput v-model="msg" :cleaInput="true" />
-      </IonItem>
-    </IonModal>
+      <ion-item>
+        <ion-label>My input</ion-label>
+        <ion-input v-model="msg" :cleaInput="true" />
+      </ion-item>
+    </ion-modal>
   </div>
 </template>
 
