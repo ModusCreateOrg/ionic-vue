@@ -8,6 +8,11 @@ export const IonicVue: Plugin & { isReady: () => Promise<void> } = {
     window && await defineCustomElements(window);
   },
   install(_app: App, config?: IonicConfig) {
+    console.info(`[ionic/vue] BREAKING CHANGE, call to isReady is required before mounting the app:
+const app = createApp(App).use(IonicVue, { mode: 'ios' });
+IonicVue.isReady().then(() => {
+  app.mount("#app");
+});`);
     config && setupConfig(config);
   }
 };
