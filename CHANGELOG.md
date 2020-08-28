@@ -1,4 +1,8 @@
-# [Unreleased](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.16...dev)
+# [Unreleased](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.17...dev)
+
+---
+
+# [3.0.0-alpha.17](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.16...v3.0.0-alpha.17)
 
 ### Breaking changes
 * In order to allow for Ionic to initialize it's custom elements it is now required to await for a `isReady` function before mounting the application. Similarly how it is done with VueRouter.
@@ -21,7 +25,7 @@ IonicVue.isReady().then(() => {
 
 ---
 
-# [3.0.0-alpha.16](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.15...v3.0.0-alpha.14)
+# [3.0.0-alpha.16](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.15...v3.0.0-alpha.16)
 
 ### Features
 * Improve tooling and IDE support by wrapping components with defineComponent
