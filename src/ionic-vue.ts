@@ -5,7 +5,9 @@ import { applyPolyfills, defineCustomElements } from '@ionic/core/loader';
 export const IonicVue: Plugin & { isReady: () => Promise<void> } = {
   async isReady() {
     await applyPolyfills();
-    window && await defineCustomElements(window);
+    if (typeof window !== 'undefined') {
+      await defineCustomElements(window);
+    }
   },
   install(_app: App, config?: IonicConfig) {
     console.info(`[ionic/vue] BREAKING CHANGE, call to isReady is required before mounting the app:

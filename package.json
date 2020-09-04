@@ -7,7 +7,7 @@
   "user": "michaeltintiuc",
   "license": "MIT",
   "repository": "github:ModusCreateOrg/ionic-vue",
-  "main": "dist/ionic-vue.js",
+  "main": "dist/ionic-vue.cjs.js",
   "typings": "types/index.d.ts",
   "module": "dist/ionic-vue.js",
   "unpkg": "dist/ionic-vue.js",
