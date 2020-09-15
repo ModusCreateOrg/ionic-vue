@@ -1,14 +1,18 @@
 import { FunctionalComponent, defineComponent, h, ref } from 'vue';
 import { useLink, useRouter } from 'vue-router';
 import { NavigableRouter } from '../interfaces';
-import { getElementClasses, splitPropsAndEvents } from './common';
+import { getComponentClasses, getElementClasses, splitPropsAndEvents } from './common';
 
 export const defineContainer = <Props extends object>(name: string, displayName: string, componentProps: string[]) => {
   const Container: FunctionalComponent<Props> = defineComponent((props, { attrs, slots }) => {
     const containerRef = ref<HTMLElement>();
-    const classes: string[] = (attrs.class as string)?.split(' ') || [];
-    return () =>
-      h(name, { ...props, ref: containerRef, class: getElementClasses(containerRef, classes) }, slots);
+    const classes = new Set(getComponentClasses(attrs.class));
+    return () => {
+      getComponentClasses(attrs.class).forEach(value => {
+        classes.add(value);
+      });
+      return h(name, { ...props, ref: containerRef, class: getElementClasses(containerRef, classes) }, slots);
+    };
   });
 
   Container.displayName = displayName;
@@ -19,7 +23,7 @@ export const defineContainer = <Props extends object>(name: string, displayName:
 
 export const defineNavigableContainer = <Props extends object>(name: string, displayName: string, componentPropsAndEvents: string[]) => {
   const Container: FunctionalComponent<Props & NavigableRouter> = defineComponent((props, { attrs, slots }) => {
-    const classes: string[] = (attrs.class as string)?.split(' ') || [];
+    const classes = new Set(getComponentClasses(attrs.class));
     const containerRef = ref<HTMLElement>();
     const router = useRouter();
     let { href } = props;
@@ -44,8 +48,12 @@ export const defineNavigableContainer = <Props extends object>(name: string, dis
       };
     }
 
-    return () =>
-      h(name, { ...props, href, onClick, ref: containerRef, class: getElementClasses(containerRef, classes) }, slots);
+    return () => {
+      getComponentClasses(attrs.class).forEach(value => {
+        classes.add(value);
+      });
+      return h(name, { ...props, href, onClick, ref: containerRef, class: getElementClasses(containerRef, classes) }, slots);
+    };
   });
 
   const data = splitPropsAndEvents(componentPropsAndEvents);

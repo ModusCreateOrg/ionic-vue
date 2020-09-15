@@ -1,5 +1,8 @@
 # [Unreleased](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.17...dev)
 
+### Bug fixes
+* Improve merging of Ionic and Vue classes
+
 ---
 
 # [3.0.0-alpha.17](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.16...v3.0.0-alpha.17)
@@ -22,8 +25,6 @@ IonicVue.isReady().then(() => {
 ### Bug fixes
 * Fix swipe-back route props parsing
 * Fix Ionic initialisation
-
----
 
 # [3.0.0-alpha.16](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.15...v3.0.0-alpha.16)
 

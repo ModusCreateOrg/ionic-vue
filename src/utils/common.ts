@@ -4,9 +4,9 @@ export const getComponentClasses = (classes: unknown) => {
   return (classes as string)?.split(' ') || [];
 };
 
-export const getElementClasses = (ref: Ref<HTMLElement | undefined>, componentClasses: string[], defaultClasses: string[] = []) => {
+export const getElementClasses = (ref: Ref<HTMLElement | undefined>, componentClasses: Set<string>, defaultClasses: string[] = []) => {
   return [ ...Array.from(ref.value?.classList || []), ...defaultClasses ]
-    .filter((c: string, i, self) => !componentClasses.includes(c) && self.indexOf(c) === i);
+    .filter((c: string, i, self) => !componentClasses.has(c) && self.indexOf(c) === i);
 };
 
 export const splitPropsAndEvents = (propsAndEvents: string[]) => {

@@ -1,5 +1,5 @@
 import { FunctionalComponent, VNode, defineComponent, h, ref } from 'vue';
-import { getElementClasses, splitPropsAndEvents } from './common';
+import { getComponentClasses, getElementClasses, splitPropsAndEvents } from './common';
 
 export interface InputProps extends Object {
   modelValue: string | boolean;
@@ -23,7 +23,7 @@ export function defineInput<Props>(
     { attrs, slots, emit }
   ) => {
     const inputRef = ref<HTMLElement>();
-    const classes: string[] = (attrs.class as string)?.split(' ') || [];
+    const classes = new Set(getComponentClasses(attrs.class));
 
     // @TODO hack to support CamelCase Ionic events
     const onVnodeBeforeMount = (vnode: VNode) => {
@@ -38,16 +38,21 @@ export function defineInput<Props>(
         }
       }
     };
-    return () => h(
-      name,
-      {
-        ...props,
-        onVnodeBeforeMount,
-        class: getElementClasses(inputRef, classes),
-        [modelProp]: props.hasOwnProperty('modelValue') ? props.modelValue : (props as any)[modelProp],
-      },
-      slots
-    );
+    return () => {
+      getComponentClasses(attrs.class).forEach(value => {
+        classes.add(value);
+      });
+      return h(
+        name,
+        {
+          ...props,
+          onVnodeBeforeMount,
+          class: getElementClasses(inputRef, classes),
+          [modelProp]: props.hasOwnProperty('modelValue') ? props.modelValue : (props as any)[modelProp],
+        },
+        slots
+      );
+    };
   });
 
   const data = splitPropsAndEvents(componentPropsAndEvents);

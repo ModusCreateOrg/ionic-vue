@@ -7,26 +7,31 @@ import { getComponentClasses, getElementClasses, splitPropsAndEvents } from '../
 export const IonBackButton: FunctionalComponent<JSX.IonBackButton> = defineComponent((props, { attrs }) => {
   const router = useRouter();
   const buttonRef = ref<HTMLElement>();
-  const classes = getComponentClasses(attrs.class);
+  const classes = new Set(getComponentClasses(attrs.class));
 
-  return () => h('ion-back-button', {
-    ...props,
-    ref: buttonRef,
-    class: getElementClasses(buttonRef, classes),
-    onClick(e: MouseEvent) {
-      attrs.onClick && (attrs.onClick as any)(e);
+  return () => {
+    getComponentClasses(attrs.class).forEach(value => {
+      classes.add(value);
+    });
+    return h('ion-back-button', {
+      ...props,
+      ref: buttonRef,
+      class: getElementClasses(buttonRef, classes),
+      onClick(e: MouseEvent) {
+        attrs.onClick && (attrs.onClick as any)(e);
 
-      if (e.defaultPrevented || !router) {
-        return;
+        if (e.defaultPrevented || !router) {
+          return;
+        }
+
+        router.animationOverride = props.routerAnimation;
+
+        props.defaultHref
+          ? router.replace(props.defaultHref)
+          : router.history.go(-1);
       }
-
-      router.animationOverride = props.routerAnimation;
-
-      props.defaultHref
-        ? router.replace(props.defaultHref)
-        : router.history.go(-1);
-    }
-  });
+    });
+  };
 });
 
 const data = splitPropsAndEvents(keys<JSX.IonBackButton>());

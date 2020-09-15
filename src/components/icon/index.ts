@@ -20,14 +20,19 @@ interface Props {
 export const IonIcon: FunctionalComponent<Props> = defineComponent((props, { attrs }) => {
   const icon = (isPlatform(window, 'ios') ? props.ios ?? props.md : props.md ?? props.ios) ?? props.icon;
   const iconRef = ref<HTMLElement>();
-  const classes = getComponentClasses(attrs.class);
+  const classes = new Set(getComponentClasses(attrs.class));
 
-  return () => h('ion-icon', {
-    ...props,
-    icon,
-    ref: iconRef,
-    class: getElementClasses(iconRef, classes),
-  });
+  return () => {
+    getComponentClasses(attrs.class).forEach(value => {
+      classes.add(value);
+    });
+    return h('ion-icon', {
+      ...props,
+      icon,
+      ref: iconRef,
+      class: getElementClasses(iconRef, classes),
+    });
+  };
 });
 
 const data = splitPropsAndEvents(keys<JSX.IonIcon>());
