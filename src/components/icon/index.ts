@@ -1,23 +1,9 @@
-import { FunctionalComponent, defineComponent, h, ref } from 'vue';
+import { defineComponent, h, ref } from 'vue';
 import { JSX, isPlatform } from '@ionic/core';
 import { keys } from 'ts-transformer-keys';
 import { getComponentClasses, getElementClasses, splitPropsAndEvents } from '../../utils';
 
-interface Props {
-  ariaLabel?: string;
-  color?: string;
-  flipRtl?: boolean;
-  icon?: string;
-  ios?: string;
-  lazy?: boolean;
-  md?: string;
-  mode?: 'ios' | 'md';
-  name?: string;
-  size?: string;
-  src?: string;
-}
-
-export const IonIcon: FunctionalComponent<Props> = defineComponent((props, { attrs }) => {
+export const IonIcon = defineComponent<JSX.IonIcon>((props, { attrs }) => {
   const icon = (isPlatform(window, 'ios') ? props.ios ?? props.md : props.md ?? props.ios) ?? props.icon;
   const iconRef = ref<HTMLElement>();
   const classes = new Set(getComponentClasses(attrs.class));

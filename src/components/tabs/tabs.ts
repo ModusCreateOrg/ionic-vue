@@ -1,4 +1,4 @@
-import { FunctionalComponent, InjectionKey, Ref, defineComponent, h, provide, ref } from 'vue';
+import { InjectionKey, Ref, defineComponent, h, provide, ref } from 'vue';
 import { keys } from 'ts-transformer-keys';
 import { JSX } from '@ionic/core';
 import { splitPropsAndEvents } from '../../utils';
@@ -30,7 +30,7 @@ export const onIonTabsWillChange: InjectionKey<((tab?: string) => void)> = Symbo
 export const onIonTabsDidChange: InjectionKey<((tab?: string) => void)> = Symbol();
 
 const data = splitPropsAndEvents(keys<JSX.IonTabs>());
-export const IonTabs: FunctionalComponent<JSX.IonTabs, typeof data.events | {}> = defineComponent((props, { slots, attrs }) => {
+export const IonTabs = defineComponent<JSX.IonTabs>((props, { slots, attrs }) => {
   provide(onIonTabsWillChange, attrs.onIonTabsWillChange);
   provide(onIonTabsDidChange, attrs.onIonTabsDidChange);
 

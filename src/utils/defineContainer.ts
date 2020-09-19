@@ -1,10 +1,10 @@
-import { FunctionalComponent, defineComponent, h, ref } from 'vue';
+import { defineComponent, h, ref } from 'vue';
 import { useLink, useRouter } from 'vue-router';
 import { NavigableRouter } from '../interfaces';
 import { getComponentClasses, getElementClasses, splitPropsAndEvents } from './common';
 
-export const defineContainer = <Props extends object>(name: string, displayName: string, componentProps: string[]) => {
-  const Container: FunctionalComponent<Props> = defineComponent((props, { attrs, slots }) => {
+export const defineContainer = <Props>(name: string, displayName: string, componentProps: string[]) => {
+  const Container = defineComponent<Props>((props, { attrs, slots }) => {
     const containerRef = ref<HTMLElement>();
     const classes = new Set(getComponentClasses(attrs.class));
     return () => {
@@ -21,8 +21,8 @@ export const defineContainer = <Props extends object>(name: string, displayName:
   return Container;
 };
 
-export const defineNavigableContainer = <Props extends object>(name: string, displayName: string, componentPropsAndEvents: string[]) => {
-  const Container: FunctionalComponent<Props & NavigableRouter> = defineComponent((props, { attrs, slots }) => {
+export const defineNavigableContainer = <Props>(name: string, displayName: string, componentPropsAndEvents: string[]) => {
+  const Container = defineComponent<Props & NavigableRouter>((props, { attrs, slots }) => {
     const classes = new Set(getComponentClasses(attrs.class));
     const containerRef = ref<HTMLElement>();
     const router = useRouter();

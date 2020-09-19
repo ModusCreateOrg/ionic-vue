@@ -1,4 +1,4 @@
-import { FunctionalComponent, defineComponent, h, inject } from 'vue';
+import { defineComponent, h, inject } from 'vue';
 import { useRouter } from 'vue-router';
 import { JSX } from '@ionic/core';
 import { keys } from 'ts-transformer-keys';
@@ -7,7 +7,7 @@ import { setActiveTab, tabBarRef } from './tab-bar';
 import { Navigable } from '../../interfaces';
 import { splitPropsAndEvents } from '../../utils';
 
-export const IonTabButton: FunctionalComponent<JSX.IonTabButton & Navigable> = defineComponent((props, { attrs, slots }) => {
+export const IonTabButton = defineComponent<JSX.IonTabButton & Navigable>((props, { attrs, slots }) => {
   const router = useRouter();
   const tabsWillChange = inject(onIonTabsWillChange) ?? (() => void 0);
   const tabsDidChange = inject(onIonTabsDidChange) ?? (() => void 0);

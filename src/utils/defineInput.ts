@@ -1,4 +1,4 @@
-import { FunctionalComponent, defineComponent, h, ref } from 'vue';
+import { defineComponent, h, ref } from 'vue';
 import { getComponentClasses, getElementClasses, splitPropsAndEvents } from './common';
 
 export interface InputProps extends Object {
@@ -16,7 +16,7 @@ export function defineInput<Props>(
   updateEvent = 'onIonChange',
   modelProp = 'value'
 ) {
-  const Input: FunctionalComponent<Props & InputProps, (InputEvents | string)[] | {}> = defineComponent((
+  const Input = defineComponent<Props & InputProps>((
     props,
     { attrs, slots, emit }
   ) => {

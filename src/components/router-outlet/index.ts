@@ -1,7 +1,7 @@
 import {
   BaseTransitionProps,
-  FunctionalComponent,
   Transition,
+  TransitionProps,
   VNode,
   defineComponent,
   h,
@@ -27,7 +27,7 @@ export interface Props extends JSX.IonRouterOutlet {
   swipeBack?: boolean;
 }
 
-export const IonRouterView: FunctionalComponent<Props> = defineComponent((props, { slots }) => {
+export const IonRouterView = defineComponent<Props>((props, { slots }) => {
   const router = useRouter();
   const ionRouterOutlet = ref<HTMLIonRouterOutletElement>();
   const enteringEl = ref<HTMLElement>();
@@ -121,7 +121,7 @@ export const IonRouterView: FunctionalComponent<Props> = defineComponent((props,
       mode: 'in-out',
       persisted,
       ...transitionHooks,
-    };
+    } as TransitionProps;
 
     return slots.default
       ? slots.default({ Component: child, route: matchedRoute, transitionProps })

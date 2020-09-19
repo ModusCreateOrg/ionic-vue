@@ -1,10 +1,10 @@
 import { keys } from 'ts-transformer-keys';
-import { FunctionalComponent, defineComponent, h, ref } from 'vue';
+import { defineComponent, h, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { JSX } from '@ionic/core';
 import { getComponentClasses, getElementClasses, splitPropsAndEvents } from '../../utils';
 
-export const IonBackButton: FunctionalComponent<JSX.IonBackButton> = defineComponent((props, { attrs }) => {
+export const IonBackButton = defineComponent<JSX.IonBackButton>((props, { attrs }) => {
   const router = useRouter();
   const buttonRef = ref<HTMLElement>();
   const classes = new Set(getComponentClasses(attrs.class));

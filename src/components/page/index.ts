@@ -1,7 +1,7 @@
-import { FunctionalComponent, defineComponent, h, ref } from 'vue';
+import { defineComponent, h, ref } from 'vue';
 import { getComponentClasses, getElementClasses } from '../../utils';
 
-export const IonPage: FunctionalComponent = defineComponent((props, { attrs, slots }) => {
+export const IonPage = defineComponent((props, { attrs, slots }) => {
   const pageRef = ref<HTMLElement>();
   const classes = new Set(getComponentClasses(attrs.class));
   return () => {

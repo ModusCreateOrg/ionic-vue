@@ -1,4 +1,4 @@
-import { FunctionalComponent, defineComponent, getCurrentInstance, h, onActivated, ref } from 'vue';
+import { defineComponent, getCurrentInstance, h, onActivated, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { JSX } from '@ionic/core';
 import { keys } from 'ts-transformer-keys';
@@ -6,7 +6,7 @@ import { tabBarRef } from './tab-bar';
 import { tabLocations, tabRefs } from './tabs';
 import { splitPropsAndEvents } from '../../utils';
 
-export const IonTab: FunctionalComponent<Omit<JSX.IonTab, 'component'>> = defineComponent((props, { slots }) => {
+export const IonTab = defineComponent<Omit<JSX.IonTab, 'component'>>((props, { slots }) => {
   let tabNode = tabRefs[props.tab];
   let active = tabBarRef.value?.selectedTab === props.tab;
   const instance = getCurrentInstance()!;

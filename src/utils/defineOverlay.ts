@@ -1,4 +1,4 @@
-import { FunctionalComponent, defineComponent, h, ref } from 'vue';
+import { defineComponent, h, ref } from 'vue';
 
 export interface OverlayElement extends HTMLElement {
   present: () => Promise<void>;
@@ -50,10 +50,7 @@ export function defineOverlay<IonElement extends OverlayElement, IonProps>(
     [`${coreTag}diddismiss`]: OverlayEvents.onDidDismiss
   });
 
-  const Overlay: FunctionalComponent<
-    Props,
-    OverlayEvents[] | {}
-    > = defineComponent((props, { attrs, slots, emit }) => {
+  const Overlay = defineComponent<Props>((props, { attrs, slots, emit }) => {
       return () => h(
         'div',
         {
