@@ -1,9 +1,18 @@
-# [Unreleased](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.17...dev)
+# [Unreleased](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-beta.1...dev)
+
+---
+
+# [3.0.0-beta.1](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.17...v3.0.0-beta.1)
+
+### Features
+* Switched to @ionic/core beta for ionic/vue v0.4.0
+* Updated to latest Vue 3.0 release
+* Added CommonJS modules
 
 ### Bug fixes
 * Improve merging of Ionic and Vue classes
-
----
+* Improvements on adding event listeners
+* General refactors
 
 # [3.0.0-alpha.17](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.16...v3.0.0-alpha.17)
 
