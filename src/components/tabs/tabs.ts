@@ -1,4 +1,4 @@
-import { FunctionalComponent, Ref, VNode, defineComponent, h, ref } from 'vue';
+import { FunctionalComponent, InjectionKey, Ref, defineComponent, h, provide, ref } from 'vue';
 import { keys } from 'ts-transformer-keys';
 import { JSX } from '@ionic/core';
 import { splitPropsAndEvents } from '../../utils';
@@ -26,18 +26,15 @@ const innerStyles = {
 export const tabsRef = ref<HTMLIonTabsElement & JSX.IonTabs>();
 export const tabRefs: { [key: string]: Ref<HTMLIonTabElement | undefined> } = {};
 export const tabLocations: { [key: string]: string | undefined } = {};
+export const onIonTabsWillChange: InjectionKey<((tab?: string) => void)> = Symbol();
+export const onIonTabsDidChange: InjectionKey<((tab?: string) => void)> = Symbol();
 
 const data = splitPropsAndEvents(keys<JSX.IonTabs>());
 export const IonTabs: FunctionalComponent<JSX.IonTabs, typeof data.events | {}> = defineComponent((props, { slots, attrs }) => {
-  // @TODO remove when Vue3 allows for camelCase props and events
-  const onVnodeMounted = ({ el }: VNode) => {
-    if (el) {
-      el.onIonTabsDidChange = attrs.onIonTabsDidChange;
-      el.onIonTabsWillChange = attrs.onIonTabsWillChange;
-    }
-  };
+  provide(onIonTabsWillChange, attrs.onIonTabsWillChange);
+  provide(onIonTabsDidChange, attrs.onIonTabsDidChange);
 
-  return () => h('div', { ...props, onVnodeMounted, style: hostStyles, ref: tabsRef }, [
+  return () => h('div', { ...props, style: hostStyles, ref: tabsRef }, [
     slots.top && slots.top(),
     h('div', { class: 'tabs-inner', style: innerStyles }, slots),
     slots.bottom && slots.bottom(),

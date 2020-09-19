@@ -1,14 +1,16 @@
-import { FunctionalComponent, defineComponent, h } from 'vue';
+import { FunctionalComponent, defineComponent, h, inject } from 'vue';
 import { useRouter } from 'vue-router';
 import { JSX } from '@ionic/core';
 import { keys } from 'ts-transformer-keys';
-import { tabLocations, tabsRef } from './tabs';
+import { onIonTabsDidChange, onIonTabsWillChange, tabLocations } from './tabs';
 import { setActiveTab, tabBarRef } from './tab-bar';
 import { Navigable } from '../../interfaces';
 import { splitPropsAndEvents } from '../../utils';
 
 export const IonTabButton: FunctionalComponent<JSX.IonTabButton & Navigable> = defineComponent((props, { attrs, slots }) => {
   const router = useRouter();
+  const tabsWillChange = inject(onIonTabsWillChange) ?? (() => void 0);
+  const tabsDidChange = inject(onIonTabsDidChange) ?? (() => void 0);
 
   const onClick = async (e: MouseEvent) => {
     attrs.onClick && (attrs.onClick as any)(e);
@@ -17,9 +19,7 @@ export const IonTabButton: FunctionalComponent<JSX.IonTabButton & Navigable> = d
       return;
     }
 
-    if (tabsRef.value && tabsRef.value.onIonTabsWillChange && props.tab) {
-      tabsRef.value.onIonTabsWillChange(new CustomEvent('ionTabWillChange', { detail: { tab: props.tab } }));
-    }
+    tabsWillChange(props.tab);
 
     const wasActiveTab = tabBarRef.value?.selectedTab === props.tab;
     tabBarRef.value && (tabBarRef.value.selectedTab = props?.tab);
@@ -33,9 +33,7 @@ export const IonTabButton: FunctionalComponent<JSX.IonTabButton & Navigable> = d
       setActiveTab(tabBarRef.value?.selectedTab);
     }
 
-    if (tabsRef.value && tabsRef.value.onIonTabsDidChange && props.tab) {
-      tabsRef.value.onIonTabsDidChange(new CustomEvent('ionTabDidChange', { detail: { tab: props.tab } }));
-    }
+    tabsDidChange(props.tab);
 
     e.preventDefault();
   };

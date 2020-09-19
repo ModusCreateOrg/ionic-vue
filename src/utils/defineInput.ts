@@ -1,4 +1,4 @@
-import { FunctionalComponent, VNode, defineComponent, h, ref } from 'vue';
+import { FunctionalComponent, defineComponent, h, ref } from 'vue';
 import { getComponentClasses, getElementClasses, splitPropsAndEvents } from './common';
 
 export interface InputProps extends Object {
@@ -9,8 +9,6 @@ export enum InputEvents {
   onUpdate = 'update:modelValue'
 }
 
-// @TODO
-// remove replace() when Vue supports camelCase events that Ionic uses
 export function defineInput<Props>(
   name: string,
   displayName: string,
@@ -25,19 +23,6 @@ export function defineInput<Props>(
     const inputRef = ref<HTMLElement>();
     const classes = new Set(getComponentClasses(attrs.class));
 
-    // @TODO hack to support CamelCase Ionic events
-    const onVnodeBeforeMount = (vnode: VNode) => {
-      if (vnode.el) {
-        vnode.el.addEventListener(updateEvent.replace('onIon', 'ion'), (e: Event) => {
-          emit(InputEvents.onUpdate, (e?.target as any)[modelProp]);
-        });
-        for (const [key, event] of Object.entries(attrs)) {
-          if (key.startsWith('onIon')) {
-            vnode.el.addEventListener(key.replace('onIon', 'ion'), event);
-          }
-        }
-      }
-    };
     return () => {
       getComponentClasses(attrs.class).forEach(value => {
         classes.add(value);
@@ -46,8 +31,9 @@ export function defineInput<Props>(
         name,
         {
           ...props,
-          onVnodeBeforeMount,
+          ...attrs,
           class: getElementClasses(inputRef, classes),
+          [updateEvent]: (e: Event) => emit(InputEvents.onUpdate, (e?.target as any)[modelProp]),
           [modelProp]: props.hasOwnProperty('modelValue') ? props.modelValue : (props as any)[modelProp],
         },
         slots

@@ -42,12 +42,12 @@ export function defineOverlay<IonElement extends OverlayElement, IonProps>(
 
   const overlay = ref<IonElement>();
   const content = ref();
-  const coreTag = name.charAt(0).toLowerCase() + name.slice(1);
+  const coreTag = name.toLowerCase();
   const eventListeners: OverlayEventListeners = Object.entries({
-    [`${coreTag}WillPresent`]: OverlayEvents.onWillPresent,
-    [`${coreTag}DidPresent`]: OverlayEvents.onDidPresent,
-    [`${coreTag}WillDismiss`]: OverlayEvents.onWillDismiss,
-    [`${coreTag}DidDismiss`]: OverlayEvents.onDidDismiss
+    [`${coreTag}willpresent`]: OverlayEvents.onWillPresent,
+    [`${coreTag}didpresent`]: OverlayEvents.onDidPresent,
+    [`${coreTag}willdismiss`]: OverlayEvents.onWillDismiss,
+    [`${coreTag}diddismiss`]: OverlayEvents.onDidDismiss
   });
 
   const Overlay: FunctionalComponent<
@@ -94,12 +94,7 @@ export function defineOverlay<IonElement extends OverlayElement, IonProps>(
 
   async function present(
     props: Readonly<Props>,
-    {
-      onWillPresent,
-      onDidPresent,
-      onWillDismiss,
-      onDidDismiss,
-    }: Partial<Record<OverlayEvents, (...args: any) => void>>,
+    listeners: Partial<Record<OverlayEvents, (...args: any) => void>>,
     emit: (event: OverlayEvents, ...args: any[]) => void
   ) {
     overlay.value = await controller.create({
@@ -107,31 +102,23 @@ export function defineOverlay<IonElement extends OverlayElement, IonProps>(
       component: content.value
     });
 
-    const listeners = {
-      onWillPresent,
-      onDidPresent,
-      onWillDismiss,
-      onDidDismiss
-    };
+    if (!overlay.value) {
+      return;
+    }
+
+    overlay.value.addEventListener(eventListeners[1][0], () => emit(OverlayEvents.onUpdate, true));
+    overlay.value.addEventListener(eventListeners[3][0], () => emit(OverlayEvents.onUpdate, false));
+
     for (const [eventName, listener] of eventListeners) {
       const handlers = listeners[listener];
       if (handlers) {
-        overlay.value?.addEventListener(eventName, (e: Event) => {
+        overlay.value.addEventListener(eventName, (e: Event) => {
           Array.isArray(handlers) ? handlers.map(f => f(e)) : handlers(e);
-        });
-      }
-      if (listener === OverlayEvents.onDidPresent) {
-        overlay.value?.addEventListener(eventName, () => {
-          emit(OverlayEvents.onUpdate, true);
-        });
-      } else if (listener === OverlayEvents.onDidDismiss) {
-        overlay.value?.addEventListener(eventName, () => {
-          emit(OverlayEvents.onUpdate, false);
         });
       }
     }
 
-    await overlay.value?.present();
+    await overlay.value.present();
   }
 
   return Overlay;
