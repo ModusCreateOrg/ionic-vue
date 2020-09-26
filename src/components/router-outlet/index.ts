@@ -53,7 +53,7 @@ export const IonRouterView = defineComponent<Props>((props, { slots }) => {
     return outlet?.commit(enteringEl.value, leavingEl, {
       deepWait: true,
       direction: router.direction,
-      showGoBack: router.showBackButton,
+      showGoBack: newView.value ? router.history.state.back !== '/' : router.showBackButton,
       duration: persisted ? 0 : undefined,
       animationBuilder: router.animationOverride,
       progressAnimation,
