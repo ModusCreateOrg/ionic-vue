@@ -1,5 +1,8 @@
 # [Unreleased](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-beta.1...dev)
 
+### Bug fixes
+* Do not add "can-go-back" class when swiping back to "/"
+
 ---
 
 # [3.0.0-beta.1](https://github.com/ModusCreateOrg/ionic-vue/compare/v3.0.0-alpha.17...v3.0.0-beta.1)
