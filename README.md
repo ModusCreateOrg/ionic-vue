@@ -14,7 +14,7 @@ Ionic integration adapters for Vue.
 </p>
 
 ## `Ionic-Vue` vs `@ionic/vue`
-`Ionic-Vue` codebase has been contributed to the Ionic core and as [@ionic/vue](https://github.com/ionic-team/ionic/tree/master/vue). However, `@ionic/vue` provides limited support to Ionic v4.
+`Ionic-Vue` codebase has been contributed to the Ionic core and as [@ionic/vue](https://github.com/ionic-team/ionic-framework/tree/main/packages/vue). However, `@ionic/vue` provides limited support to Ionic v4.
 
 The amazing Ionic team is always looking to bring the most modern of browser capabilities to their framework. The official Vue support will land after Vue 3 has stabilized.
 
